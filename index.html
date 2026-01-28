@@ -2,8 +2,8 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sistem Reservasi — Demo (LocalStorage)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Sistem Reservasi — Demo Pro (Stabil)</title>
 
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -12,1256 +12,687 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --primary:#2a9d8f; --primary-dark:#264653; --secondary:#e9c46a;
-      --accent:#f4a261; --danger:#e76f51; --light:#f8f9fa; --dark:#343a40;
-      --success:#28a745; --info:#0077b6;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:'Poppins',sans-serif;
-      background:#f5f5f5;color:var(--dark);min-height:100vh;
-    }
-    header{
-      background:linear-gradient(135deg,var(--primary-dark),var(--primary));
-      color:#fff;padding:22px 18px;text-align:center;
-      box-shadow:0 4px 12px rgba(0,0,0,.12);
-    }
-    header h2{font-weight:600}
-    header small{opacity:.85}
-
-    #login-container{
-      max-width:420px;margin:70px auto;background:#fff;
-      padding:28px;border-radius:10px;
-      box-shadow:0 5px 15px rgba(0,0,0,.1);
-    }
-    .container{
-      max-width:1200px;margin:28px auto;background:#fff;
-      padding:20px;border-radius:10px;display:none;
-      box-shadow:0 5px 15px rgba(0,0,0,.1);
-    }
-    label{display:block;margin-top:10px;font-weight:500}
-    input,select,button{
-      width:100%;padding:10px;border-radius:6px;border:1px solid #ddd;
-      margin-top:6px;font-family:'Poppins',sans-serif;
-    }
-    button{
-      background:var(--primary);color:#fff;border:none;cursor:pointer;
-      font-weight:500
-    }
-    button.secondary{background:#6c757d}
-    button.danger{background:var(--danger)}
-    button.info{background:var(--info)}
-    #login-error{color:var(--danger);margin-top:10px;display:none}
-
-    #logout-button{
-      position:fixed;top:18px;right:18px;z-index:1000;
-      padding:8px 14px;border-radius:20px;display:none;
-      box-shadow:0 2px 8px rgba(0,0,0,.2);
+    :root {
+      --primary: #2a9d8f;
+      --primary-dark: #264653;
+      --danger: #e76f51;
+      --info: #0077b6;
+      --warning: #e9c46a;
+      --bg: #f8f9fa;
+      --dark: #343a40;
+      --light: #ffffff;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    .calendar-header{display:flex;flex-direction:column;align-items:center;margin-bottom:14px}
-    .calendar-nav{display:flex;gap:8px;margin-top:8px}
-    .calendar-nav button{width:auto;padding:8px 12px}
-    .month-year{font-size:1.4rem;font-weight:600;color:var(--primary-dark)}
-    .calendar-weekdays,.calendar-days{
-      display:grid;grid-template-columns:repeat(7,1fr);gap:8px
+    * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.6;
     }
-    .calendar-weekdays div{text-align:center;font-weight:600;color:var(--primary-dark)}
-    .calendar-day{
-      min-height:90px;background:#fff;border-radius:8px;padding:6px;
-      box-shadow:0 2px 6px rgba(0,0,0,.06);cursor:pointer;position:relative
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: var(--light);
+      padding: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    .calendar-day.today{outline:2px solid var(--accent)}
-    .calendar-day.selected{background:var(--primary);color:#fff}
-    .day-number{position:absolute;top:6px;right:8px;font-weight:600}
-    .reservation-count{
-      position:absolute;bottom:8px;left:8px;
-      background:rgba(42,157,143,.15);color:var(--primary-dark);
-      padding:2px 8px;border-radius:12px;font-size:.8rem;font-weight:600
+    header h2 { font-weight: 600; font-size: 1.4rem; margin-bottom: 4px; }
+    header small { opacity: 0.85; font-size: 0.8rem; letter-spacing: 0.5px; }
+
+    /* LAYOUT UTAMA */
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      background: var(--light);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      display: none; /* Hidden by default until login */
+      animation: fadeIn 0.4s ease;
     }
+
+    /* LOGIN */
+    #login-container {
+      max-width: 400px;
+      margin: 80px auto;
+      background: var(--light);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      display: none;
+    }
+
+    /* FORM ELEMENTS */
+    label { display: block; margin-top: 15px; font-weight: 500; text-align: left; }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-top: 6px;
+      font-family: inherit;
+      transition: border 0.3s;
+    }
+    input:focus, select:focus { border-color: var(--primary); }
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background: var(--primary);
+      color: #fff;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    button:active { transform: scale(0.98); }
+    button.secondary { background: #6c757d; }
+    button.danger { background: var(--danger); }
+    button.info { background: var(--info); }
+    button.sm { width: auto; padding: 8px 16px; margin-top: 0; font-size: 0.9rem; }
+    
+    /* CALENDAR GRID */
+    .calendar-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px;
+    }
+    .month-title { font-size: 1.2rem; font-weight: 700; color: var(--primary-dark); }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+    .cal-head {
+      text-align: center; font-weight: 600; color: #888; padding-bottom: 8px;
+    }
+    .cal-day {
+      background: #f1f3f5;
+      border-radius: 8px;
+      min-height: 80px;
+      padding: 8px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+    }
+    .cal-day:hover { background: #e9ecef; }
+    .cal-day.today { background: #e3f2fd; border-color: var(--info); }
+    .cal-day.selected { border-color: var(--primary); background: #e6fffa; }
+    .cal-day.empty { background: transparent; cursor: default; }
+    
+    .day-num { font-weight: 600; font-size: 1.1rem; }
+    .badge {
+      position: absolute; bottom: 8px; right: 8px;
+      background: var(--danger); color: white;
+      font-size: 0.75rem; padding: 2px 8px;
+      border-radius: 12px; font-weight: 600;
+    }
+
+    /* RESERVATION LIST */
+    .res-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-left: 5px solid var(--primary);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+    .res-info h4 { margin-bottom: 4px; color: var(--dark); }
+    .res-meta { color: #666; font-size: 0.9rem; }
+    .res-actions { display: flex; gap: 8px; }
+
+    /* MODAL / POPUP */
+    #modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 2000; display: none; align-items: center; justify-content: center;
+      backdrop-filter: blur(2px);
+    }
+    .modal-box {
+      background: #fff; width: 90%; max-width: 480px;
+      padding: 25px; border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      animation: slideUp 0.3s ease;
+    }
+
+    /* UTILITY */
+    .text-center { text-align: center; }
+    .flex-gap { display: flex; gap: 10px; }
+    .hidden { display: none !important; }
+    #logout-btn {
+      position: absolute; top: 20px; right: 20px;
+      background: rgba(255,255,255,0.2); width: auto;
+      padding: 6px 14px; margin: 0; font-size: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    #logout-btn:hover { background: rgba(255,255,255,0.3); }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
   </style>
 </head>
 
 <body>
-  <header>
-    <h2>Sistem Reservasi — Demo</h2>
-    <small>LocalStorage • Tanpa Firebase • Siap Presentasi</small>
-  </header>
 
-  <button id="logout-button" class="danger" onclick="handleLogout()">Logout</button>
+<header>
+  <h2>Sistem Reservasi</h2>
+  <small>Demo Pro • Stabil & Aman • LocalStorage</small>
+  <button id="logout-btn" class="hidden" onclick="App.logout()">Keluar</button>
+</header>
 
-  <div id="login-container">
-    <h3>Login Admin (Demo)</h3>
-    <label>Email
-      <input type="email" id="loginEmail" placeholder="admin@demo.com">
-    </label>
-    <label>Password
-      <input type="password" id="loginPassword" placeholder="bebas">
-    </label>
-    <button onclick="handleLogin()">Login</button>
-    <p id="login-error">Login gagal</p>
-  </div>
+<div id="login-container">
+  <h3>Login Admin</h3>
+  <p style="color:#666; margin-bottom:20px; font-size:0.9rem">Email: admin@demo.com | Pass: bebas</p>
+  
+  <form onsubmit="App.login(event)">
+    <input type="email" id="login-email" placeholder="Email" required>
+    <input type="password" id="login-pass" placeholder="Password" required>
+    <button type="submit">Masuk Dashboard</button>
+  </form>
+  <p id="login-msg" style="color:var(--danger); margin-top:10px; display:none;">Login Gagal</p>
+</div>
 
-  <div class="container" id="main-container">
+<div class="container" id="main-dashboard">
+  <div id="view-calendar">
     <div class="calendar-header">
-      <div class="month-year" id="monthYear"></div>
-      <div class="calendar-nav">
-        <button onclick="prevMonth()">‹</button>
-        <button class="secondary" onclick="goToday()">Hari Ini</button>
-        <button onclick="nextMonth()">›</button>
+      <div class="month-title" id="cal-month-year">...</div>
+      <div class="flex-gap">
+        <button class="secondary sm" onclick="Calendar.prevMonth()">&#10094;</button>
+        <button class="secondary sm" onclick="Calendar.goToday()">Hari Ini</button>
+        <button class="secondary sm" onclick="Calendar.nextMonth()">&#10095;</button>
       </div>
     </div>
-    <div class="calendar-weekdays">
-      <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+    
+    <div class="calendar-grid">
+      <div class="cal-head">Min</div><div class="cal-head">Sen</div>
+      <div class="cal-head">Sel</div><div class="cal-head">Rab</div>
+      <div class="cal-head">Kam</div><div class="cal-head">Jum</div>
+      <div class="cal-head">Sab</div>
     </div>
-    <div class="calendar-days" id="calendar"></div>
+    <div class="calendar-grid" id="cal-body"></div>
   </div>
 
-  <script>
-/* =========================================================
-   PART 1 — DEMO BOOTSTRAP (TIDAK DITUTUP DI SINI)
-   ========================================================= */
-
-/* ---------- CONFIG ---------- */
-const DEMO = {
-  DB_KEY: 'demo_reservasi_db_v1',
-  AUTH_KEY: 'demo_reservasi_auth_v1',
-  AUTO_SEED: true
-};
-
-/* ---------- UTIL ---------- */
-const U = {
-  pad:n=>String(n).padStart(2,'0'),
-  today(){const d=new Date();return `${d.getFullYear()}-${U.pad(d.getMonth()+1)}-${U.pad(d.getDate())}`},
-  clone:o=>JSON.parse(JSON.stringify(o))
-};
-
-/* ---------- STORAGE ENGINE (LocalStorage) ---------- */
-const Store = {
-  load(){ const r=localStorage.getItem(DEMO.DB_KEY); return r?JSON.parse(r):null },
-  save(db){ localStorage.setItem(DEMO.DB_KEY,JSON.stringify(db)) },
-  seed(){
-    return {
-      meta:{version:'DEMO-1',createdAt:Date.now()},
-      menus:{
-        "Paket Ayam Geprek":{price:30000,details:["Ayam geprek","Nasi","Sambal bawang"]},
-        "Paket Nasi Liwet":{price:25000,details:["Nasi liwet","Ayam goreng","Sambal","Lalapan"]}
-      },
-      locations:{
-        pendopo:{name:"Pendopo Utama",capacity:50},
-        saung:{name:"Saung Sawah",capacity:20}
-      },
-      reservations:{} // diisi di PART berikutnya
-    }
-  },
-  init(){
-    let db=this.load();
-    if(!db && DEMO.AUTO_SEED){ db=this.seed(); this.save(db); }
-    return db;
-  }
-};
-
-/* ---------- AUTH DEMO ---------- */
-const Auth = {
-  login(email,pw){
-    if(!email||!pw) return false;
-    localStorage.setItem(DEMO.AUTH_KEY,JSON.stringify({email,at:Date.now()}));
-    return true;
-  },
-  logout(){ localStorage.removeItem(DEMO.AUTH_KEY) },
-  isIn(){ return !!localStorage.getItem(DEMO.AUTH_KEY) }
-};
-
-/* ---------- STATE ---------- */
-const State = {
-  db:null,
-  month:new Date().getMonth(),
-  year:new Date().getFullYear(),
-  selected:''
-};
-
-/* ---------- BOOTSTRAP ---------- */
-function bootstrap(){
-  State.db = Store.init();
-  if(Auth.isIn()){
-    document.getElementById('login-container').style.display='none';
-    document.getElementById('main-container').style.display='block';
-    document.getElementById('logout-button').style.display='inline-flex';
-    renderCalendar();
-  }else{
-    document.getElementById('login-container').style.display='block';
-    document.getElementById('main-container').style.display='none';
-    document.getElementById('logout-button').style.display='none';
-  }
-}
-
-/* ---------- LOGIN / LOGOUT ---------- */
-function handleLogin(){
-  const e=document.getElementById('loginEmail').value;
-  const p=document.getElementById('loginPassword').value;
-  const err=document.getElementById('login-error');
-  if(Auth.login(e,p)){ err.style.display='none'; bootstrap(); }
-  else{ err.style.display='block'; }
-}
-function handleLogout(){
-  if(confirm('Keluar dari demo?')){ Auth.logout(); location.reload(); }
-}
-
-/* ---------- CALENDAR (DASAR) ---------- */
-function renderCalendar(){
-  const cal=document.getElementById('calendar');
-  const title=document.getElementById('monthYear');
-  const mNames=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-  title.textContent=`${mNames[State.month]} ${State.year}`;
-  cal.innerHTML='';
-  const first=new Date(State.year,State.month,1).getDay();
-  const days=new Date(State.year,State.month+1,0).getDate();
-  for(let i=0;i<first;i++) cal.insertAdjacentHTML('beforeend','<div></div>');
-  for(let d=1;d<=days;d++){
-    const isToday=(()=>{
-      const t=new Date(); return d===t.getDate()&&State.month===t.getMonth()&&State.year===t.getFullYear();
-    })();
-    cal.insertAdjacentHTML('beforeend',`
-      <div class="calendar-day ${isToday?'today':''}">
-        <div class="day-number">${d}</div>
+  <div id="view-detail" class="hidden">
+    <div class="calendar-header">
+      <h3 id="detail-date-title">Reservasi</h3>
+      <div class="flex-gap">
+        <button class="secondary sm" onclick="UI.showCalendar()">Kembali</button>
+        <button class="sm" onclick="FormModal.open()">+ Tambah</button>
       </div>
-    `);
-  }
-}
-function prevMonth(){ State.month--; if(State.month<0){State.month=11;State.year--} renderCalendar(); }
-function nextMonth(){ State.month++; if(State.month>11){State.month=0;State.year++} renderCalendar(); }
-function goToday(){ const t=new Date(); State.month=t.getMonth(); State.year=t.getFullYear(); renderCalendar(); }
+    </div>
 
-document.addEventListener('DOMContentLoaded', bootstrap);
-/* =========================================================
-   PART 2 — CALENDAR INTERACTION & DATE MAPPING
-   ========================================================= */
+    <div style="display:flex; gap:10px; margin-bottom:20px;">
+      <input type="text" id="search-input" placeholder="Cari nama tamu..." onkeyup="DetailView.render()">
+      <button class="info sm" style="width:auto" onclick="DetailView.print()">Cetak</button>
+    </div>
 
-/* ---------- DATE HELPERS ---------- */
-function getDateKey(year, month, day){
-  return `${year}-${U.pad(month+1)}-${U.pad(day)}`;
-}
+    <div id="reservation-list"></div>
+  </div>
+</div>
 
-/* ---------- RESERVATION ACCESS LAYER ---------- */
-const ReservationAPI = {
-
-  getByDate(dateKey){
-    const db = State.db;
-    if(!db.reservations[dateKey]) db.reservations[dateKey] = [];
-    return db.reservations[dateKey];
-  },
-
-  countByDate(dateKey){
-    return (State.db.reservations[dateKey] || []).length;
-  },
-
-  save(){
-    Store.save(State.db);
-  }
-};
-
-/* ---------- OVERRIDE renderCalendar (ENHANCED) ---------- */
-function renderCalendar(){
-  const cal = document.getElementById('calendar');
-  const title = document.getElementById('monthYear');
-  const mNames = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-
-  title.textContent = `${mNames[State.month]} ${State.year}`;
-  cal.innerHTML = '';
-
-  const firstDay = new Date(State.year, State.month, 1).getDay();
-  const daysInMonth = new Date(State.year, State.month + 1, 0).getDate();
-
-  // spacer awal
-  for(let i=0;i<firstDay;i++){
-    cal.insertAdjacentHTML('beforeend','<div></div>');
-  }
-
-  for(let day=1; day<=daysInMonth; day++){
-    const dateKey = getDateKey(State.year, State.month, day);
-    const count = ReservationAPI.countByDate(dateKey);
-
-    const today = new Date();
-    const isToday =
-      day === today.getDate() &&
-      State.month === today.getMonth() &&
-      State.year === today.getFullYear();
-
-    const isSelected = State.selected === dateKey;
-
-    cal.insertAdjacentHTML('beforeend', `
-      <div class="calendar-day ${isToday?'today':''} ${isSelected?'selected':''}"
-           onclick="selectDate(${day})">
-        <div class="day-number">${day}</div>
-        ${count>0 ? `<div class="reservation-count">${count}</div>` : ``}
-      </div>
-    `);
-  }
-}
-
-/* ---------- DATE SELECTION ---------- */
-function selectDate(day){
-  State.selected = getDateKey(State.year, State.month, day);
-  renderCalendar();
-  openDateContext(State.selected);
-}
-
-/* ---------- DATE CONTEXT (SEQUENCE TERARAH) ---------- */
-function openDateContext(dateKey){
-  console.log('Tanggal dipilih:', dateKey);
-
-  // Jika belum ada array, siapkan
-  if(!State.db.reservations[dateKey]){
-    State.db.reservations[dateKey] = [];
-    Store.save(State.db);
-  }
-
-  // Placeholder: di PART 3 akan diganti view detail
-  alert(
-    `Tanggal ${dateKey}\n` +
-    `Jumlah reservasi: ${State.db.reservations[dateKey].length}\n\n` +
-    `PART 3 akan membuka halaman detail reservasi.`
-  );
-}
-
-/* ---------- SAFETY: MIGRASI DATA KOSONG ---------- */
-(function ensureReservationRoot(){
-  if(!State.db.reservations){
-    State.db.reservations = {};
-    Store.save(State.db);
-  }
-})();
-/* =========================================================
-   PART 3 — DATE DETAIL VIEW & RESERVATION LIST
-   ========================================================= */
-
-/* ---------- INJECT DATE DETAIL CONTAINER ---------- */
-(function injectDateDetailUI(){
-  const container = document.createElement('div');
-  container.id = 'date-detail-container';
-  container.style.display = 'none';
-  container.innerHTML = `
-    <div class="container">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px">
-        <h3 id="date-detail-title"></h3>
-        <div style="display:flex;gap:8px">
-          <button class="secondary" onclick="backToCalendar()">Kembali</button>
-          <button onclick="openAddReservation()">Tambah Reservasi</button>
+<div id="modal-overlay">
+  <div class="modal-box">
+    <h3 id="modal-title" style="margin-bottom:15px">Tambah Reservasi</h3>
+    <form id="reservation-form" onsubmit="FormModal.save(event)">
+      <input type="hidden" id="f-id">
+      
+      <label>Nama Tamu</label>
+      <input type="text" id="f-nama" placeholder="Contoh: Budi Santoso" required>
+      
+      <label>No. WhatsApp</label>
+      <input type="tel" id="f-hp" placeholder="08xxxxxxxxxx">
+      
+      <div class="flex-gap">
+        <div style="flex:1">
+          <label>Jam</label>
+          <input type="time" id="f-jam" required>
+        </div>
+        <div style="flex:1">
+          <label>Jumlah Org</label>
+          <input type="number" id="f-jumlah" min="1" value="2" required>
         </div>
       </div>
 
-      <div style="display:flex;gap:10px;margin-bottom:10px">
-        <input type="text" id="reservationSearch"
-               placeholder="Cari nama / tempat..."
-               oninput="filterReservationList(this.value)">
-        <button class="info" style="width:auto" onclick="sortReservationsByTime()">Urutkan Jam</button>
+      <label>Pilih Tempat</label>
+      <select id="f-tempat" required>
+        </select>
+      <small id="kapasitas-hint" style="color:#e76f51"></small>
+
+      <div class="flex-gap" style="margin-top:20px">
+        <button type="submit">Simpan</button>
+        <button type="button" class="danger" onclick="FormModal.close()">Batal</button>
       </div>
+    </form>
+  </div>
+</div>
 
-      <div id="reservation-list"></div>
-    </div>
-  `;
-  document.body.appendChild(container);
-})();
-
-/* ---------- OPEN DATE CONTEXT (OVERRIDE PART 2) ---------- */
-function openDateContext(dateKey){
-  State.selected = dateKey;
-
-  document.getElementById('main-container').style.display = 'none';
-  document.getElementById('date-detail-container').style.display = 'block';
-
-  const title = document.getElementById('date-detail-title');
-  const d = new Date(dateKey);
-  const mNames = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-  title.textContent = `Reservasi ${d.getDate()} ${mNames[d.getMonth()]} ${d.getFullYear()}`;
-
-  renderReservationList();
-}
-
-/* ---------- BACK TO CALENDAR ---------- */
-function backToCalendar(){
-  State.selected = '';
-  document.getElementById('date-detail-container').style.display = 'none';
-  document.getElementById('main-container').style.display = 'block';
-  renderCalendar();
-}
-
-/* ---------- RENDER RESERVATION LIST ---------- */
-function renderReservationList(listOverride=null){
-  const container = document.getElementById('reservation-list');
-  const data = listOverride || ReservationAPI.getByDate(State.selected);
-
-  if(!data.length){
-    container.innerHTML = `
-      <p style="text-align:center;color:#777;margin-top:30px">
-        Belum ada reservasi untuk tanggal ini.
-      </p>`;
-    return;
-  }
-
-  container.innerHTML = data.map((r,i)=>`
-    <div style="
-      background:#fff;
-      padding:15px;
-      margin-bottom:10px;
-      border-radius:8px;
-      box-shadow:0 2px 6px rgba(0,0,0,.06);
-      border-left:4px solid var(--primary)
-    ">
-      <b>${i+1}. ${r.nama}</b><br>
-      <small>
-        ⏰ ${r.jam || '-'} • 📍 ${r.tempat || '-'} • 👥 ${r.jumlah || 0} org
-      </small>
-
-      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-        <button class="info" style="width:auto" onclick="editReservation('${r.id}')">Edit</button>
-        <button class="danger" style="width:auto" onclick="deleteReservation('${r.id}')">Hapus</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-/* ---------- SEARCH ---------- */
-function filterReservationList(query){
-  const q = query.toLowerCase();
-  const data = ReservationAPI.getByDate(State.selected);
-  const filtered = data.filter(r =>
-    (r.nama||'').toLowerCase().includes(q) ||
-    (r.tempat||'').toLowerCase().includes(q)
-  );
-  renderReservationList(filtered);
-}
-
-/* ---------- SORT BY TIME ---------- */
-function sortReservationsByTime(){
-  const data = ReservationAPI.getByDate(State.selected);
-  data.sort((a,b)=> (a.jam||'').localeCompare(b.jam||''));
-  ReservationAPI.save();
-  renderReservationList();
-}
-
-/* ---------- PLACEHOLDERS (DIISI DI PART 4) ---------- */
-function openAddReservation(){
-  alert('Form tambah reservasi akan muncul di PART 4');
-}
-function editReservation(id){
-  alert('Form edit reservasi akan muncul di PART 5');
-}
-function deleteReservation(id){
-  if(confirm('Hapus reservasi ini?')){
-    const arr = ReservationAPI.getByDate(State.selected);
-    const idx = arr.findIndex(r=>r.id===id);
-    if(idx>-1){
-      arr.splice(idx,1);
-      ReservationAPI.save();
-      renderReservationList();
-      renderCalendar();
-    }
-  }
-}
-/* =========================================================
-   PART 4 — ADD RESERVATION FORM (STEP-BY-STEP)
-   ========================================================= */
-
-/* ---------- INJECT ADD FORM POPUP ---------- */
-(function injectAddForm(){
-  const wrap = document.createElement('div');
-  wrap.id = 'add-reservation-popup';
-  wrap.style.display = 'none';
-  wrap.innerHTML = `
-    <div style="
-      position:fixed;top:0;left:0;width:100%;height:100%;
-      background:rgba(0,0,0,.5);z-index:2000;
-      display:flex;align-items:center;justify-content:center
-    ">
-      <div style="
-        background:#fff;width:95%;max-width:520px;
-        padding:20px;border-radius:10px
-      ">
-        <h3>Tambah Reservasi</h3>
-
-        <label>Nama
-          <input type="text" id="r-nama">
-        </label>
-
-        <label>Jam
-          <input type="time" id="r-jam">
-        </label>
-
-        <label>Jumlah Orang
-          <input type="number" id="r-jumlah" min="1">
-        </label>
-
-        <label>Tempat
-          <select id="r-tempat" onchange="updateCapacityHint()"></select>
-          <small id="capacity-hint" style="color:#666"></small>
-        </label>
-
-        <label>Paket Menu</label>
-        <div id="menu-rows"></div>
-        <button class="secondary" onclick="addMenuRow()">+ Tambah Menu</button>
-
-        <div style="display:flex;gap:10px;margin-top:15px">
-          <button onclick="saveReservation()">Simpan</button>
-          <button class="danger" onclick="closeAddReservation()">Batal</button>
-        </div>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(wrap);
-})();
-
-/* ---------- OPEN ADD FORM ---------- */
-function openAddReservation(){
-  populateLocationSelect();
-  document.getElementById('menu-rows').innerHTML='';
-  addMenuRow();
-  document.getElementById('add-reservation-popup').style.display='block';
-}
-
-/* ---------- CLOSE ---------- */
-function closeAddReservation(){
-  document.getElementById('add-reservation-popup').style.display='none';
-}
-
-/* ---------- LOCATION SELECT ---------- */
-function populateLocationSelect(){
-  const sel = document.getElementById('r-tempat');
-  sel.innerHTML = `<option value="">Pilih Tempat</option>`;
-  Object.values(State.db.locations).forEach(loc=>{
-    const o = document.createElement('option');
-    o.value = loc.name;
-    o.textContent = `${loc.name} (kap ${loc.capacity})`;
-    sel.appendChild(o);
-  });
-  updateCapacityHint();
-}
-
-function updateCapacityHint(){
-  const val = document.getElementById('r-tempat').value;
-  const hint = document.getElementById('capacity-hint');
-  const loc = Object.values(State.db.locations).find(l=>l.name===val);
-  hint.textContent = loc ? `Kapasitas maksimal ${loc.capacity} orang` : '';
-}
-
-/* ---------- MENU ROWS ---------- */
-function addMenuRow(){
-  const row = document.createElement('div');
-  row.style.display='flex';
-  row.style.gap='6px';
-  row.style.marginBottom='6px';
-
-  const sel = document.createElement('select');
-  sel.innerHTML = `<option value="">Pilih Menu</option>`;
-  Object.keys(State.db.menus).forEach(m=>{
-    const o=document.createElement('option');
-    o.value=m;
-    o.textContent=`${m} (Rp${U.pad(State.db.menus[m].price||0)})`;
-    sel.appendChild(o);
-  });
-
-  const qty = document.createElement('input');
-  qty.type='number'; qty.min=1; qty.value=1; qty.style.width='80px';
-
-  const del = document.createElement('button');
-  del.textContent='✕'; del.className='danger'; del.style.width='40px';
-  del.onclick=()=>row.remove();
-
-  row.append(sel,qty,del);
-  document.getElementById('menu-rows').appendChild(row);
-}
-
-/* ---------- SAVE ---------- */
-function saveReservation(){
-  const nama = document.getElementById('r-nama').value.trim();
-  const jam = document.getElementById('r-jam').value;
-  const jumlah = parseInt(document.getElementById('r-jumlah').value);
-  const tempat = document.getElementById('r-tempat').value;
-
-  if(!nama||!jam||!jumlah||!tempat){
-    alert('Lengkapi data utama'); return;
-  }
-
-  const loc = Object.values(State.db.locations).find(l=>l.name===tempat);
-  if(loc && jumlah > loc.capacity){
-    alert('Jumlah melebihi kapasitas'); return;
-  }
-
-  const menus=[];
-  document.querySelectorAll('#menu-rows > div').forEach(r=>{
-    const m=r.children[0].value;
-    const q=parseInt(r.children[1].value);
-    if(m&&q>0) menus.push({name:m,quantity:q});
-  });
-  if(!menus.length){ alert('Pilih minimal 1 menu'); return; }
-
-  const data={
-    id: crypto.randomUUID(),
-    nama,jam,jumlah,tempat,menus,
-    createdAt: Date.now()
-  };
-
-  ReservationAPI.getByDate(State.selected).push(data);
-  ReservationAPI.save();
-
-  closeAddReservation();
-  renderReservationList();
-  renderCalendar();
-}
-/* =========================================================
-   PART 5 — EDIT RESERVATION (REUSE FORM)
-   ========================================================= */
-
-/* ---------- EDIT MODE STATE ---------- */
-let EDIT_MODE = {
-  active: false,
-  reservationId: null
+<script>
+/**
+ * KONFIGURASI & UTILITAS
+ */
+const CONFIG = {
+  DB_KEY: 'reservasi_pro_db_v2',
+  AUTH_KEY: 'reservasi_pro_auth',
+  LOCATIONS: [
+    { id: 'pendopo', name: 'Pendopo Utama', cap: 50 },
+    { id: 'saung1', name: 'Saung Sawah', cap: 10 },
+    { id: 'vip', name: 'Ruang VIP', cap: 20 }
+  ]
 };
 
-/* ---------- OVERRIDE OPEN ADD ---------- */
-const _openAddReservationOriginal = openAddReservation;
-openAddReservation = function(){
-  EDIT_MODE.active = false;
-  EDIT_MODE.reservationId = null;
-  resetAddForm();
-  _openAddReservationOriginal();
-};
-
-/* ---------- OPEN EDIT ---------- */
-function editReservation(id){
-  const list = ReservationAPI.getByDate(State.selected);
-  const data = list.find(r=>r.id===id);
-  if(!data){ alert('Data tidak ditemukan'); return; }
-
-  EDIT_MODE.active = true;
-  EDIT_MODE.reservationId = id;
-
-  resetAddForm();
-  populateLocationSelect();
-
-  document.getElementById('r-nama').value = data.nama;
-  document.getElementById('r-jam').value = data.jam;
-  document.getElementById('r-jumlah').value = data.jumlah;
-  document.getElementById('r-tempat').value = data.tempat;
-  updateCapacityHint();
-
-  // menus
-  document.getElementById('menu-rows').innerHTML='';
-  data.menus.forEach(m=>{
-    addMenuRow();
-    const rows = document.querySelectorAll('#menu-rows > div');
-    const last = rows[rows.length-1];
-    last.children[0].value = m.name;
-    last.children[1].value = m.quantity;
-  });
-
-  document.getElementById('add-reservation-popup').style.display='block';
-}
-
-/* ---------- RESET FORM ---------- */
-function resetAddForm(){
-  document.getElementById('r-nama').value='';
-  document.getElementById('r-jam').value='';
-  document.getElementById('r-jumlah').value='';
-  document.getElementById('r-tempat').value='';
-  document.getElementById('menu-rows').innerHTML='';
-}
-
-/* ---------- OVERRIDE SAVE ---------- */
-const _saveReservationOriginal = saveReservation;
-saveReservation = function(){
-  const nama = document.getElementById('r-nama').value.trim();
-  const jam = document.getElementById('r-jam').value;
-  const jumlah = parseInt(document.getElementById('r-jumlah').value);
-  const tempat = document.getElementById('r-tempat').value;
-
-  if(!nama||!jam||!jumlah||!tempat){
-    alert('Lengkapi data utama'); return;
-  }
-
-  const loc = Object.values(State.db.locations).find(l=>l.name===tempat);
-  if(loc && jumlah > loc.capacity){
-    alert('Jumlah melebihi kapasitas'); return;
-  }
-
-  const menus=[];
-  document.querySelectorAll('#menu-rows > div').forEach(r=>{
-    const m=r.children[0].value;
-    const q=parseInt(r.children[1].value);
-    if(m&&q>0) menus.push({name:m,quantity:q});
-  });
-  if(!menus.length){ alert('Pilih minimal 1 menu'); return; }
-
-  const list = ReservationAPI.getByDate(State.selected);
-
-  if(EDIT_MODE.active){
-    const idx = list.findIndex(r=>r.id===EDIT_MODE.reservationId);
-    if(idx>-1){
-      list[idx] = {
-        ...list[idx],
-        nama,jam,jumlah,tempat,menus,
-        updatedAt: Date.now()
-      };
-    }
-  }else{
-    list.push({
-      id: crypto.randomUUID(),
-      nama,jam,jumlah,tempat,menus,
-      createdAt: Date.now()
+const Utils = {
+  uuid: () => Date.now().toString(36) + Math.random().toString(36).substr(2),
+  
+  // Mencegah XSS (Cross Site Scripting)
+  escapeHtml: (str) => {
+    if(!str) return '';
+    return str.replace(/[&<>"']/g, function(m) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
     });
+  },
+
+  // Format Tanggal YYYY-MM-DD
+  formatDateKey: (dateObj) => {
+    const y = dateObj.getFullYear();
+    const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const d = String(dateObj.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  },
+
+  // Format Tampilan Tanggal Indonesia
+  formatDateIndo: (dateStr) => {
+    const d = new Date(dateStr);
+    const months = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
   }
-
-  ReservationAPI.save();
-  closeAddReservation();
-  renderReservationList();
-  renderCalendar();
 };
-/* =========================================================
-   PART 6 — CUSTOMER PROFILE & WHATSAPP SHARE
-   ========================================================= */
 
-/* ---------- CUSTOMER INDEX ---------- */
-function buildCustomerIndex(){
-  const idx = {};
-  Object.values(State.db.reservations).forEach(list=>{
-    list.forEach(r=>{
-      if(!r.nomorHp) return;
-      if(!idx[r.nomorHp]){
-        idx[r.nomorHp] = {
-          nama: r.nama,
-          nomorHp: r.nomorHp,
-          visits: [],
-          totalVisits: 0
-        };
+/**
+ * DATABASE ENGINE (LocalStorage)
+ */
+const DB = {
+  data: { reservations: {} },
+
+  init() {
+    const stored = localStorage.getItem(CONFIG.DB_KEY);
+    if (stored) {
+      try {
+        this.data = JSON.parse(stored);
+        // Pastikan struktur objek ada
+        if (!this.data.reservations) this.data.reservations = {};
+      } catch (e) {
+        console.error("DB Corrupt, resetting...", e);
+        this.save();
       }
-      idx[r.nomorHp].visits.push(r);
-      idx[r.nomorHp].totalVisits++;
+    } else {
+      // Seed data awal jika kosong
+      this.seed(); 
+    }
+  },
+
+  save() {
+    localStorage.setItem(CONFIG.DB_KEY, JSON.stringify(this.data));
+  },
+
+  seed() {
+    const today = Utils.formatDateKey(new Date());
+    this.data.reservations[today] = [{
+      id: Utils.uuid(),
+      nama: 'Tamu Demo',
+      hp: '08123456789',
+      jam: '12:00',
+      jumlah: 4,
+      tempat: 'Pendopo Utama'
+    }];
+    this.save();
+  },
+
+  get(dateKey) {
+    return this.data.reservations[dateKey] || [];
+  },
+
+  add(dateKey, item) {
+    if (!this.data.reservations[dateKey]) this.data.reservations[dateKey] = [];
+    this.data.reservations[dateKey].push(item);
+    this.save();
+  },
+
+  update(dateKey, id, newItem) {
+    const list = this.get(dateKey);
+    const idx = list.findIndex(x => x.id === id);
+    if (idx !== -1) {
+      list[idx] = newItem;
+      this.save();
+    }
+  },
+
+  delete(dateKey, id) {
+    const list = this.get(dateKey);
+    const idx = list.findIndex(x => x.id === id);
+    if (idx !== -1) {
+      list.splice(idx, 1);
+      // Bersihkan key jika array kosong untuk hemat memori
+      if (list.length === 0) delete this.data.reservations[dateKey];
+      this.save();
+    }
+  }
+};
+
+/**
+ * LOGIKA APLIKASI
+ */
+const App = {
+  isLoggedIn: false,
+
+  init() {
+    DB.init();
+    this.checkAuth();
+    
+    // Setup Dropdown Tempat di Form
+    const select = document.getElementById('f-tempat');
+    select.innerHTML = '';
+    CONFIG.LOCATIONS.forEach(loc => {
+      const opt = document.createElement('option');
+      opt.value = loc.name;
+      opt.text = `${loc.name} (Max ${loc.cap})`;
+      opt.dataset.cap = loc.cap; // Simpan kapasitas di atribut data
+      select.appendChild(opt);
     });
-  });
-  return idx;
-}
 
-/* ---------- SHOW CUSTOMER LIST ---------- */
-function showCustomerList(){
-  const customers = buildCustomerIndex();
-  const popup = document.getElementById('customerListPopup');
+    // Event Listener Kapasitas
+    select.addEventListener('change', function() {
+      const cap = this.options[this.selectedIndex].dataset.cap;
+      document.getElementById('kapasitas-hint').innerText = `Maksimal ${cap} orang`;
+    });
+  },
 
-  if(!Object.keys(customers).length){
-    popup.innerHTML = `<h3>Customer</h3><p>Belum ada data</p>`;
-  } else {
-    popup.innerHTML = `
-      <h3>📒 Daftar Customer</h3>
-      <div id="customer-list" style="max-height:300px;overflow:auto;">
-        ${Object.values(customers)
-          .sort((a,b)=>a.nama.localeCompare(b.nama))
-          .map(c=>`
-            <div class="menu-item">
-              <span><b>${c.nama}</b><br><small>${c.nomorHp}</small></span>
-              <button onclick="openCustomerProfile('${c.nomorHp}')">Detail</button>
+  checkAuth() {
+    const session = localStorage.getItem(CONFIG.AUTH_KEY);
+    if (session) {
+      this.isLoggedIn = true;
+      UI.showDashboard();
+    } else {
+      this.isLoggedIn = false;
+      UI.showLogin();
+    }
+  },
+
+  login(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const pass = document.getElementById('login-pass').value;
+
+    if (email && pass) {
+      localStorage.setItem(CONFIG.AUTH_KEY, 'active');
+      this.checkAuth();
+    } else {
+      document.getElementById('login-msg').style.display = 'block';
+    }
+  },
+
+  logout() {
+    if(confirm('Keluar dari sistem?')) {
+      localStorage.removeItem(CONFIG.AUTH_KEY);
+      location.reload();
+    }
+  }
+};
+
+/**
+ * MANAJEMEN KALENDER
+ */
+const Calendar = {
+  currentDate: new Date(),
+  selectedDateKey: null,
+
+  render() {
+    const year = this.currentDate.getFullYear();
+    const month = this.currentDate.getMonth(); // 0-11
+    
+    const monthNames = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+    document.getElementById('cal-month-year').innerText = `${monthNames[month]} ${year}`;
+
+    const firstDay = new Date(year, month, 1).getDay(); // 0 (Sun) - 6 (Sat)
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const calBody = document.getElementById('cal-body');
+    calBody.innerHTML = '';
+
+    // Slot kosong sebelum tanggal 1
+    for (let i = 0; i < firstDay; i++) {
+      calBody.insertAdjacentHTML('beforeend', `<div class="cal-day empty"></div>`);
+    }
+
+    // Render hari
+    const todayKey = Utils.formatDateKey(new Date());
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateObj = new Date(year, month, d);
+      const dateKey = Utils.formatDateKey(dateObj);
+      const count = DB.get(dateKey).length;
+      
+      let classes = 'cal-day';
+      if (dateKey === todayKey) classes += ' today';
+      
+      const badgeHTML = count > 0 ? `<div class="badge">${count}</div>` : '';
+
+      const el = document.createElement('div');
+      el.className = classes;
+      el.innerHTML = `<div class="day-num">${d}</div>${badgeHTML}`;
+      el.onclick = () => this.selectDate(dateKey);
+      
+      calBody.appendChild(el);
+    }
+  },
+
+  prevMonth() {
+    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+    this.render();
+  },
+  nextMonth() {
+    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+    this.render();
+  },
+  goToday() {
+    this.currentDate = new Date();
+    this.render();
+  },
+
+  selectDate(dateKey) {
+    this.selectedDateKey = dateKey;
+    DetailView.init(dateKey);
+    UI.showDetail();
+  }
+};
+
+/**
+ * MANAJEMEN VIEW DETAIL (List Reservasi)
+ */
+const DetailView = {
+  currentKey: null,
+
+  init(dateKey) {
+    this.currentKey = dateKey;
+    document.getElementById('detail-date-title').innerText = `Reservasi: ${Utils.formatDateIndo(dateKey)}`;
+    document.getElementById('search-input').value = ''; // Reset search
+    this.render();
+  },
+
+  render() {
+    const list = DB.get(this.currentKey);
+    const container = document.getElementById('reservation-list');
+    const search = document.getElementById('search-input').value.toLowerCase();
+
+    container.innerHTML = '';
+
+    // Filter & Sort
+    const filtered = list.filter(item => 
+      item.nama.toLowerCase().includes(search)
+    ).sort((a, b) => a.jam.localeCompare(b.jam));
+
+    if (filtered.length === 0) {
+      container.innerHTML = `<p class="text-center" style="color:#999; margin-top:30px">Belum ada reservasi.</p>`;
+      return;
+    }
+
+    filtered.forEach(item => {
+      // Sanitasi Output
+      const safeName = Utils.escapeHtml(item.nama);
+      const safePlace = Utils.escapeHtml(item.tempat);
+      
+      const html = `
+        <div class="res-card">
+          <div class="res-info">
+            <h4>${safeName} <small>(${item.jumlah} Orang)</small></h4>
+            <div class="res-meta">
+              ⏰ ${item.jam} &bull; 📍 ${safePlace} &bull; 📞 ${item.hp || '-'}
             </div>
-          `).join('')}
-      </div>
-      <div class="data-actions">
-        <button class="danger" onclick="closePopup('customerListPopup')">Tutup</button>
-      </div>
-    `;
-  }
-
-  popup.style.display='block';
-  overlay.style.display='block';
-}
-
-/* ---------- CUSTOMER PROFILE ---------- */
-function openCustomerProfile(phone){
-  const customers = buildCustomerIndex();
-  const c = customers[phone];
-  if(!c){ alert('Customer tidak ditemukan'); return; }
-
-  const popup = document.getElementById('customerListPopup');
-  popup.innerHTML = `
-    <h3>👤 Profil Customer</h3>
-    <p><b>Nama:</b> ${c.nama}<br>
-       <b>No HP:</b> ${c.nomorHp}<br>
-       <b>Total Kunjungan:</b> ${c.totalVisits}x</p>
-
-    <h4>📜 Riwayat</h4>
-    <div style="max-height:200px;overflow:auto;">
-      ${c.visits
-        .sort((a,b)=>b.createdAt-a.createdAt)
-        .map(v=>`
-          <div style="border-bottom:1px solid #eee;padding:8px 0;">
-            <b>${v.date}</b> • ${v.jam} • ${v.tempat}<br>
-            ${v.jumlah} org
           </div>
-        `).join('')}
-    </div>
-
-    <div class="data-actions">
-      <button class="whatsapp" onclick="sendWhatsAppFollowup('${c.nomorHp}','${c.nama}')">
-        <i class="fab fa-whatsapp"></i> WhatsApp
-      </button>
-      <button class="secondary" onclick="showCustomerList()">Kembali</button>
-    </div>
-  `;
-}
-
-/* ---------- WHATSAPP MESSAGE ---------- */
-function sendWhatsAppFollowup(phone,name){
-  const msg = `
-Halo Kak *${name}* 👋
-
-Terima kasih sudah melakukan reservasi bersama kami 🙏
-Kami harap kunjungannya menyenangkan 🌾😊
-
-Jika berkenan, silakan balas pesan ini dengan kesan & saran ya.
-Kami tunggu kedatangan berikutnya ✨
-`.trim();
-
-  const target = phone.replace(/^0/,'62');
-  window.open(`https://wa.me/${target}?text=${encodeURIComponent(msg)}`,'_blank');
-}
-/* =========================================================
-   PART 7 — BROADCAST PROMO (DEMO MODE)
-   ========================================================= */
-
-const BROADCAST_KEY = 'demo_broadcast_message';
-let BROADCAST_CACHE = [];
-
-/* ---------- OPEN BROADCAST MENU ---------- */
-function openBroadcastMenu(){
-  const popup = document.getElementById('broadcastMainPopup');
-  popup.innerHTML = `
-    <h3>📢 Broadcast Promo</h3>
-    <p>Gunakan fitur ini untuk mengirim pesan promo ke customer.</p>
-
-    <div class="data-actions">
-      <button class="info" onclick="openBroadcastSettings()">
-        <i class="fas fa-cog"></i> Atur Pesan
-      </button>
-      <button class="whatsapp" onclick="openBroadcastList()">
-        <i class="fab fa-whatsapp"></i> Mulai Broadcast
-      </button>
-      <button class="danger" onclick="closePopup('broadcastMainPopup')">Tutup</button>
-    </div>
-  `;
-  popup.style.display='block';
-  overlay.style.display='block';
-}
-
-/* ---------- SETTINGS ---------- */
-function openBroadcastSettings(){
-  const popup = document.getElementById('broadcastSettingsPopup');
-  popup.innerHTML = `
-    <h3>✏️ Pesan Broadcast</h3>
-    <textarea id="broadcast-msg" style="height:150px"
-      placeholder="Halo Kak! Ada promo spesial akhir pekan...">${
-        localStorage.getItem(BROADCAST_KEY)||''
-      }</textarea>
-    <div class="data-actions">
-      <button onclick="saveBroadcastMessage()">Simpan</button>
-      <button class="secondary" onclick="openBroadcastMenu()">Kembali</button>
-    </div>
-  `;
-  popup.style.display='block';
-  overlay.style.display='block';
-}
-
-function saveBroadcastMessage(){
-  const msg = document.getElementById('broadcast-msg').value.trim();
-  if(!msg){ alert('Pesan kosong'); return; }
-  localStorage.setItem(BROADCAST_KEY,msg);
-  alert('Pesan tersimpan');
-}
-
-/* ---------- CUSTOMER LIST ---------- */
-function openBroadcastList(){
-  const msg = localStorage.getItem(BROADCAST_KEY);
-  if(!msg){ alert('Atur pesan dulu'); openBroadcastSettings(); return; }
-
-  const customers = buildCustomerIndex();
-  BROADCAST_CACHE = Object.values(customers);
-
-  const popup = document.getElementById('broadcastListPopup');
-  popup.innerHTML = `
-    <h3>👥 Penerima Broadcast</h3>
-    <input type="text" placeholder="Cari nama / no HP"
-      oninput="filterBroadcast(this.value)"
-      style="width:100%;padding:8px;margin-bottom:10px">
-
-    <div id="broadcast-list" style="max-height:300px;overflow:auto;"></div>
-
-    <div class="data-actions">
-      <button class="danger" onclick="closePopup('broadcastListPopup')">Tutup</button>
-    </div>
-  `;
-
-  renderBroadcastList(BROADCAST_CACHE);
-  popup.style.display='block';
-  overlay.style.display='block';
-}
-
-/* ---------- RENDER ---------- */
-function renderBroadcastList(list){
-  const msg = localStorage.getItem(BROADCAST_KEY);
-  document.getElementById('broadcast-list').innerHTML = list.map(c=>`
-    <div class="broadcast-customer-item">
-      <div>
-        <b>${c.nama}</b><br>
-        <small>${c.nomorHp}</small>
-      </div>
-      <button class="broadcast-btn"
-        onclick="sendBroadcast('${c.nomorHp}','${c.nama}',this)">
-        <i class="fab fa-whatsapp"></i> Broadcast
-      </button>
-    </div>
-  `).join('');
-}
-
-/* ---------- FILTER ---------- */
-function filterBroadcast(q){
-  const v = q.toLowerCase();
-  renderBroadcastList(
-    BROADCAST_CACHE.filter(c =>
-      c.nama.toLowerCase().includes(v) ||
-      c.nomorHp.includes(v)
-    )
-  );
-}
-
-/* ---------- SEND ---------- */
-function sendBroadcast(phone,name,btn){
-  const msg = localStorage.getItem(BROADCAST_KEY)
-    .replace(/kak/gi, `Kak *${name}*`);
-  const target = phone.replace(/^0/,'62');
-  window.open(`https://wa.me/${target}?text=${encodeURIComponent(msg)}`,'_blank');
-
-  btn.innerHTML='✓ Terkirim';
-  btn.classList.add('sent');
-  btn.onclick=null;
-}
-/* =========================================================
-   PART 8 — EXPORT / IMPORT DEMO + PRINT
-   ========================================================= */
-
-/* ---------- EXPORT ---------- */
-function exportDemoData(){
-  const payload = {
-    version: 'demo-1.0',
-    exportedAt: Date.now(),
-    data: State.db
-  };
-  const json = JSON.stringify(payload);
-  const encoded = btoa(unescape(encodeURIComponent(json)));
-  return encoded;
-}
-
-function showExportPopup(){
-  const popup = document.getElementById('exportDataPopup');
-  popup.innerHTML = `
-    <h3>📤 Export Data (Demo)</h3>
-    <p>Salin kode di bawah ini untuk dipakai di demo / viewer lain.</p>
-    <textarea id="export-output" style="height:160px;width:100%;font-family:monospace;">${exportDemoData()}</textarea>
-    <div class="data-actions">
-      <button onclick="copyExport()">Salin</button>
-      <button class="danger" onclick="closePopup('exportDataPopup')">Tutup</button>
-    </div>
-  `;
-  popup.style.display='block';
-  overlay.style.display='block';
-}
-
-function copyExport(){
-  const el = document.getElementById('export-output');
-  el.select(); el.setSelectionRange(0,99999);
-  navigator.clipboard.writeText(el.value)
-    .then(()=>alert('Kode disalin'));
-}
-
-/* ---------- IMPORT ---------- */
-function showImportPopup(){
-  const popup = document.getElementById('exportDataPopup');
-  popup.innerHTML = `
-    <h3>📥 Import Data (Demo)</h3>
-    <textarea id="import-input"
-      placeholder="Tempel kode export di sini"
-      style="height:160px;width:100%;font-family:monospace;"></textarea>
-    <div class="data-actions">
-      <button onclick="importDemoData()">Import</button>
-      <button class="danger" onclick="closePopup('exportDataPopup')">Batal</button>
-    </div>
-  `;
-  popup.style.display='block';
-  overlay.style.display='block';
-}
-
-function importDemoData(){
-  const raw = document.getElementById('import-input').value.trim();
-  if(!raw){ alert('Kode kosong'); return; }
-
-  try{
-    const decoded = decodeURIComponent(escape(atob(raw)));
-    const parsed = JSON.parse(decoded);
-
-    if(!parsed.data || !parsed.version){
-      alert('Format tidak valid'); return;
-    }
-
-    if(confirm('Import akan menggabungkan data. Lanjutkan?')){
-      // merge aman
-      State.db.menus = parsed.data.menus || State.db.menus;
-      State.db.locations = parsed.data.locations || State.db.locations;
-
-      const srcRes = parsed.data.reservations || {};
-      Object.keys(srcRes).forEach(date=>{
-        if(!State.db.reservations[date]){
-          State.db.reservations[date] = srcRes[date];
-        }else{
-          State.db.reservations[date].push(...srcRes[date]);
-        }
-      });
-
-      Store.save(State.db);
-      renderCalendar();
-      alert('Import berhasil');
-      closePopup('exportDataPopup');
-    }
-  }catch(e){
-    alert('Kode rusak / tidak valid');
-  }
-}
-
-/* ---------- PRINT ---------- */
-function printSelectedDate(){
-  if(!State.selected){ alert('Pilih tanggal dulu'); return; }
-
-  const list = ReservationAPI.getByDate(State.selected)
-    .sort((a,b)=>a.jam.localeCompare(b.jam));
-
-  const dateLabel = State.selected;
-  const rows = list.map((r,i)=>`
-    <tr>
-      <td>${i+1}</td>
-      <td>${r.nama}</td>
-      <td>${r.jam}</td>
-      <td>${r.tempat}</td>
-      <td>${r.jumlah}</td>
-      <td>${r.menus.map(m=>`${m.quantity}x ${m.name}`).join(', ')}</td>
-    </tr>
-  `).join('');
-
-  const html = `
-  <html><head><title>Cetak ${dateLabel}</title>
-  <style>
-    body{font-family:Arial;padding:20px}
-    table{width:100%;border-collapse:collapse}
-    th,td{border:1px solid #333;padding:6px;font-size:12px}
-    th{background:#eee}
-  </style></head>
-  <body>
-    <h2>Reservasi ${dateLabel}</h2>
-    <table>
-      <thead>
-        <tr><th>#</th><th>Nama</th><th>Jam</th><th>Tempat</th><th>Org</th><th>Menu</th></tr>
-      </thead>
-      <tbody>${rows || '<tr><td colspan="6">Kosong</td></tr>'}</tbody>
-    </table>
-  </body></html>
-  `;
-
-  const w = window.open('','_blank');
-  w.document.write(html);
-  w.document.close();
-  w.print();
-}
-/* =========================================================
-   PART 9 — LIGHT ANALYTICS & INSIGHTS
-   ========================================================= */
-
-/* ---------- AGGREGATOR ---------- */
-function collectAnalytics(){
-  const all = [];
-  Object.values(State.db.reservations).forEach(list=>{
-    list.forEach(r=>all.push(r));
-  });
-
-  const totalReservations = all.length;
-  const totalGuests = all.reduce((s,r)=>s+(parseInt(r.jumlah)||0),0);
-
-  // busiest day
-  const dayCount = {};
-  all.forEach(r=>{
-    if(!r.date) return;
-    const d = new Date(r.date);
-    const name = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"][d.getDay()];
-    dayCount[name]=(dayCount[name]||0)+1;
-  });
-  const busiest = Object.entries(dayCount).sort((a,b)=>b[1]-a[1])[0];
-
-  // popular menu
-  const menuCount = {};
-  all.forEach(r=>{
-    (r.menus||[]).forEach(m=>{
-      menuCount[m.name]=(menuCount[m.name]||0)+m.quantity;
+          <div class="res-actions">
+            <button class="info sm" onclick="FormModal.edit('${item.id}')">Edit</button>
+            <button class="danger sm" onclick="DetailView.remove('${item.id}')">Hapus</button>
+            ${item.hp ? `<button class="secondary sm" onclick="DetailView.wa('${item.hp}', '${safeName}')">WA</button>` : ''}
+          </div>
+        </div>
+      `;
+      container.innerHTML += html;
     });
-  });
-  const topMenu = Object.entries(menuCount).sort((a,b)=>b[1]-a[1])[0];
+  },
 
-  return {
-    totalReservations,
-    totalGuests,
-    busiestDay: busiest ? `${busiest[0]} (${busiest[1]}x)` : '-',
-    topMenu: topMenu ? `${topMenu[0]} (${topMenu[1]} porsi)` : '-'
-  };
-}
-
-/* ---------- SHOW ANALYTICS ---------- */
-function showAnalytics(){
-  const a = collectAnalytics();
-  const popup = document.getElementById('analysisPopup');
-
-  popup.innerHTML = `
-    <h3>📊 Analisis Singkat</h3>
-
-    <div class="stats-grid">
-      <div class="mini-stat">
-        <div class="val">${a.totalReservations}</div>
-        <div class="lbl">Total Reservasi</div>
-      </div>
-      <div class="mini-stat">
-        <div class="val">${a.totalGuests}</div>
-        <div class="lbl">Total Tamu</div>
-      </div>
-      <div class="mini-stat">
-        <div class="val">${a.busiestDay}</div>
-        <div class="lbl">Hari Tersibuk</div>
-      </div>
-      <div class="mini-stat">
-        <div class="val">${a.topMenu}</div>
-        <div class="lbl">Menu Terlaris</div>
-      </div>
-    </div>
-
-    <div class="insight-box">
-      <h5>💡 Insight Otomatis</h5>
-      <ul>
-        <li>Hari <b>${a.busiestDay.split(' ')[0]}</b> paling ramai — siapkan staf ekstra.</li>
-        <li>Menu <b>${a.topMenu.split(' ')[0]}</b> paling diminati — pastikan stok aman.</li>
-        <li>Total <b>${a.totalGuests}</b> tamu tercatat di sistem demo ini.</li>
-      </ul>
-    </div>
-
-    <div class="data-actions">
-      <button class="danger" onclick="closePopup('analysisPopup')">Tutup</button>
-    </div>
-  `;
-
-  popup.style.display='block';
-  overlay.style.display='block';
-}
-/* =========================================================
-   PART 10 — FINAL ASSEMBLY & CLOSE
-   ========================================================= */
-
-/* ---------- BUTTON WIRING ---------- */
-(function wireButtons(){
-  // Kalender nav
-  window.previousMonth = ()=>{ State.month--; if(State.month<0){State.month=11;State.year--;} renderCalendar(); };
-  window.nextMonth = ()=>{ State.month++; if(State.month>11){State.month=0;State.year++;} renderCalendar(); };
-  window.goToToday = ()=>{
-    const d=new Date();
-    State.year=d.getFullYear(); State.month=d.getMonth(); State.selected=null;
-    renderCalendar();
-  };
-
-  // Header actions (sesuai UI Anda)
-  window.showCustomerMenu = showCustomerList;
-  window.showBroadcastMain = openBroadcastMenu;
-  window.showExportDataPopup = showExportPopup;
-  window.showAnalysis = showAnalytics;
-  window.printData = printSelectedDate;
-})();
-
-/* ---------- DEMO SEED (AUTO, SEKALI SAJA) ---------- */
-(function seedDemoData(){
-  try{
-    const seeded = localStorage.getItem('DEMO_SEEDED');
-    if(seeded) return;
-
-    // Seed lokasi
-    if(Object.keys(State.db.locations).length===0){
-      State.db.locations = {
-        a:{name:'Saung A',capacity:20},
-        b:{name:'Saung B',capacity:30},
-        c:{name:'Pendopo',capacity:50}
-      };
+  remove(id) {
+    if (confirm('Yakin ingin menghapus data ini?')) {
+      DB.delete(this.currentKey, id);
+      this.render();
+      Calendar.render(); // Update badge di kalender
     }
+  },
 
-    // Seed menu
-    if(Object.keys(State.db.menus).length===0){
-      State.db.menus = {
-        'Paket Ayam':{price:35000,details:['Ayam goreng','Nasi','Sambal']},
-        'Paket Ikan':{price:40000,details:['Ikan bakar','Nasi','Lalapan']},
-        'Paket Keluarga':{price:120000,details:['Ayam','Ikan','Sayur','Nasi']},
-      };
-    }
+  wa(hp, nama) {
+    let num = hp.replace(/\D/g, ''); // Hapus karakter non-angka
+    if (num.startsWith('0')) num = '62' + num.substring(1);
+    const text = `Halo Kak ${nama}, kami dari konfirmasi reservasi...`;
+    window.open(`https://wa.me/${num}?text=${encodeURIComponent(text)}`, '_blank');
+  },
 
-    // Seed reservasi contoh (hari ini & besok)
-    const today=new Date();
-    const k1=`${today.getFullYear()}-${U.pad(today.getMonth()+1)}-${U.pad(today.getDate())}`;
-    const k2=`${today.getFullYear()}-${U.pad(today.getMonth()+1)}-${U.pad(today.getDate()+1)}`;
-
-    State.db.reservations[k1]=State.db.reservations[k1]||[];
-    State.db.reservations[k2]=State.db.reservations[k2]||[];
-
-    if(State.db.reservations[k1].length===0){
-      State.db.reservations[k1].push({
-        id:crypto.randomUUID(),
-        date:k1,
-        nama:'Budi',
-        jam:'12:00',
-        jumlah:6,
-        tempat:'Saung A',
-        nomorHp:'081234567890',
-        menus:[{name:'Paket Ayam',quantity:6}],
-        createdAt:Date.now()
-      });
-    }
-
-    if(State.db.reservations[k2].length===0){
-      State.db.reservations[k2].push({
-        id:crypto.randomUUID(),
-        date:k2,
-        nama:'Siti',
-        jam:'18:30',
-        jumlah:10,
-        tempat:'Pendopo',
-        nomorHp:'082233445566',
-        menus:[{name:'Paket Keluarga',quantity:2}],
-        createdAt:Date.now()
-      });
-    }
-
-    Store.save(State.db);
-    localStorage.setItem('DEMO_SEEDED','1');
-  }catch(e){
-    console.warn('Seed demo dilewati:',e);
+  print() {
+    window.print();
   }
-})();
+};
 
-/* ---------- SAFETY CHECK ---------- */
-(function safety(){
-  if(!State.db || !State.db.reservations){
-    alert('Data demo rusak. Reload halaman.');
+/**
+ * MANAJEMEN MODAL FORM (Add/Edit)
+ */
+const FormModal = {
+  isEdit: false,
+
+  open() {
+    document.getElementById('modal-overlay').style.display = 'flex';
+    document.getElementById('modal-title').innerText = 'Tambah Reservasi';
+    document.getElementById('reservation-form').reset();
+    document.getElementById('f-id').value = '';
+    this.isEdit = false;
+    
+    // Trigger change untuk reset hint kapasitas
+    document.getElementById('f-tempat').dispatchEvent(new Event('change'));
+  },
+
+  edit(id) {
+    const list = DB.get(DetailView.currentKey);
+    const item = list.find(x => x.id === id);
+    if (!item) return;
+
+    this.open();
+    this.isEdit = true;
+    document.getElementById('modal-title').innerText = 'Edit Reservasi';
+    
+    document.getElementById('f-id').value = item.id;
+    document.getElementById('f-nama').value = item.nama;
+    document.getElementById('f-hp').value = item.hp;
+    document.getElementById('f-jam').value = item.jam;
+    document.getElementById('f-jumlah').value = item.jumlah;
+    document.getElementById('f-tempat').value = item.tempat;
+  },
+
+  close() {
+    document.getElementById('modal-overlay').style.display = 'none';
+  },
+
+  save(e) {
+    e.preventDefault();
+    
+    // Ambil Values
+    const id = document.getElementById('f-id').value || Utils.uuid();
+    const nama = document.getElementById('f-nama').value.trim();
+    const hp = document.getElementById('f-hp').value.trim();
+    const jam = document.getElementById('f-jam').value;
+    const jumlah = parseInt(document.getElementById('f-jumlah').value);
+    const tempat = document.getElementById('f-tempat').value;
+
+    // Validasi Tambahan
+    if (jumlah < 1) { alert('Jumlah orang minimal 1'); return; }
+
+    const data = { id, nama, hp, jam, jumlah, tempat };
+
+    if (this.isEdit) {
+      DB.update(DetailView.currentKey, id, data);
+    } else {
+      DB.add(DetailView.currentKey, data);
+    }
+
+    this.close();
+    DetailView.render();
+    Calendar.render(); // Update badge
   }
-})();
+};
 
-/* ---------- INITIAL RENDER ---------- */
-renderCalendar();
+/**
+ * KONTROL UI GLOBAL
+ */
+const UI = {
+  showLogin() {
+    document.getElementById('login-container').style.display = 'block';
+    document.getElementById('main-dashboard').style.display = 'none';
+    document.getElementById('logout-btn').classList.add('hidden');
+  },
+  showDashboard() {
+    document.getElementById('login-container').style.display = 'none';
+    document.getElementById('main-dashboard').style.display = 'block';
+    document.getElementById('logout-btn').classList.remove('hidden');
+    Calendar.render();
+    this.showCalendar(); // Reset ke view kalender
+  },
+  showCalendar() {
+    document.getElementById('view-calendar').classList.remove('hidden');
+    document.getElementById('view-detail').classList.add('hidden');
+  },
+  showDetail() {
+    document.getElementById('view-calendar').classList.add('hidden');
+    document.getElementById('view-detail').classList.remove('hidden');
+  }
+};
 
-/* =========================================================
-   END OF SCRIPT
-   ========================================================= */
+// Start App saat DOM siap
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});
+
 </script>
 </body>
 </html>
