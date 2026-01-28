@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ReservaHub Elite v4.2 | Full Business Suite</title>
+    <title>ReservaHub Elite v4.5 | Enterprise Business Suite</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -24,36 +24,34 @@
             --radius-md: 12px;
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
             --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.05);
-            --glass: rgba(255, 255, 255, 0.85);
+            --glass: rgba(255, 255, 255, 0.9);
+            --danger: #ef4444;
         }
 
-        /* --- GLOBAL & ANIMATIONS --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-
-        /* --- TOAST NOTIFICATION --- */
-        #toast-container { position: fixed; top: 24px; right: 24px; z-index: 9999; }
-        .toast { 
-            background: var(--sidebar-bg); color: white; padding: 14px 24px; border-radius: 12px; 
-            margin-bottom: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
-            display: flex; align-items: center; gap: 12px; animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-left: 4px solid var(--brand); font-weight: 500;
-        }
-
+        
         /* --- LAYOUT --- */
         #app-wrapper { display: flex; min-height: 100vh; }
+        
         .sidebar { 
             width: var(--sidebar-width); background: var(--sidebar-bg); color: white; 
             position: fixed; height: 100vh; left: 0; top: 0; z-index: 1000;
-            transition: all 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        .sidebar-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999;
+            display: none; backdrop-filter: blur(4px);
+        }
+
         .main-container { 
             flex: 1; margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); 
             min-height: 100vh; transition: all 0.3s ease;
         }
+
         header { 
             height: 72px; background: var(--glass); backdrop-filter: blur(12px); 
             position: sticky; top: 0; z-index: 900; border-bottom: 1px solid var(--border);
@@ -61,364 +59,369 @@
         }
 
         /* --- NAVIGATION --- */
-        .nav-list { list-style: none; padding: 2rem 1rem; }
+        .nav-list { list-style: none; padding: 1.5rem 1rem; }
         .nav-link { 
             padding: 12px 16px; border-radius: var(--radius-md); color: #94a3b8; 
             display: flex; align-items: center; gap: 12px; cursor: pointer; 
-            margin-bottom: 8px; font-weight: 600; transition: 0.2s;
+            margin-bottom: 6px; font-weight: 600; transition: 0.2s;
         }
         .nav-link:hover { color: white; background: rgba(255,255,255,0.05); }
         .nav-link.active { background: var(--brand); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
 
+        /* --- MOBILE OPTIMIZATION --- */
         .mobile-nav { 
             display: none; position: fixed; bottom: 0; left: 0; right: 0; 
-            background: white; border-top: 1px solid var(--border); z-index: 1001; 
-            padding: 12px 1rem; justify-content: space-around;
+            background: white; border-top: 1px solid var(--border); z-index: 998; 
+            padding: 10px 1rem; justify-content: space-around;
         }
-        .mobile-item { display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; color: var(--text-muted); cursor: pointer; font-weight: 600; }
-        .mobile-item.active { color: var(--brand); }
+        
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-overlay.show { display: block; }
+            .main-container { margin-left: 0; width: 100%; padding-bottom: 80px; }
+            .mobile-nav { display: flex; }
+            header { padding: 0 1rem; }
+            .desktop-only { display: none; }
+        }
 
         /* --- COMPONENTS --- */
         .card { background: white; border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 1.5rem; animation: fadeIn 0.4s ease; }
         .btn { 
-            padding: 10px 20px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; 
+            padding: 10px 18px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; 
             display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; transition: 0.2s;
         }
         .btn-primary { background: var(--brand); color: white; }
-        .btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); }
         .btn-ghost { background: #f8fafc; color: var(--text-muted); }
-        .btn-ghost:hover { background: var(--border); }
         
-        .badge { padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; }
         .badge-confirmed { background: #ecfdf5; color: #065f46; }
         .badge-cancelled { background: #fef2f2; color: #991b1b; }
         .badge-completed { background: #eff6ff; color: #1e40af; }
 
         /* --- CALENDAR --- */
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
-        .cal-day { aspect-ratio: 1; background: white; padding: 10px; cursor: pointer; transition: 0.2s; min-height: 80px; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border); border-radius: 12px; overflow: hidden; }
+        .cal-day { aspect-ratio: 1; background: white; padding: 8px; cursor: pointer; min-height: 90px; }
         .cal-day:hover { background: #f0fdf4; }
-        .cal-num { font-weight: 800; font-size: 0.9rem; margin-bottom: 4px; }
-        .cal-dot { width: 6px; height: 6px; background: var(--brand); border-radius: 50%; display: inline-block; margin-right: 2px; }
+        .cal-num { font-weight: 800; font-size: 0.85rem; margin-bottom: 4px; }
 
         /* --- TABLES --- */
-        .table-wrap { overflow-x: auto; border-radius: var(--radius-md); }
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th { padding: 16px; background: #f8fafc; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid var(--border); }
-        td { padding: 16px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th { padding: 16px; background: #f8fafc; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid var(--border); text-align: left;}
+        td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
 
         /* --- MODAL --- */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 1rem; }
-        .modal-body { background: white; border-radius: 24px; width: 100%; max-width: 750px; max-height: 90vh; overflow-y: auto; padding: 2.5rem; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 1rem; }
+        .modal-body { background: white; border-radius: 20px; width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; padding: 2rem; position: relative; }
 
-        @media (max-width: 1024px) {
-            .sidebar { transform: translateX(-100%); }
-            .main-container { margin-left: 0; width: 100%; padding-bottom: 90px; }
-            .mobile-nav { display: flex; }
-            header { padding: 0 1.25rem; }
+        /* PRINT STYLE */
+        @media print {
+            .sidebar, .mobile-nav, header, .btn, .no-print { display: none !important; }
+            .main-container { margin: 0; padding: 0; width: 100%; }
+            .card { border: none; box-shadow: none; }
         }
     </style>
 </head>
 <body>
 
-    <div id="toast-container"></div>
+    <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="UI.toggleSidebar()"></div>
 
-    <div id="page-auth" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0f172a; position: relative;">
-        <div style="position: absolute; width: 300px; height: 300px; background: var(--brand); filter: blur(120px); opacity: 0.15;"></div>
-        <div class="card" style="width: 100%; max-width: 420px; text-align: center; padding: 3rem; z-index: 2; border: none;">
-            <div style="margin-bottom: 2.5rem;">
-                <h1 style="font-weight: 900; letter-spacing: -1.5px; font-size: 2.2rem;">Reserva<span style="color: var(--brand);">Hub</span></h1>
-                <p style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Luxury Reservation Suite v4.2</p>
-            </div>
+    <div id="page-auth" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0f172a;">
+        <div class="card" style="width: 100%; max-width: 400px; text-align: center; padding: 3rem; border: none;">
+            <h1 style="font-weight: 900; letter-spacing: -1.5px; font-size: 2rem; margin-bottom: 2rem;">Reserva<span style="color: var(--brand);">Hub</span></h1>
             <form id="form-login">
-                <div style="text-align: left; margin-bottom: 1.2rem;">
-                    <label style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Administrator Email</label>
-                    <input type="email" id="login-email" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" value="admin@demo.local">
-                </div>
-                <div style="text-align: left; margin-bottom: 2rem;">
-                    <label style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Security Password</label>
-                    <input type="password" id="login-pass" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" value="admin123">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; height: 52px; font-size: 1rem;">Access Dashboard</button>
+                <input type="email" id="login-email" class="btn btn-ghost" style="width:100%; margin-bottom:1rem; border:1px solid var(--border);" value="admin@demo.local">
+                <input type="password" id="login-pass" class="btn btn-ghost" style="width:100%; margin-bottom:2rem; border:1px solid var(--border);" value="admin123">
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; height: 50px;">Login Executive</button>
             </form>
         </div>
     </div>
 
     <div id="app-wrapper" style="display: none;">
-        <aside class="sidebar">
-            <div style="padding: 2.5rem 2rem;">
-                <h2 style="font-weight: 900; letter-spacing: -1px;">RH <span style="color: var(--brand);">ELITE</span></h2>
+        <aside class="sidebar" id="main-sidebar">
+            <div style="padding: 2rem;">
+                <h2 style="font-weight: 900; color: white;">RH <span style="color: var(--brand);">ELITE</span></h2>
             </div>
             <nav class="nav-list">
-                <div class="nav-link active" onclick="Router.go('dashboard')"><i class="fas fa-grid-2"></i> Dashboard</div>
-                <div class="nav-link" onclick="Router.go('calendar')"><i class="fas fa-calendar-day"></i> Calendar View</div>
-                <div class="nav-link" onclick="Router.go('reservations')"><i class="fas fa-list-check"></i> Master Data</div>
-                <div class="nav-link" onclick="Router.go('analytics')"><i class="fas fa-brain-circuit"></i> AI Analytics</div>
+                <div class="nav-link active" onclick="Router.go('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</div>
+                <div class="nav-link" onclick="Router.go('calendar')"><i class="fas fa-calendar-alt"></i> Penjadwalan</div>
+                <div class="nav-link" onclick="Router.go('reservations')"><i class="fas fa-database"></i> Database</div>
+                <div class="nav-link" onclick="Router.go('analytics')"><i class="fas fa-microchip"></i> Analytics AI</div>
             </nav>
-            <div style="position: absolute; bottom: 30px; width: 100%; padding: 0 1.5rem;">
-                <button onclick="Auth.logout()" class="btn btn-ghost" style="color:#ef4444; width:100%; justify-content: flex-start; background: rgba(239, 68, 68, 0.05); border: none;">
-                    <i class="fas fa-sign-out-alt"></i> Sign Out
+            <div style="position: absolute; bottom: 20px; width: 100%; padding: 0 1rem;">
+                <button onclick="Auth.logout()" class="btn btn-ghost" style="width:100%; color: var(--danger); background: rgba(239,68,68,0.1); border:none;">
+                    <i class="fas fa-power-off"></i> Keluar Sistem
                 </button>
             </div>
         </aside>
 
         <div class="main-container">
             <header>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <i class="fas fa-bars-staggered" style="font-size: 1.2rem; color: var(--text-muted); cursor: pointer;"></i>
-                    <h3 id="view-title" style="font-weight: 800; font-size: 1.2rem;">Executive Overview</h3>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <i class="fas fa-bars-staggered" style="font-size: 1.2rem; cursor: pointer;" onclick="UI.toggleSidebar()"></i>
+                    <h3 id="view-title" style="font-weight: 800;">Dashboard</h3>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="text-align: right;" class="desktop-only">
-                        <p style="font-weight: 800; font-size: 0.85rem;">System Admin</p>
-                        <p style="font-size: 0.7rem; color: var(--brand); font-weight: 700;">Verified Access</p>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="desktop-only" style="text-align: right;">
+                        <p style="font-weight: 800; font-size: 0.8rem;">Administrator</p>
+                        <p style="font-size: 0.65rem; color: var(--brand); font-weight: 700;">Verified Elite Access</p>
                     </div>
-                    <img src="https://ui-avatars.com/api/?name=Admin&background=10b981&color=fff&bold=true" style="width: 44px; height: 44px; border-radius: 14px; border: 2px solid white; box-shadow: var(--shadow-sm);">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=10b981&color=fff&bold=true" style="width: 40px; border-radius: 10px;">
                 </div>
             </header>
 
-            <div id="render-target" style="padding: 2rem;"></div>
+            <main id="render-target" style="padding: 1.5rem;"></main>
         </div>
 
         <nav class="mobile-nav">
-            <div class="mobile-item active" onclick="Router.go('dashboard')"><i class="fas fa-house"></i>Home</div>
-            <div class="mobile-item" onclick="Router.go('calendar')"><i class="fas fa-calendar-alt"></i>Book</div>
-            <div class="mobile-item" onclick="Router.go('reservations')"><i class="fas fa-database"></i>Data</div>
-            <div class="mobile-item" onclick="Router.go('analytics')"><i class="fas fa-chart-line"></i>Stats</div>
+            <div class="mobile-item" onclick="Router.go('dashboard')"><i class="fas fa-home"></i></div>
+            <div class="mobile-item" onclick="Router.go('calendar')"><i class="fas fa-calendar"></i></div>
+            <div class="mobile-item" onclick="Router.go('reservations')"><i class="fas fa-list"></i></div>
+            <div class="mobile-item" onclick="Router.go('analytics')"><i class="fas fa-brain"></i></div>
         </nav>
     </div>
 
     <div id="modal-res" class="modal-overlay">
         <div class="modal-body">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5rem;">
-                <h3 id="modal-title" style="font-weight: 900; font-size: 1.5rem;">Booking Entry</h3>
-                <button onclick="UI.closeModal()" style="background:none; border:none; font-size:1.8rem; cursor:pointer; color: var(--text-muted);">&times;</button>
+            <div style="display:flex; justify-content:space-between; margin-bottom:2rem;">
+                <h3 id="modal-title" style="font-weight: 900;">Reservasi Baru</h3>
+                <i class="fas fa-times" onclick="UI.closeModal()" style="cursor:pointer; color:var(--text-muted);"></i>
             </div>
             <form id="form-res">
                 <input type="hidden" id="res-id">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Guest Full Name</label>
-                         <input type="text" id="res-name" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" required></div>
-                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">WhatsApp Number</label>
-                         <input type="tel" id="res-phone" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" placeholder="62812..." required></div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">NAMA GUEST</label>
+                         <input type="text" id="res-name" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border);" required></div>
+                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">WHATSAPP (62...)</label>
+                         <input type="tel" id="res-phone" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border);" required></div>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Booking Date</label>
-                         <input type="date" id="res-date" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" required></div>
-                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Arrival Time</label>
-                         <input type="time" id="res-time" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" required></div>
-                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Total Pax</label>
-                         <input type="number" id="res-pax" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" min="1" required></div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">TANGGAL</label>
+                         <input type="date" id="res-date" class="btn btn-ghost" style="width:100%; border:1px solid var(--border);" required></div>
+                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">WAKTU</label>
+                         <input type="time" id="res-time" class="btn btn-ghost" style="width:100%; border:1px solid var(--border);" required></div>
+                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">PAX</label>
+                         <input type="number" id="res-pax" class="btn btn-ghost" style="width:100%; border:1px solid var(--border);" min="1" required></div>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Preferred Area</label>
-                         <select id="res-loc" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;"></select></div>
-                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Current Status</label>
-                         <select id="res-status" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">AREA</label>
+                         <select id="res-loc" class="btn btn-ghost" style="width:100%; border:1px solid var(--border);"></select></div>
+                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">STATUS</label>
+                         <select id="res-status" class="btn btn-ghost" style="width:100%; border:1px solid var(--border);">
                             <option value="confirmed">Confirmed</option>
                             <option value="completed">Completed</option>
                             <option value="cancelled">Cancelled</option>
                          </select></div>
                 </div>
-                <div style="background:#f1f5f9; padding:1.5rem; border-radius:16px; margin-bottom:2rem; border: 1px dashed var(--border);">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem;">
-                        <span style="font-weight:800; font-size:0.9rem;">Pre-Ordered Menu</span>
-                        <button type="button" class="btn btn-primary" style="padding:6px 14px; font-size:0.75rem;" onclick="App.addMenuRow()">+ Add Item</button>
+                
+                <div style="background:#f8fafc; padding:1.2rem; border-radius:12px; margin-bottom:1.5rem;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+                        <span style="font-weight:800; font-size:0.8rem;">Pre-Order Menu</span>
+                        <button type="button" class="btn btn-primary" style="padding:4px 10px; font-size:0.7rem;" onclick="App.addMenuRow()">+ Item</button>
                     </div>
                     <div id="menu-container"></div>
-                    <div style="text-align:right; font-weight:900; padding-top:15px; border-top:1px solid var(--border); font-size: 1.1rem;">
-                        Subtotal: <span id="bill-label" style="color: var(--brand);">Rp 0</span>
+                    <div style="border-top:1px solid var(--border); padding-top:10px; font-size:0.8rem;">
+                        <div style="display:flex; justify-content:space-between; color:var(--text-muted);"><span>Subtotal:</span> <span id="label-sub">Rp 0</span></div>
+                        <div style="display:flex; justify-content:space-between; color:var(--text-muted);"><span>Tax (11%) & Service (5%):</span> <span id="label-tax">Rp 0</span></div>
+                        <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1rem; margin-top:5px; color:var(--brand);"><span>Grand Total:</span> <span id="label-total">Rp 0</span></div>
                     </div>
                 </div>
-                <div style="display:flex; justify-content:flex-end; gap:12px;">
-                    <button type="button" class="btn btn-ghost" style="padding: 12px 24px;" onclick="UI.closeModal()">Dismiss</button>
-                    <button type="submit" class="btn btn-primary" style="padding: 12px 32px;">Save Changes</button>
+
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button type="button" class="btn btn-ghost" onclick="UI.closeModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Reservasi</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        /** 1. UTILS (Business Logic & Formatting) **/
+        /** LOGIC & UTILS **/
         const Utils = {
+            formatIDR: (v) => "Rp " + Math.floor(v).toLocaleString('id-ID'),
             toast(msg) {
-                const container = document.getElementById('toast-container');
                 const t = document.createElement('div');
-                t.className = 'toast';
-                t.innerHTML = `<i class="fas fa-shield-check" style="font-size:1.2rem;"></i> ${msg}`;
-                container.appendChild(t);
+                t.style = "background: #0f172a; color: white; padding: 12px 20px; border-radius: 10px; margin-bottom: 10px; font-size: 0.85rem; font-weight: 600; box-shadow: 0 10px 15px rgba(0,0,0,0.2); animation: fadeIn 0.3s ease;";
+                t.innerHTML = `<i class="fas fa-check-circle" style="color:var(--brand); margin-right:8px;"></i> ${msg}`;
+                document.getElementById('toast-container').appendChild(t);
                 setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
-            },
-            formatIDR: (v) => "Rp " + new Number(v).toLocaleString('id-ID'),
-            timeDiff: (t1, t2) => {
-                const [h1, m1] = t1.split(':').map(Number);
-                const [h2, m2] = t2.split(':').map(Number);
-                return Math.abs((h1 + m1/60) - (h2 + m2/60));
             }
         };
 
-        /** 2. DATABASE (Persistence Layer) **/
         const DB = {
             init() {
-                const schema = {
-                    reservations: [],
-                    menus: [
-                        {id:1, name:'Wagyu Steak Prime', price:450000},
-                        {id:2, name:'Atlantic Lobster', price:750000},
-                        {id:3, name:'Veuve Clicquot Champagne', price:1850000},
-                        {id:4, name:'Truffle Pasta', price:285000}
-                    ],
-                    locations: [
-                        {id:1, name:'Diamond VIP Box', cap:8},
-                        {id:2, name:'Grand Ballroom', cap:120},
-                        {id:3, name:'Sky Deck Terrace', cap:45}
-                    ]
-                };
-                Object.entries(schema).forEach(([k, v]) => {
-                    if(!localStorage.getItem(k)) localStorage.setItem(k, JSON.stringify(v));
-                });
+                if(!localStorage.getItem('rh_reservations')) localStorage.setItem('rh_reservations', JSON.stringify([]));
+                if(!localStorage.getItem('rh_menus')) localStorage.setItem('rh_menus', JSON.stringify([
+                    {name: 'Wagyu Steak Prime', price: 450000},
+                    {name: 'Atlantic Lobster', price: 750000},
+                    {name: 'Premium Champagne', price: 1850000},
+                    {name: 'Truffle Pasta', price: 285000}
+                ]));
+                if(!localStorage.getItem('rh_locations')) localStorage.setItem('rh_locations', JSON.stringify([
+                    {name: 'Diamond VIP Box', cap: 8},
+                    {name: 'Sky Deck Terrace', cap: 45},
+                    {name: 'Grand Ballroom', cap: 120}
+                ]));
             },
-            get: (k) => JSON.parse(localStorage.getItem(k)) || [],
-            set: (k, v) => localStorage.setItem(k, JSON.stringify(v))
+            get: (k) => JSON.parse(localStorage.getItem('rh_'+k)),
+            set: (k, v) => localStorage.setItem('rh_'+k, JSON.stringify(v))
         };
 
-        /** 3. CORE APPLICATION (Logic & Validation) **/
         const App = {
-            save(e) {
-                e.preventDefault();
-                const resList = DB.get('reservations');
-                const id = document.getElementById('res-id').value || Date.now().toString();
-                const date = document.getElementById('res-date').value;
-                const time = document.getElementById('res-time').value;
-                const loc = document.getElementById('res-loc').value;
-                const pax = parseInt(document.getElementById('res-pax').value);
+            calcTotal() {
+                let subtotal = 0;
+                document.querySelectorAll('.m-row').forEach(row => {
+                    const price = row.querySelector('.m-name').selectedOptions[0].dataset.price;
+                    const qty = row.querySelector('.m-qty').value;
+                    subtotal += price * qty;
+                });
+                const taxService = subtotal * 0.16; // 11% tax + 5% service
+                const grandTotal = subtotal + taxService;
 
-                // COMPLEX VALIDATION: Time Window Occupancy
-                const locObj = DB.get('locations').find(l => l.name === loc);
-                const occupancy = resList
-                    .filter(r => r.id !== id && r.date === date && r.location === loc && r.status !== 'cancelled' && Utils.timeDiff(r.time, time) < 2)
-                    .reduce((sum, r) => sum + parseInt(r.pax), 0);
-
-                if (occupancy + pax > locObj.cap) {
-                    return alert(`Overcapacity Warning!\n\nArea ${loc} has ${occupancy} active pax within 2 hours of ${time}. Remaining capacity is only ${locObj.cap - occupancy}.`);
-                }
-
-                const menus = [...document.querySelectorAll('.m-row')].map(row => ({
-                    name: row.querySelector('.m-name').value,
-                    price: parseInt(row.querySelector('.m-name').selectedOptions[0].dataset.p),
-                    qty: parseInt(row.querySelector('.m-qty').value)
-                }));
-
-                const data = {
-                    id, date, time, pax, location: loc,
-                    customer: document.getElementById('res-name').value,
-                    phone: document.getElementById('res-phone').value,
-                    status: document.getElementById('res-status').value,
-                    menus, total: menus.reduce((s, m) => s + (m.price * m.qty), 0),
-                    updatedAt: new Date().toISOString()
-                };
-
-                const idx = resList.findIndex(r => r.id === id);
-                if (idx > -1) resList[idx] = data; else resList.push(data);
-
-                DB.set('reservations', resList);
-                UI.closeModal();
-                Utils.toast("Database updated successfully.");
-                Router.go('reservations');
+                document.getElementById('label-sub').innerText = Utils.formatIDR(subtotal);
+                document.getElementById('label-tax').innerText = Utils.formatIDR(taxService);
+                document.getElementById('label-total').innerText = Utils.formatIDR(grandTotal);
+                return { subtotal, grandTotal };
             },
             addMenuRow(name = '', qty = 1) {
                 const container = document.getElementById('menu-container');
                 const menus = DB.get('menus');
-                const row = document.createElement('div');
-                row.className = 'm-row';
-                row.style = "display:grid; grid-template-columns: 1fr 80px 40px; gap:10px; margin-bottom:10px;";
-                row.innerHTML = `
-                    <select class="m-name btn btn-ghost" style="text-align:left; border:1px solid var(--border); font-size:0.8rem;" onchange="App.calcTotal()">
-                        ${menus.map(m => `<option value="${m.name}" data-p="${m.price}" ${m.name===name?'selected':''}>${m.name} (@${m.price/1000}k)</option>`).join('')}
+                const div = document.createElement('div');
+                div.className = 'm-row';
+                div.style = "display:grid; grid-template-columns: 1fr 70px 30px; gap:8px; margin-bottom:8px;";
+                div.innerHTML = `
+                    <select class="m-name btn btn-ghost" style="text-align:left; border:1px solid var(--border); font-size:0.75rem;" onchange="App.calcTotal()">
+                        ${menus.map(m => `<option value="${m.name}" data-price="${m.price}" ${m.name===name?'selected':''}>${m.name} (${Utils.formatIDR(m.price)})</option>`).join('')}
                     </select>
-                    <input type="number" class="m-qty btn btn-ghost" value="${qty}" min="1" style="border:1px solid var(--border); font-size:0.8rem;" onchange="App.calcTotal()">
-                    <button type="button" class="btn btn-ghost" onclick="this.parentElement.remove(); App.calcTotal()" style="color:var(--danger); border:none;">&times;</button>
+                    <input type="number" class="m-qty btn btn-ghost" value="${qty}" min="1" style="border:1px solid var(--border); font-size:0.75rem;" onchange="App.calcTotal()">
+                    <i class="fas fa-trash" style="color:var(--danger); cursor:pointer; align-self:center;" onclick="this.parentElement.remove(); App.calcTotal()"></i>
                 `;
-                container.appendChild(row);
+                container.appendChild(div);
                 App.calcTotal();
             },
-            calcTotal() {
-                let total = 0;
-                document.querySelectorAll('.m-row').forEach(row => {
-                    total += row.querySelector('.m-name').selectedOptions[0].dataset.p * row.querySelector('.m-qty').value;
-                });
-                document.getElementById('bill-label').innerText = Utils.formatIDR(total);
-                return total;
+            save(e) {
+                e.preventDefault();
+                const id = document.getElementById('res-id').value || Date.now().toString();
+                const { grandTotal } = App.calcTotal();
+                
+                const entry = {
+                    id,
+                    customer: document.getElementById('res-name').value,
+                    phone: document.getElementById('res-phone').value,
+                    date: document.getElementById('res-date').value,
+                    time: document.getElementById('res-time').value,
+                    pax: document.getElementById('res-pax').value,
+                    location: document.getElementById('res-loc').value,
+                    status: document.getElementById('res-status').value,
+                    total: grandTotal,
+                    menus: [...document.querySelectorAll('.m-row')].map(r => ({
+                        name: r.querySelector('.m-name').value,
+                        qty: r.querySelector('.m-qty').value,
+                        price: r.querySelector('.m-name').selectedOptions[0].dataset.price
+                    }))
+                };
+
+                let data = DB.get('reservations');
+                const idx = data.findIndex(r => r.id === id);
+                if(idx > -1) data[idx] = entry; else data.push(entry);
+                
+                DB.set('reservations', data);
+                UI.closeModal();
+                Utils.toast("Database Berhasil Diperbarui");
+                Router.go('reservations');
             }
         };
 
-        /** 4. NAVIGATION & ROUTING **/
         const Router = {
             go(page) {
-                document.querySelectorAll('.nav-link, .mobile-item').forEach(el => el.classList.remove('active'));
-                document.querySelectorAll(`[onclick="Router.go('${page}')"]`).forEach(el => el.classList.add('active'));
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                const activeLink = document.querySelector(`[onclick="Router.go('${page}')"]`);
+                if(activeLink) activeLink.classList.add('active');
                 UI.render(page);
-                window.scrollTo(0,0);
+                if(window.innerWidth <= 1024) UI.toggleSidebar(false);
             }
         };
 
-        /** 5. UI RENDERING (Master View Control) **/
         const UI = {
+            toggleSidebar(force) {
+                const sb = document.getElementById('main-sidebar');
+                const ov = document.getElementById('sidebar-overlay');
+                if(force === false) {
+                    sb.classList.remove('open'); ov.classList.remove('show');
+                } else {
+                    sb.classList.toggle('open'); ov.classList.toggle('show');
+                }
+            },
             render(page) {
                 const target = document.getElementById('render-target');
-                const title = document.getElementById('view-title');
                 const data = DB.get('reservations');
+                const validData = data.filter(r => r.status !== 'cancelled');
 
-                if (page === 'dashboard') {
-                    title.innerText = "Executive Overview";
-                    const totalRevenue = data.filter(r=>r.status!=='cancelled').reduce((s,r)=>s+r.total, 0);
-                    const totalGuests = data.filter(r=>r.status!=='cancelled').reduce((s,r)=>s+parseInt(r.pax), 0);
+                if(page === 'dashboard') {
+                    const revenue = validData.reduce((s, r) => s + r.total, 0);
+                    const guests = validData.reduce((s, r) => s + parseInt(r.pax), 0);
                     target.innerHTML = `
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1.5rem; margin-bottom:2rem;">
-                            <div class="card"><p style="color:var(--text-muted); font-size:0.75rem; font-weight:800; text-transform:uppercase; margin-bottom:8px;">Estimated Revenue</p><h2 style="font-size:1.8rem;">${Utils.formatIDR(totalRevenue)}</h2></div>
-                            <div class="card"><p style="color:var(--text-muted); font-size:0.75rem; font-weight:800; text-transform:uppercase; margin-bottom:8px;">Total Guest Count</p><h2 style="font-size:1.8rem;">${totalGuests} <small style="font-size:0.8rem; font-weight:500;">Pax</small></h2></div>
-                            <div class="card"><p style="color:var(--text-muted); font-size:0.75rem; font-weight:800; text-transform:uppercase; margin-bottom:8px;">Active Bookings</p><h2 style="font-size:1.8rem;">${data.filter(r=>r.status==='confirmed').length}</h2></div>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem; margin-bottom:1.5rem;">
+                            <div class="card"><p style="font-size:0.7rem; font-weight:800; color:var(--text-muted);">TOTAL REVENUE</p><h2>${Utils.formatIDR(revenue)}</h2></div>
+                            <div class="card"><p style="font-size:0.7rem; font-weight:800; color:var(--text-muted);">TOTAL GUESTS</p><h2>${guests} Pax</h2></div>
+                            <div class="card"><p style="font-size:0.7rem; font-weight:800; color:var(--text-muted);">AVG. SPEND / GUEST</p><h2>${guests > 0 ? Utils.formatIDR(revenue/guests) : 'Rp 0'}</h2></div>
                         </div>
                         <div class="card">
-                            <h3 style="margin-bottom:1.5rem; font-weight:800;">Revenue Performance (Last 7 Days)</h3>
-                            <canvas id="chart-rev" height="100"></canvas>
+                            <h3 style="margin-bottom:1rem;">Revenue Tracking</h3>
+                            <canvas id="chart-main" height="100"></canvas>
                         </div>
                     `;
-                    this.initChart(data);
+                    this.initChart(validData.slice(-7));
                 }
 
-                if (page === 'calendar') {
-                    title.innerText = "Booking Schedule";
-                    this.renderCalendar(target, data);
+                if(page === 'calendar') {
+                    const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+                    const now = new Date();
+                    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
+                    const lastDate = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+
+                    let html = `<div class="card">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem;">
+                            <h3>${now.toLocaleString('id-ID', {month:'long', year:'numeric'})}</h3>
+                            <button class="btn btn-primary" onclick="UI.openModal()">+ Booking Baru</button>
+                        </div>
+                        <div class="cal-grid">`;
+                    days.forEach(d => html += `<div style="text-align:center; padding:10px; font-weight:800; font-size:0.7rem; color:var(--text-muted); background:#f8fafc;">${d}</div>`);
+                    for(let i=0; i<firstDay; i++) html += `<div class="cal-day" style="background:#f1f5f9;"></div>`;
+                    for(let d=1; d<=lastDate; d++) {
+                        const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                        const count = data.filter(r => r.date === dateStr && r.status !== 'cancelled').length;
+                        html += `<div class="cal-day" onclick="UI.openModal('${dateStr}')">
+                            <div class="cal-num">${d}</div>
+                            ${count > 0 ? `<div style="background:var(--brand); color:white; font-size:0.6rem; padding:2px 5px; border-radius:4px;">${count} Booking</div>` : ''}
+                        </div>`;
+                    }
+                    target.innerHTML = html + `</div></div>`;
                 }
 
-                if (page === 'reservations') {
-                    title.innerText = "Reservation Database";
+                if(page === 'reservations') {
                     target.innerHTML = `
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-                            <div style="position:relative; width:100%; max-width:350px;">
-                                <i class="fas fa-search" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--text-muted);"></i>
-                                <input type="text" placeholder="Search customer or phone..." class="btn btn-ghost" style="width:100%; border:1px solid var(--border); padding-left:45px; text-align:left;" onkeyup="UI.filterTable(this.value)">
-                            </div>
-                            <button onclick="UI.openModal()" class="btn btn-primary" style="box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);">+ Add Reservation</button>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:1rem; align-items:center;">
+                            <input type="text" placeholder="Cari Nama / WhatsApp..." class="btn btn-ghost" style="border:1px solid var(--border); width:250px;" onkeyup="UI.filter(this.value)">
+                            <button class="btn btn-primary" onclick="UI.openModal()">+ Entry Baru</button>
                         </div>
                         <div class="card table-wrap" style="padding:0;">
                             <table>
-                                <thead>
-                                    <tr><th>Customer</th><th>Schedule</th><th>Location</th><th>Amount</th><th>Status</th><th>Actions</th></tr>
-                                </thead>
-                                <tbody id="res-table-body">
+                                <thead><tr><th>Guest</th><th>Jadwal</th><th>Area</th><th>Total Bil</th><th>Status</th><th>Actions</th></tr></thead>
+                                <tbody id="table-body">
                                     ${data.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(r => `
                                         <tr>
-                                            <td><div style="font-weight:800;">${r.customer}</div><div style="font-size:0.75rem; color:var(--text-muted);">${r.phone}</div></td>
-                                            <td><div style="font-weight:600;">${r.date}</div><div style="font-size:0.75rem;">${r.time}</div></td>
-                                            <td style="font-weight:600;">${r.location}</td>
-                                            <td style="font-weight:800; color:var(--brand);">${Utils.formatIDR(r.total)}</td>
+                                            <td><b>${r.customer}</b><br><small>${r.phone}</small></td>
+                                            <td>${r.date}<br><small>${r.time}</small></td>
+                                            <td>${r.location}</td>
+                                            <td style="color:var(--brand); font-weight:800;">${Utils.formatIDR(r.total)}</td>
                                             <td><span class="badge badge-${r.status}">${r.status}</span></td>
                                             <td>
-                                                <button onclick="UI.editEntry('${r.id}')" class="btn btn-ghost" style="color:var(--brand); padding:8px;"><i class="fas fa-pen-to-square"></i></button>
-                                                <button onclick="UI.sendWA('${r.id}')" class="btn btn-ghost" style="color:#25d366; padding:8px;"><i class="fab fa-whatsapp"></i></button>
-                                                <button onclick="UI.deleteEntry('${r.id}')" class="btn btn-ghost" style="color:#ef4444; padding:8px;"><i class="fas fa-trash-can"></i></button>
+                                                <button onclick="UI.edit('${r.id}')" class="btn btn-ghost" style="padding:5px 8px;"><i class="fas fa-edit"></i></button>
+                                                <button onclick="UI.print('${r.id}')" class="btn btn-ghost" style="padding:5px 8px;"><i class="fas fa-print"></i></button>
+                                                <button onclick="UI.delete('${r.id}')" class="btn btn-ghost" style="padding:5px 8px; color:var(--danger);"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     `).join('')}
@@ -428,92 +431,48 @@
                     `;
                 }
 
-                if (page === 'analytics') {
-                    title.innerText = "Strategic Insights";
-                    this.renderAnalytics(target, data);
-                }
-            },
-            renderCalendar(target, data) {
-                const now = new Date();
-                const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-                const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
-                
-                let html = `<div class="card"><div style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center;">
-                    <h3 style="font-weight:900;">${now.toLocaleString('id-ID', {month:'long', year:'numeric'})}</h3>
-                    <div style="display:flex; gap:8px;"><div class="badge badge-confirmed">Confirmed</div></div>
-                </div><div class="cal-grid">`;
-                
-                ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => html += `<div style="text-align:center; padding:12px; font-weight:800; font-size:0.7rem; background:#f8fafc; color:var(--text-muted);">${d}</div>`);
-                for(let i=0; i<firstDay; i++) html += `<div class="cal-day" style="background:#f1f5f9; cursor:default;"></div>`;
-                
-                for(let d=1; d<=daysInMonth; d++) {
-                    const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-                    const items = data.filter(r => r.date === dateStr && r.status !== 'cancelled');
-                    html += `
-                        <div class="cal-day" onclick="UI.openModal('${dateStr}')">
-                            <div class="cal-num">${d}</div>
-                            ${items.slice(0, 2).map(item => `<div style="font-size:0.6rem; background:var(--brand); color:white; padding:2px 4px; border-radius:3px; margin-bottom:2px; white-space:nowrap; overflow:hidden;">${item.customer.split(' ')[0]}</div>`).join('')}
-                            ${items.length > 2 ? `<div style="font-size:0.6rem; font-weight:800; color:var(--text-muted);">+${items.length-2} others</div>` : ''}
+                if(page === 'analytics') {
+                    const cancels = data.filter(r => r.status === 'cancelled').length;
+                    const rate = data.length > 0 ? ((cancels / data.length) * 100).toFixed(1) : 0;
+                    target.innerHTML = `
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+                            <div class="card"><h3>Cancellation Rate</h3><h2 style="color:var(--danger);">${rate}%</h2></div>
+                            <div class="card"><h3>Peak Hour</h3><h2>${this.getPeakHour(validData)}</h2></div>
+                        </div>
+                        <div class="card" style="border-left:5px solid var(--brand);">
+                            <h3 style="margin-bottom:1rem;"><i class="fas fa-robot"></i> Strategic Recommendation</h3>
+                            <p>Berdasarkan data, rata-rata pengeluaran tamu Anda adalah <b>${Utils.formatIDR(validData.reduce((s,r)=>s+r.total,0)/validData.reduce((s,r)=>s+parseInt(r.pax),0)||0)}</b>. 
+                            Gunakan data ini untuk mengatur <i>Minimum Spend</i> pada area <b>Diamond VIP Box</b> guna memaksimalkan profit.</p>
                         </div>
                     `;
                 }
-                target.innerHTML = html + `</div></div>`;
             },
-            renderAnalytics(target, data) {
-                const validData = data.filter(r => r.status !== 'cancelled');
-                if(!validData.length) return target.innerHTML = `<div class="card">Insufficient data for analysis.</div>`;
-
-                // LOGIC: Repeat Rate
-                const phoneFreq = {}; validData.forEach(r => phoneFreq[r.phone] = (phoneFreq[r.phone] || 0) + 1);
-                const repeats = Object.values(phoneFreq).filter(v => v > 1).length;
-
-                // LOGIC: Peak Hour
-                const hourMap = {}; validData.forEach(r => { const h = r.time.split(':')[0]; hourMap[h] = (hourMap[h] || 0) + 1; });
-                const peakHour = Object.keys(hourMap).length ? Object.keys(hourMap).reduce((a, b) => hourMap[a] > hourMap[b] ? a : b) + ":00" : "N/A";
-
-                target.innerHTML = `
-                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:1.5rem; margin-bottom:2rem;">
-                        <div class="card"><h3>Guest Retention</h3><h2 style="color:var(--brand); font-size:2.5rem; letter-spacing:-2px;">${repeats} <small style="font-size:1rem; color:var(--text-muted);">Returning Guests</small></h2></div>
-                        <div class="card"><h3>Peak Operating Hour</h3><h2 style="color:var(--brand); font-size:2.5rem; letter-spacing:-2px;">${peakHour}</h2></div>
-                    </div>
-                    <div class="card" style="border-left:6px solid var(--brand); background: linear-gradient(to right, #f0fdf4, white);">
-                        <h3 style="display:flex; align-items:center; gap:10px;"><i class="fas fa-robot"></i> AI Strategic Advisory</h3>
-                        <p style="margin-top:1.2rem; font-size:1rem; line-height:1.8; color:var(--text-main);">
-                            Analysis indicates that <strong>${peakHour}</strong> is your critical window. To optimize revenue, consider implementing a 
-                            <em>Premium Booking Fee</em> or <em>Time-Limit Policy</em> during this period. Your retention rate of <strong>${repeats}</strong> 
-                            loyalists suggests a "VIP Reward Program" could increase monthly revenue by approx 12-15%.
-                        </p>
-                    </div>
-                `;
+            getPeakHour(data) {
+                const counts = {};
+                data.forEach(r => { const h = r.time.split(':')[0]; counts[h] = (counts[h]||0)+1; });
+                return Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b, 'N/A') + ":00";
             },
             initChart(data) {
-                const ctx = document.getElementById('chart-rev').getContext('2d');
-                const last7 = data.filter(r=>r.status!=='cancelled').slice(-7);
+                const ctx = document.getElementById('chart-main');
+                if(!ctx) return;
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: last7.map(r => r.date),
-                        datasets: [{ 
-                            label: 'Revenue', 
-                            data: last7.map(r => r.total), 
-                            borderColor: '#10b981', 
-                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                            fill: true, tension: 0.4, borderWidth: 3, pointRadius: 5
-                        }]
+                        labels: data.map(r => r.date),
+                        datasets: [{ label: 'Revenue', data: data.map(r => r.total), borderColor: '#10b981', tension: 0.4, fill: true, backgroundColor: 'rgba(16,185,129,0.1)' }]
                     },
-                    options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+                    options: { plugins: { legend: { display: false } } }
                 });
             },
             openModal(date = '', editObj = null) {
                 document.getElementById('form-res').reset();
-                document.getElementById('res-id').value = editObj ? editObj.id : '';
                 document.getElementById('menu-container').innerHTML = '';
-                document.getElementById('modal-title').innerText = editObj ? "Modify Reservation" : "Executive Booking Entry";
+                document.getElementById('res-id').value = editObj ? editObj.id : '';
                 
                 const locs = DB.get('locations');
                 document.getElementById('res-loc').innerHTML = locs.map(l => `<option value="${l.name}">${l.name} (Max ${l.cap})</option>`).join('');
                 
-                if (editObj) {
+                if(editObj) {
                     document.getElementById('res-name').value = editObj.customer;
                     document.getElementById('res-phone').value = editObj.phone;
                     document.getElementById('res-date').value = editObj.date;
@@ -524,52 +483,58 @@
                     editObj.menus.forEach(m => App.addMenuRow(m.name, m.qty));
                 } else {
                     document.getElementById('res-date').value = date || new Date().toISOString().split('T')[0];
-                    document.getElementById('res-status').value = 'confirmed';
                     App.addMenuRow();
                 }
                 document.getElementById('modal-res').style.display = 'flex';
             },
             closeModal() { document.getElementById('modal-res').style.display = 'none'; },
-            editEntry(id) {
-                const entry = DB.get('reservations').find(r => r.id === id);
-                this.openModal('', entry);
-            },
-            deleteEntry(id) {
-                if(confirm("Are you sure you want to permanently remove this record?")) {
-                    const res = DB.get('reservations').filter(r => r.id !== id);
-                    DB.set('reservations', res);
-                    Utils.toast("Record deleted.");
+            edit(id) { this.openModal('', DB.get('reservations').find(r => r.id === id)); },
+            delete(id) {
+                if(confirm("Hapus permanen data ini?")) {
+                    const data = DB.get('reservations').filter(r => r.id !== id);
+                    DB.set('reservations', data);
                     this.render('reservations');
                 }
             },
-            filterTable(val) {
+            filter(val) {
                 const q = val.toLowerCase();
-                const rows = document.querySelectorAll('#res-table-body tr');
-                rows.forEach(row => {
-                    const text = row.innerText.toLowerCase();
-                    row.style.display = text.includes(q) ? '' : 'none';
+                document.querySelectorAll('#table-body tr').forEach(row => {
+                    row.style.display = row.innerText.toLowerCase().includes(q) ? '' : 'none';
                 });
             },
-            sendWA(id) {
+            print(id) {
                 const r = DB.get('reservations').find(x => x.id === id);
-                const msg = `Elite Confirmation: Halo ${r.customer}, booking Anda di ${r.location} pada ${r.date} pukul ${r.time} telah terverifikasi. Total: ${Utils.formatIDR(r.total)}.`;
-                window.open(`https://wa.me/${r.phone}?text=${encodeURIComponent(msg)}`, '_blank');
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                    <html><head><title>Invoice ${r.customer}</title>
+                    <style>body{font-family:sans-serif; padding:40px;} .header{text-align:center; border-bottom:2px solid #333; padding-bottom:20px;}
+                    table{width:100%; border-collapse:collapse; margin-top:20px;} th,td{padding:10px; border-bottom:1px solid #eee; text-align:left;}</style></head>
+                    <body>
+                        <div class="header"><h1>ReservaHub Elite</h1><p>Official Booking Invoice</p></div>
+                        <p><b>Guest:</b> ${r.customer} (${r.phone})</p>
+                        <p><b>Schedule:</b> ${r.date} @ ${r.time} | Area: ${r.location}</p>
+                        <table><thead><tr><th>Item</th><th>Qty</th><th>Price</th></tr></thead>
+                        <tbody>${r.menus.map(m=>`<tr><td>${m.name}</td><td>${m.qty}</td><td>${Utils.formatIDR(m.price)}</td></tr>`).join('')}</tbody>
+                        </table>
+                        <h2 style="text-align:right; margin-top:30px;">Total: ${Utils.formatIDR(r.total)}</h2>
+                        <script>window.print();<\/script>
+                    </body></html>
+                `);
             }
         };
 
-        /** 6. AUTHENTICATION (Simplified for Demo) **/
         const Auth = {
-            check: () => sessionStorage.getItem('rh_elite_auth') === 'true',
+            check: () => sessionStorage.getItem('rh_auth') === 'true',
             login(e, p) {
                 if(e === 'admin@demo.local' && p === 'admin123') {
-                    sessionStorage.setItem('rh_elite_auth', 'true');
+                    sessionStorage.setItem('rh_auth', 'true');
                     location.reload();
-                } else alert("Access Denied: Invalid Credentials.");
+                } else alert("Invalid Credentials");
             },
             logout: () => { sessionStorage.clear(); location.reload(); }
         };
 
-        /** 7. INITIALIZATION **/
+        /** INIT **/
         DB.init();
         if(!Auth.check()) {
             document.getElementById('page-auth').style.display = 'flex';
@@ -585,7 +550,6 @@
             Auth.login(document.getElementById('login-email').value, document.getElementById('login-pass').value);
         };
         document.getElementById('form-res').onsubmit = App.save;
-
     </script>
 </body>
 </html>
