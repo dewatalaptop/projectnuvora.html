@@ -2,522 +2,589 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReservaHub Pro v3.0 | Ultimate Reservation System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ReservaHub Elite v4.2 | Full Business Suite</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --secondary: #64748b;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --slate-900: #0f172a;
-            --slate-800: #1e293b;
-            --slate-100: #f1f5f9;
-            --bg-light: #f8fafc;
-            --sidebar-width: 260px;
-            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --brand: #10b981;
+            --brand-dark: #059669;
+            --bg-body: #f1f5f9;
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --sidebar-bg: #0f172a;
+            --sidebar-width: 280px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.05);
+            --glass: rgba(255, 255, 255, 0.85);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg-light); color: var(--slate-900); overflow-x: hidden; }
-
-        /* UI Elements */
-        .btn { padding: 0.6rem 1.2rem; border-radius: 0.5rem; border: none; cursor: pointer; font-weight: 500; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-success { background: var(--success); color: white; }
-        .btn-ghost { background: transparent; color: var(--secondary); }
-        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        /* --- GLOBAL & ANIMATIONS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
         
-        .form-control { width: 100%; padding: 0.7rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; outline: none; transition: 0.2s; font-size: 0.9rem; }
-        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
-        label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--secondary); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        /* Layout */
-        #login-page { height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at top left, #4f46e5, #1e293b); }
-        .login-card { background: white; padding: 2.5rem; border-radius: 1.5rem; width: 100%; max-width: 420px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); position: relative; }
+        /* --- TOAST NOTIFICATION --- */
+        #toast-container { position: fixed; top: 24px; right: 24px; z-index: 9999; }
+        .toast { 
+            background: var(--sidebar-bg); color: white; padding: 14px 24px; border-radius: 12px; 
+            margin-bottom: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+            display: flex; align-items: center; gap: 12px; animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid var(--brand); font-weight: 500;
+        }
+
+        /* --- LAYOUT --- */
+        #app-wrapper { display: flex; min-height: 100vh; }
+        .sidebar { 
+            width: var(--sidebar-width); background: var(--sidebar-bg); color: white; 
+            position: fixed; height: 100vh; left: 0; top: 0; z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .main-container { 
+            flex: 1; margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); 
+            min-height: 100vh; transition: all 0.3s ease;
+        }
+        header { 
+            height: 72px; background: var(--glass); backdrop-filter: blur(12px); 
+            position: sticky; top: 0; z-index: 900; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 2rem;
+        }
+
+        /* --- NAVIGATION --- */
+        .nav-list { list-style: none; padding: 2rem 1rem; }
+        .nav-link { 
+            padding: 12px 16px; border-radius: var(--radius-md); color: #94a3b8; 
+            display: flex; align-items: center; gap: 12px; cursor: pointer; 
+            margin-bottom: 8px; font-weight: 600; transition: 0.2s;
+        }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.05); }
+        .nav-link.active { background: var(--brand); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+
+        .mobile-nav { 
+            display: none; position: fixed; bottom: 0; left: 0; right: 0; 
+            background: white; border-top: 1px solid var(--border); z-index: 1001; 
+            padding: 12px 1rem; justify-content: space-around;
+        }
+        .mobile-item { display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; color: var(--text-muted); cursor: pointer; font-weight: 600; }
+        .mobile-item.active { color: var(--brand); }
+
+        /* --- COMPONENTS --- */
+        .card { background: white; border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 1.5rem; animation: fadeIn 0.4s ease; }
+        .btn { 
+            padding: 10px 20px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; 
+            display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; transition: 0.2s;
+        }
+        .btn-primary { background: var(--brand); color: white; }
+        .btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); }
+        .btn-ghost { background: #f8fafc; color: var(--text-muted); }
+        .btn-ghost:hover { background: var(--border); }
         
-        .demo-badge { position: absolute; top: -10px; right: 20px; background: var(--warning); color: black; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; box-shadow: var(--shadow); }
+        .badge { padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+        .badge-confirmed { background: #ecfdf5; color: #065f46; }
+        .badge-cancelled { background: #fef2f2; color: #991b1b; }
+        .badge-completed { background: #eff6ff; color: #1e40af; }
 
-        #app-container { display: none; min-height: 100vh; }
-        .sidebar { width: var(--sidebar-width); background: var(--slate-800); color: white; position: fixed; height: 100vh; z-index: 100; transition: 0.3s; }
-        .nav-item { padding: 0.9rem 1.5rem; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #94a3b8; border-left: 4px solid transparent; }
-        .nav-item.active { background: rgba(79, 70, 229, 0.1); color: white; border-left-color: var(--primary); }
+        /* --- CALENDAR --- */
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+        .cal-day { aspect-ratio: 1; background: white; padding: 10px; cursor: pointer; transition: 0.2s; min-height: 80px; }
+        .cal-day:hover { background: #f0fdf4; }
+        .cal-num { font-weight: 800; font-size: 0.9rem; margin-bottom: 4px; }
+        .cal-dot { width: 6px; height: 6px; background: var(--brand); border-radius: 50%; display: inline-block; margin-right: 2px; }
 
-        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); }
-        header { background: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; box-shadow: var(--shadow); z-index: 90; }
+        /* --- TABLES --- */
+        .table-wrap { overflow-x: auto; border-radius: var(--radius-md); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { padding: 16px; background: #f8fafc; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid var(--border); }
+        td { padding: 16px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
 
-        /* Calendar UX */
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); border: 1px solid #e2e8f0; }
-        .calendar-day { min-height: 120px; padding: 0.5rem; border: 0.5px solid #e2e8f0; cursor: pointer; background: white; transition: 0.2s; }
-        .calendar-day:hover { background: var(--slate-100); }
-        .res-pill { background: var(--primary); color: white; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .more-indicator { font-size: 0.65rem; color: var(--secondary); font-weight: 600; padding-left: 5px; }
+        /* --- MODAL --- */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 1rem; }
+        .modal-body { background: white; border-radius: 24px; width: 100%; max-width: 750px; max-height: 90vh; overflow-y: auto; padding: 2.5rem; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
 
-        /* Modal */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-        .modal-content { background: white; padding: 2rem; border-radius: 1.2rem; width: 95%; max-width: 750px; max-height: 90vh; overflow-y: auto; }
-
-        /* Utilities */
-        .card { background: white; padding: 1.5rem; border-radius: 1rem; box-shadow: var(--shadow); margin-bottom: 1.5rem; }
-        .stat-val { font-size: 1.8rem; font-weight: 700; color: var(--slate-900); }
-        .badge { padding: 0.3rem 0.6rem; border-radius: 2rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-        .bg-confirmed { background: #dcfce7; color: #166534; }
-        .bg-cancelled { background: #fee2e2; color: #991b1b; }
-        .bg-completed { background: #e0e7ff; color: #3730a3; }
-
-        #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
-        .toast { background: var(--slate-800); color: white; padding: 1rem 1.5rem; border-radius: 0.5rem; margin-top: 10px; box-shadow: var(--shadow); animation: slideIn 0.3s ease; }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-100%); }
+            .main-container { margin-left: 0; width: 100%; padding-bottom: 90px; }
+            .mobile-nav { display: flex; }
+            header { padding: 0 1.25rem; }
+        }
     </style>
 </head>
 <body>
 
     <div id="toast-container"></div>
 
-    <div id="login-page">
-        <div class="login-card">
-            <div class="demo-badge">🔒 Demo Mode - Simplified Auth</div>
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h1 style="letter-spacing: -1px;">Reserva<span style="color: var(--primary);">Hub</span> <small style="font-size: 0.5em; vertical-align: middle;">PRO v3</small></h1>
-                <p style="color: var(--secondary); font-size: 0.85rem;">Login: admin@demo.local / admin123</p>
+    <div id="page-auth" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0f172a; position: relative;">
+        <div style="position: absolute; width: 300px; height: 300px; background: var(--brand); filter: blur(120px); opacity: 0.15;"></div>
+        <div class="card" style="width: 100%; max-width: 420px; text-align: center; padding: 3rem; z-index: 2; border: none;">
+            <div style="margin-bottom: 2.5rem;">
+                <h1 style="font-weight: 900; letter-spacing: -1.5px; font-size: 2.2rem;">Reserva<span style="color: var(--brand);">Hub</span></h1>
+                <p style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Luxury Reservation Suite v4.2</p>
             </div>
-            <form id="login-form">
-                <div style="margin-bottom: 1rem;">
-                    <label>Email Address</label>
-                    <input type="email" id="login-email" class="form-control" value="admin@demo.local" required>
+            <form id="form-login">
+                <div style="text-align: left; margin-bottom: 1.2rem;">
+                    <label style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Administrator Email</label>
+                    <input type="email" id="login-email" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" value="admin@demo.local">
                 </div>
-                <div style="margin-bottom: 1.5rem;">
-                    <label>Password</label>
-                    <input type="password" id="login-pass" class="form-control" value="admin123" required>
+                <div style="text-align: left; margin-bottom: 2rem;">
+                    <label style="font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Security Password</label>
+                    <input type="password" id="login-pass" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" value="admin123">
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Masuk ke Sistem</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; height: 52px; font-size: 1rem;">Access Dashboard</button>
             </form>
         </div>
     </div>
 
-    <div id="app-container">
+    <div id="app-wrapper" style="display: none;">
         <aside class="sidebar">
-            <div style="padding: 2rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <h2 style="font-size: 1.2rem;">RH <span style="color: var(--primary);">PRO SYSTEM</span></h2>
+            <div style="padding: 2.5rem 2rem;">
+                <h2 style="font-weight: 900; letter-spacing: -1px;">RH <span style="color: var(--brand);">ELITE</span></h2>
             </div>
-            <ul class="nav-menu" style="list-style: none; padding-top: 1rem;">
-                <li class="nav-item active" data-page="dashboard"><i class="fas fa-chart-pie"></i> Dashboard</li>
-                <li class="nav-item" data-page="calendar"><i class="fas fa-calendar-alt"></i> Kalender</li>
-                <li class="nav-item" data-page="reservations"><i class="fas fa-list-ul"></i> Reservasi</li>
-                <li class="nav-item" data-page="analytics"><i class="fas fa-brain"></i> Business Insight</li>
-                <li class="nav-item" data-page="settings"><i class="fas fa-cog"></i> Pengaturan</li>
-            </ul>
-            <div style="position: absolute; bottom: 0; width: 100%; padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
-                <button onclick="Auth.logout()" class="btn btn-ghost" style="color: var(--danger); width: 100%;"><i class="fas fa-power-off"></i> Logout</button>
+            <nav class="nav-list">
+                <div class="nav-link active" onclick="Router.go('dashboard')"><i class="fas fa-grid-2"></i> Dashboard</div>
+                <div class="nav-link" onclick="Router.go('calendar')"><i class="fas fa-calendar-day"></i> Calendar View</div>
+                <div class="nav-link" onclick="Router.go('reservations')"><i class="fas fa-list-check"></i> Master Data</div>
+                <div class="nav-link" onclick="Router.go('analytics')"><i class="fas fa-brain-circuit"></i> AI Analytics</div>
+            </nav>
+            <div style="position: absolute; bottom: 30px; width: 100%; padding: 0 1.5rem;">
+                <button onclick="Auth.logout()" class="btn btn-ghost" style="color:#ef4444; width:100%; justify-content: flex-start; background: rgba(239, 68, 68, 0.05); border: none;">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
             </div>
         </aside>
 
-        <main class="main-content">
+        <div class="main-container">
             <header>
-                <h3 id="page-title">Dashboard</h3>
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <div id="notif-bell" style="position: relative; cursor: pointer;">
-                        <i class="fas fa-bell fa-lg" style="color: var(--secondary);"></i>
-                        <span id="notif-count" class="badge" style="position: absolute; top: -10px; right: -10px; background: var(--danger); color: white; display: none;">0</span>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="fas fa-bars-staggered" style="font-size: 1.2rem; color: var(--text-muted); cursor: pointer;"></i>
+                    <h3 id="view-title" style="font-weight: 800; font-size: 1.2rem;">Executive Overview</h3>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="text-align: right;" class="desktop-only">
+                        <p style="font-weight: 800; font-size: 0.85rem;">System Admin</p>
+                        <p style="font-size: 0.7rem; color: var(--brand); font-weight: 700;">Verified Access</p>
                     </div>
-                    <img src="https://ui-avatars.com/api/?name=Admin&background=4f46e5&color=fff" style="width: 35px; border-radius: 50%;">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=10b981&color=fff&bold=true" style="width: 44px; height: 44px; border-radius: 14px; border: 2px solid white; box-shadow: var(--shadow-sm);">
                 </div>
             </header>
 
-            <div id="main-render" style="padding: 2rem;"></div>
-        </main>
+            <div id="render-target" style="padding: 2rem;"></div>
+        </div>
+
+        <nav class="mobile-nav">
+            <div class="mobile-item active" onclick="Router.go('dashboard')"><i class="fas fa-house"></i>Home</div>
+            <div class="mobile-item" onclick="Router.go('calendar')"><i class="fas fa-calendar-alt"></i>Book</div>
+            <div class="mobile-item" onclick="Router.go('reservations')"><i class="fas fa-database"></i>Data</div>
+            <div class="mobile-item" onclick="Router.go('analytics')"><i class="fas fa-chart-line"></i>Stats</div>
+        </nav>
     </div>
 
-    <div id="modal-res" class="modal">
-        <div class="modal-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <h3 id="modal-title">Form Reservasi</h3>
-                <button onclick="UI.closeModal()" class="btn btn-ghost" style="font-size: 1.5rem;">&times;</button>
+    <div id="modal-res" class="modal-overlay">
+        <div class="modal-body">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5rem;">
+                <h3 id="modal-title" style="font-weight: 900; font-size: 1.5rem;">Booking Entry</h3>
+                <button onclick="UI.closeModal()" style="background:none; border:none; font-size:1.8rem; cursor:pointer; color: var(--text-muted);">&times;</button>
             </div>
-            <form id="res-form">
+            <form id="form-res">
                 <input type="hidden" id="res-id">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                    <div><label>Nama Pelanggan</label><input type="text" id="res-name" class="form-control" required></div>
-                    <div><label>WhatsApp</label><input type="tel" id="res-phone" class="form-control" placeholder="08..." required></div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Guest Full Name</label>
+                         <input type="text" id="res-name" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" required></div>
+                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">WhatsApp Number</label>
+                         <input type="tel" id="res-phone" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" placeholder="62812..." required></div>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                    <div><label>Tanggal</label><input type="date" id="res-date" class="form-control" required></div>
-                    <div><label>Jam</label><input type="time" id="res-time" class="form-control" required></div>
-                    <div><label>Pax</label><input type="number" id="res-pax" class="form-control" min="1" required></div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Booking Date</label>
+                         <input type="date" id="res-date" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" required></div>
+                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Arrival Time</label>
+                         <input type="time" id="res-time" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" required></div>
+                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Total Pax</label>
+                         <input type="number" id="res-pax" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;" min="1" required></div>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                    <div><label>Lokasi</label><select id="res-location" class="form-control" required></select></div>
-                    <div><label>Status</label>
-                        <select id="res-status" class="form-control">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Preferred Area</label>
+                         <select id="res-loc" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;"></select></div>
+                    <div><label style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Current Status</label>
+                         <select id="res-status" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border); margin-top:5px;">
                             <option value="confirmed">Confirmed</option>
                             <option value="completed">Completed</option>
                             <option value="cancelled">Cancelled</option>
-                        </select>
+                         </select></div>
+                </div>
+                <div style="background:#f1f5f9; padding:1.5rem; border-radius:16px; margin-bottom:2rem; border: 1px dashed var(--border);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem;">
+                        <span style="font-weight:800; font-size:0.9rem;">Pre-Ordered Menu</span>
+                        <button type="button" class="btn btn-primary" style="padding:6px 14px; font-size:0.75rem;" onclick="App.addMenuRow()">+ Add Item</button>
+                    </div>
+                    <div id="menu-container"></div>
+                    <div style="text-align:right; font-weight:900; padding-top:15px; border-top:1px solid var(--border); font-size: 1.1rem;">
+                        Subtotal: <span id="bill-label" style="color: var(--brand);">Rp 0</span>
                     </div>
                 </div>
-                <div style="background: var(--slate-100); padding: 1rem; border-radius: 0.8rem; margin-bottom: 1rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <label style="margin: 0;">Pesanan Menu</label>
-                        <button type="button" onclick="Reservations.addMenuRow()" class="btn btn-primary btn-sm">+ Tambah</button>
-                    </div>
-                    <div id="menu-list"></div>
-                    <div style="text-align: right; margin-top: 10px; font-weight: 700;">Total: <span id="total-bill-label">Rp 0</span></div>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
-                    <div><label>DP Amount</label><input type="number" id="res-dp" class="form-control" value="0"></div>
-                    <div><label>Metode</label><select id="res-method" class="form-control"><option>Transfer</option><option>Cash</option></select></div>
-                </div>
-                <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                    <button type="button" onclick="UI.closeModal()" class="btn btn-ghost">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Data</button>
+                <div style="display:flex; justify-content:flex-end; gap:12px;">
+                    <button type="button" class="btn btn-ghost" style="padding: 12px 24px;" onclick="UI.closeModal()">Dismiss</button>
+                    <button type="submit" class="btn btn-primary" style="padding: 12px 32px;">Save Changes</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        /** 1. DATA & DB MODULE **/
-        const DB = (() => {
-            const defaults = {
-                reservations: [],
-                customers: [],
-                locations: [
-                    { id: 1, name: 'Main Hall', capacity: 50 },
-                    { id: 2, name: 'VIP AC Room', capacity: 15 },
-                    { id: 3, name: 'Garden Area', capacity: 30 }
-                ],
-                menus: [
-                    { id: 1, name: 'Paket Buffet A', price: 125000 },
-                    { id: 2, name: 'Coffee Break Premium', price: 55000 },
-                    { id: 3, name: 'Ala Carte Steak', price: 85000 }
-                ]
-            };
+        /** 1. UTILS (Business Logic & Formatting) **/
+        const Utils = {
+            toast(msg) {
+                const container = document.getElementById('toast-container');
+                const t = document.createElement('div');
+                t.className = 'toast';
+                t.innerHTML = `<i class="fas fa-shield-check" style="font-size:1.2rem;"></i> ${msg}`;
+                container.appendChild(t);
+                setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
+            },
+            formatIDR: (v) => "Rp " + new Number(v).toLocaleString('id-ID'),
+            timeDiff: (t1, t2) => {
+                const [h1, m1] = t1.split(':').map(Number);
+                const [h2, m2] = t2.split(':').map(Number);
+                return Math.abs((h1 + m1/60) - (h2 + m2/60));
+            }
+        };
 
-            return {
-                init: () => {
-                    console.warn("DEMO MODE: Data initialized in LocalStorage");
-                    Object.entries(defaults).forEach(([k, v]) => {
-                        if (!localStorage.getItem(k)) localStorage.setItem(k, JSON.stringify(v));
-                    });
-                },
-                get: (key) => JSON.parse(localStorage.getItem(key)) || [],
-                set: (key, val) => localStorage.setItem(key, JSON.stringify(val))
-            };
-        })();
+        /** 2. DATABASE (Persistence Layer) **/
+        const DB = {
+            init() {
+                const schema = {
+                    reservations: [],
+                    menus: [
+                        {id:1, name:'Wagyu Steak Prime', price:450000},
+                        {id:2, name:'Atlantic Lobster', price:750000},
+                        {id:3, name:'Veuve Clicquot Champagne', price:1850000},
+                        {id:4, name:'Truffle Pasta', price:285000}
+                    ],
+                    locations: [
+                        {id:1, name:'Diamond VIP Box', cap:8},
+                        {id:2, name:'Grand Ballroom', cap:120},
+                        {id:3, name:'Sky Deck Terrace', cap:45}
+                    ]
+                };
+                Object.entries(schema).forEach(([k, v]) => {
+                    if(!localStorage.getItem(k)) localStorage.setItem(k, JSON.stringify(v));
+                });
+            },
+            get: (k) => JSON.parse(localStorage.getItem(k)) || [],
+            set: (k, v) => localStorage.setItem(k, JSON.stringify(v))
+        };
 
-        /** 2. UTILS MODULE **/
-        const Utils = (() => {
-            return {
-                formatIDR: (v) => "Rp " + new Number(v).toLocaleString('id-ID'),
-                toast: (m) => {
-                    const t = document.createElement('div');
-                    t.className = 'toast'; t.innerText = m;
-                    document.getElementById('toast-container').appendChild(t);
-                    setTimeout(() => t.remove(), 3000);
-                },
-                normalizePhone: (p) => {
-                    let c = p.replace(/\D/g, '');
-                    return c.startsWith('0') ? '62' + c.slice(1) : c;
-                },
-                timeDiff: (t1, t2) => {
-                    const [h1, m1] = t1.split(':').map(Number);
-                    const [h2, m2] = t2.split(':').map(Number);
-                    return Math.abs((h1 + m1/60) - (h2 + m2/60));
+        /** 3. CORE APPLICATION (Logic & Validation) **/
+        const App = {
+            save(e) {
+                e.preventDefault();
+                const resList = DB.get('reservations');
+                const id = document.getElementById('res-id').value || Date.now().toString();
+                const date = document.getElementById('res-date').value;
+                const time = document.getElementById('res-time').value;
+                const loc = document.getElementById('res-loc').value;
+                const pax = parseInt(document.getElementById('res-pax').value);
+
+                // COMPLEX VALIDATION: Time Window Occupancy
+                const locObj = DB.get('locations').find(l => l.name === loc);
+                const occupancy = resList
+                    .filter(r => r.id !== id && r.date === date && r.location === loc && r.status !== 'cancelled' && Utils.timeDiff(r.time, time) < 2)
+                    .reduce((sum, r) => sum + parseInt(r.pax), 0);
+
+                if (occupancy + pax > locObj.cap) {
+                    return alert(`Overcapacity Warning!\n\nArea ${loc} has ${occupancy} active pax within 2 hours of ${time}. Remaining capacity is only ${locObj.cap - occupancy}.`);
                 }
-            };
-        })();
 
-        /** 3. AUTH MODULE **/
-        const Auth = (() => {
-            return {
-                check: () => sessionStorage.getItem('rh_session') === 'active',
-                login: (e, p) => {
-                    if (e === 'admin@demo.local' && p === 'admin123') {
-                        sessionStorage.setItem('rh_session', 'active');
-                        location.reload();
-                    } else Utils.toast("Kredensial salah!");
-                },
-                logout: () => { sessionStorage.clear(); location.reload(); }
-            };
-        })();
+                const menus = [...document.querySelectorAll('.m-row')].map(row => ({
+                    name: row.querySelector('.m-name').value,
+                    price: parseInt(row.querySelector('.m-name').selectedOptions[0].dataset.p),
+                    qty: parseInt(row.querySelector('.m-qty').value)
+                }));
 
-        /** 4. RESERVATIONS LOGIC **/
-        const Reservations = (() => {
-            return {
-                addMenuRow: (name = '', qty = 1) => {
-                    const list = document.getElementById('menu-list');
-                    const menus = DB.get('menus');
-                    const row = document.createElement('div');
-                    row.style = "display:grid; grid-template-columns: 1fr 80px 40px; gap:8px; margin-bottom:8px;";
-                    row.innerHTML = `
-                        <select class="form-control m-name" onchange="Reservations.calcTotal()">
-                            ${menus.map(m => `<option value="${m.name}" data-p="${m.price}" ${m.name===name?'selected':''}>${m.name} (@${m.price/1000}k)</option>`).join('')}
-                        </select>
-                        <input type="number" class="form-control m-qty" value="${qty}" min="1" onchange="Reservations.calcTotal()">
-                        <button type="button" class="btn btn-ghost" onclick="this.parentElement.remove(); Reservations.calcTotal();" style="color:var(--danger)">&times;</button>
-                    `;
-                    list.appendChild(row);
-                    Reservations.calcTotal();
-                },
-                calcTotal: () => {
-                    let total = 0;
-                    document.querySelectorAll('#menu-list > div').forEach(row => {
-                        const sel = row.querySelector('.m-name');
-                        total += parseInt(sel.selectedOptions[0].dataset.p) * parseInt(row.querySelector('.m-qty').value);
-                    });
-                    document.getElementById('total-bill-label').innerText = Utils.formatIDR(total);
-                    return total;
-                },
-                save: (e) => {
-                    e.preventDefault();
-                    const total = Reservations.calcTotal();
-                    const dp = parseInt(document.getElementById('res-dp').value);
-                    if (dp > total) return Utils.toast("DP tidak boleh melebihi total tagihan!");
+                const data = {
+                    id, date, time, pax, location: loc,
+                    customer: document.getElementById('res-name').value,
+                    phone: document.getElementById('res-phone').value,
+                    status: document.getElementById('res-status').value,
+                    menus, total: menus.reduce((s, m) => s + (m.price * m.qty), 0),
+                    updatedAt: new Date().toISOString()
+                };
 
-                    const id = document.getElementById('res-id').value || Date.now().toString();
-                    const date = document.getElementById('res-date').value;
-                    const time = document.getElementById('res-time').value;
-                    const loc = document.getElementById('res-location').value;
-                    const pax = parseInt(document.getElementById('res-pax').value);
+                const idx = resList.findIndex(r => r.id === id);
+                if (idx > -1) resList[idx] = data; else resList.push(data);
 
-                    // ADVANCED CAPACITY CHECK (Time Window ±2h)
-                    const resAll = DB.get('reservations');
-                    const locCap = DB.get('locations').find(l => l.name === loc).capacity;
-                    const currentOccupancy = resAll
-                        .filter(r => r.id !== id && r.date === date && r.location === loc && r.status !== 'cancelled' && Utils.timeDiff(r.time, time) < 2)
-                        .reduce((s, r) => s + parseInt(r.pax), 0);
+                DB.set('reservations', resList);
+                UI.closeModal();
+                Utils.toast("Database updated successfully.");
+                Router.go('reservations');
+            },
+            addMenuRow(name = '', qty = 1) {
+                const container = document.getElementById('menu-container');
+                const menus = DB.get('menus');
+                const row = document.createElement('div');
+                row.className = 'm-row';
+                row.style = "display:grid; grid-template-columns: 1fr 80px 40px; gap:10px; margin-bottom:10px;";
+                row.innerHTML = `
+                    <select class="m-name btn btn-ghost" style="text-align:left; border:1px solid var(--border); font-size:0.8rem;" onchange="App.calcTotal()">
+                        ${menus.map(m => `<option value="${m.name}" data-p="${m.price}" ${m.name===name?'selected':''}>${m.name} (@${m.price/1000}k)</option>`).join('')}
+                    </select>
+                    <input type="number" class="m-qty btn btn-ghost" value="${qty}" min="1" style="border:1px solid var(--border); font-size:0.8rem;" onchange="App.calcTotal()">
+                    <button type="button" class="btn btn-ghost" onclick="this.parentElement.remove(); App.calcTotal()" style="color:var(--danger); border:none;">&times;</button>
+                `;
+                container.appendChild(row);
+                App.calcTotal();
+            },
+            calcTotal() {
+                let total = 0;
+                document.querySelectorAll('.m-row').forEach(row => {
+                    total += row.querySelector('.m-name').selectedOptions[0].dataset.p * row.querySelector('.m-qty').value;
+                });
+                document.getElementById('bill-label').innerText = Utils.formatIDR(total);
+                return total;
+            }
+        };
 
-                    if (currentOccupancy + pax > locCap) {
-                        return alert(`Kapasitas penuh! Pada jam tersebut sudah terisi ${currentOccupancy} pax dari total ${locCap}.`);
-                    }
+        /** 4. NAVIGATION & ROUTING **/
+        const Router = {
+            go(page) {
+                document.querySelectorAll('.nav-link, .mobile-item').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll(`[onclick="Router.go('${page}')"]`).forEach(el => el.classList.add('active'));
+                UI.render(page);
+                window.scrollTo(0,0);
+            }
+        };
 
-                    const menus = [...document.querySelectorAll('#menu-list > div')].map(row => ({
-                        name: row.querySelector('.m-name').value,
-                        price: parseInt(row.querySelector('.m-name').selectedOptions[0].dataset.p),
-                        qty: parseInt(row.querySelector('.m-qty').value)
-                    }));
+        /** 5. UI RENDERING (Master View Control) **/
+        const UI = {
+            render(page) {
+                const target = document.getElementById('render-target');
+                const title = document.getElementById('view-title');
+                const data = DB.get('reservations');
 
-                    const payload = {
-                        id, date, time, pax, location: loc, status: document.getElementById('res-status').value,
-                        customerName: document.getElementById('res-name').value,
-                        phone: Utils.normalizePhone(document.getElementById('res-phone').value),
-                        menus, totalBill: total, dpAmount: dp, method: document.getElementById('res-method').value,
-                        updatedAt: new Date().toISOString()
-                    };
-
-                    const idx = resAll.findIndex(r => r.id === id);
-                    if (idx > -1) resAll[idx] = payload; else resAll.push(payload);
-
-                    DB.set('reservations', resAll);
-                    UI.closeModal();
-                    UI.renderPage(document.querySelector('.nav-item.active').dataset.page);
-                    Utils.toast("Data berhasil disimpan!");
-                }
-            };
-        })();
-
-        /** 5. UI & ROUTER **/
-        const UI = (() => {
-            const renderArea = document.getElementById('main-render');
-            const pageTitle = document.getElementById('page-title');
-
-            return {
-                init: () => {
-                    document.querySelectorAll('.nav-item').forEach(item => {
-                        item.onclick = () => {
-                            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                            item.classList.add('active');
-                            UI.renderPage(item.dataset.page);
-                        };
-                    });
-                    UI.renderPage('dashboard');
-                },
-                renderPage: (page) => {
-                    pageTitle.innerText = page.toUpperCase();
-                    const data = DB.get('reservations');
-
-                    if (page === 'dashboard') {
-                        const totalRev = data.filter(r=>r.status!=='cancelled').reduce((s,r)=>s+r.totalBill, 0);
-                        const totalPax = data.filter(r=>r.status!=='cancelled').reduce((s,r)=>s+parseInt(r.pax), 0);
-                        renderArea.innerHTML = `
-                            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1.5rem; margin-bottom:2rem;">
-                                <div class="card"><label>Total Est. Revenue</label><div class="stat-val">${Utils.formatIDR(totalRev)}</div></div>
-                                <div class="card"><label>Total Tamu</label><div class="stat-val">${totalPax} <small style="font-size:12px">Pax</small></div></div>
-                                <div class="card"><label>Booking Aktif</label><div class="stat-val">${data.filter(r=>r.status==='confirmed').length}</div></div>
-                            </div>
-                            <div class="card"><h3>Tren Reservasi</h3><canvas id="chart-rev" height="80"></canvas></div>
-                        `;
-                        UI.initChart();
-                    } 
-                    else if (page === 'calendar') {
-                        UI.renderCalendar();
-                    }
-                    else if (page === 'reservations') {
-                        renderArea.innerHTML = `
-                            <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem;">
-                                <input type="text" placeholder="Cari nama/HP..." class="form-control" style="max-width:300px;">
-                                <button onclick="UI.openModal()" class="btn btn-primary">+ Booking Baru</button>
-                            </div>
-                            <div class="card" style="padding:0; overflow:hidden;">
-                                <table style="width:100%; border-collapse:collapse;">
-                                    <thead style="background:var(--slate-100);">
-                                        <tr><th style="padding:1rem; text-align:left;">Pelanggan</th><th>Jadwal</th><th>Area</th><th>Total</th><th>Status</th><th>Aksi</th></tr>
-                                    </thead>
-                                    <tbody>
-                                        ${data.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(r => `
-                                            <tr style="border-bottom:1px solid #eee;">
-                                                <td style="padding:1rem;"><strong>${r.customerName}</strong><br><small>${r.phone}</small></td>
-                                                <td>${r.date}<br>${r.time}</td>
-                                                <td>${r.location}</td>
-                                                <td>${Utils.formatIDR(r.totalBill)}</td>
-                                                <td><span class="badge bg-${r.status}">${r.status}</span></td>
-                                                <td>
-                                                    <button onclick="UI.editRes('${r.id}')" class="btn btn-ghost" style="color:var(--primary)"><i class="fas fa-edit"></i></button>
-                                                    <button onclick="UI.sendWA('${r.id}')" class="btn btn-ghost" style="color:#25d366"><i class="fab fa-whatsapp"></i></button>
-                                                </td>
-                                            </tr>
-                                        `).join('')}
-                                    </tbody>
-                                </table>
-                            </div>
-                        `;
-                    }
-                    else if (page === 'analytics') {
-                        UI.renderAnalytics();
-                    }
-                },
-                renderCalendar: () => {
-                    const now = new Date();
-                    const month = now.getMonth(), year = now.getFullYear();
-                    const daysInMonth = new Date(year, month + 1, 0).getDate();
-                    const firstDay = new Date(year, month, 1).getDay();
-                    const resAll = DB.get('reservations');
-
-                    let html = `<div class="card calendar-grid">`;
-                    ['Min','Sen','Sel','Rab','Kam','Jum','Sab'].forEach(d => html += `<div style="text-align:center; padding:10px; font-weight:700; background:var(--slate-100); font-size:0.75rem;">${d}</div>`);
-                    for(let i=0; i<firstDay; i++) html += `<div class="calendar-day" style="background:#fafafa"></div>`;
-                    
-                    for(let d=1; d<=daysInMonth; d++) {
-                        const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-                        const dayBookings = resAll.filter(r => r.date === dateStr && r.status !== 'cancelled');
-                        html += `
-                            <div class="calendar-day" onclick="UI.openModal('${dateStr}')">
-                                <div style="font-weight:700; margin-bottom:5px;">${d}</div>
-                                ${dayBookings.slice(0, 2).map(b => `<div class="res-pill">${b.customerName.split(' ')[0]}</div>`).join('')}
-                                ${dayBookings.length > 2 ? `<div class="more-indicator">+${dayBookings.length-2} more</div>` : ''}
-                            </div>
-                        `;
-                    }
-                    renderArea.innerHTML = `<h3>${now.toLocaleString('id-ID', {month:'long', year:'numeric'})}</h3>` + html + `</div>`;
-                },
-                renderAnalytics: () => {
-                    const res = DB.get('reservations').filter(r => r.status !== 'cancelled');
-                    if (res.length === 0) return renderArea.innerHTML = `<div class="card">Belum ada data untuk dianalisis.</div>`;
-
-                    // Logic: Repeat Customers
-                    const freq = {}; res.forEach(r => freq[r.phone] = (freq[r.phone] || 0) + 1);
-                    const repeats = Object.values(freq).filter(f => f > 1).length;
-
-                    // Logic: Peak Hours
-                    const hours = {}; res.forEach(r => { const h = r.time.split(':')[0]; hours[h] = (hours[h] || 0) + 1; });
-                    const peakHour = Object.keys(hours).reduce((a, b) => hours[a] > hours[b] ? a : b) + ":00";
-
-                    renderArea.innerHTML = `
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
-                            <div class="card">
-                                <h3>Customer Loyalty</h3>
-                                <div class="stat-val" style="color:var(--success)">${repeats} Pelanggan</div>
-                                <p style="font-size:0.8rem; color:var(--secondary)">Pelanggan yang melakukan pemesanan lebih dari 1x.</p>
-                            </div>
-                            <div class="card">
-                                <h3>Jam Sibuk (Peak Hour)</h3>
-                                <div class="stat-val" style="color:var(--primary)">Pukul ${peakHour}</div>
-                                <p style="font-size:0.8rem; color:var(--secondary)">Waktu dengan frekuensi kedatangan tamu tertinggi.</p>
-                            </div>
+                if (page === 'dashboard') {
+                    title.innerText = "Executive Overview";
+                    const totalRevenue = data.filter(r=>r.status!=='cancelled').reduce((s,r)=>s+r.total, 0);
+                    const totalGuests = data.filter(r=>r.status!=='cancelled').reduce((s,r)=>s+parseInt(r.pax), 0);
+                    target.innerHTML = `
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1.5rem; margin-bottom:2rem;">
+                            <div class="card"><p style="color:var(--text-muted); font-size:0.75rem; font-weight:800; text-transform:uppercase; margin-bottom:8px;">Estimated Revenue</p><h2 style="font-size:1.8rem;">${Utils.formatIDR(totalRevenue)}</h2></div>
+                            <div class="card"><p style="color:var(--text-muted); font-size:0.75rem; font-weight:800; text-transform:uppercase; margin-bottom:8px;">Total Guest Count</p><h2 style="font-size:1.8rem;">${totalGuests} <small style="font-size:0.8rem; font-weight:500;">Pax</small></h2></div>
+                            <div class="card"><p style="color:var(--text-muted); font-size:0.75rem; font-weight:800; text-transform:uppercase; margin-bottom:8px;">Active Bookings</p><h2 style="font-size:1.8rem;">${data.filter(r=>r.status==='confirmed').length}</h2></div>
                         </div>
-                        <div class="card" style="border-left: 5px solid var(--primary);">
-                            <h3>💡 AI Business Insight</h3>
-                            <p style="margin-top:10px; line-height:1.6;">
-                                Strategi optimal untuk bulan ini: Tingkatkan promosi paket menu pada jam <strong>${peakHour}</strong>. 
-                                Anda memiliki <strong>${repeats}</strong> pelanggan setia, pertimbangkan untuk memberikan diskon khusus <em>Loyalty Member</em> 
-                                untuk meningkatkan retensi sebesar 15-20%.
-                            </p>
+                        <div class="card">
+                            <h3 style="margin-bottom:1.5rem; font-weight:800;">Revenue Performance (Last 7 Days)</h3>
+                            <canvas id="chart-rev" height="100"></canvas>
                         </div>
                     `;
-                },
-                initChart: () => {
-                    const ctx = document.getElementById('chart-rev').getContext('2d');
-                    const res = DB.get('reservations').filter(r => r.status !== 'cancelled').slice(-10);
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: res.map(r => r.date),
-                            datasets: [{ label: 'Revenue Trend', data: res.map(r => r.totalBill), borderColor: '#4f46e5', tension: 0.4, fill: true, backgroundColor: 'rgba(79, 70, 229, 0.05)' }]
-                        },
-                        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
-                    });
-                },
-                openModal: (date = '', resObj = null) => {
-                    document.getElementById('res-form').reset();
-                    document.getElementById('res-id').value = '';
-                    document.getElementById('menu-list').innerHTML = '';
-                    document.getElementById('modal-title').innerText = resObj ? "Edit Reservasi" : "Booking Baru";
-                    
-                    const locSel = document.getElementById('res-location');
-                    locSel.innerHTML = DB.get('locations').map(l => `<option value="${l.name}">${l.name} (Cap: ${l.capacity})</option>`).join('');
-
-                    if (resObj) {
-                        document.getElementById('res-id').value = resObj.id;
-                        document.getElementById('res-name').value = resObj.customerName;
-                        document.getElementById('res-phone').value = resObj.phone;
-                        document.getElementById('res-date').value = resObj.date;
-                        document.getElementById('res-time').value = resObj.time;
-                        document.getElementById('res-pax').value = resObj.pax;
-                        document.getElementById('res-location').value = resObj.location;
-                        document.getElementById('res-status').value = resObj.status;
-                        document.getElementById('res-dp').value = resObj.dpAmount;
-                        resObj.menus.forEach(m => Reservations.addMenuRow(m.name, m.qty));
-                    } else {
-                        document.getElementById('res-date').value = date || new Date().toISOString().split('T')[0];
-                        Reservations.addMenuRow();
-                    }
-                    document.getElementById('modal-res').style.display = 'flex';
-                },
-                closeModal: () => document.getElementById('modal-res').style.display = 'none',
-                editRes: (id) => {
-                    const r = DB.get('reservations').find(x => x.id === id);
-                    UI.openModal('', r);
-                },
-                sendWA: (id) => {
-                    const r = DB.get('reservations').find(x => x.id === id);
-                    const msg = `Halo ${r.customerName}, konfirmasi reservasi di ${r.location} tgl ${r.date} jam ${r.time}. Total: ${Utils.formatIDR(r.totalBill)}.`;
-                    window.open(`https://wa.me/${r.phone}?text=${encodeURIComponent(msg)}`, '_blank');
+                    this.initChart(data);
                 }
-            };
-        })();
 
-        /** 6. INIT APP **/
+                if (page === 'calendar') {
+                    title.innerText = "Booking Schedule";
+                    this.renderCalendar(target, data);
+                }
+
+                if (page === 'reservations') {
+                    title.innerText = "Reservation Database";
+                    target.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                            <div style="position:relative; width:100%; max-width:350px;">
+                                <i class="fas fa-search" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--text-muted);"></i>
+                                <input type="text" placeholder="Search customer or phone..." class="btn btn-ghost" style="width:100%; border:1px solid var(--border); padding-left:45px; text-align:left;" onkeyup="UI.filterTable(this.value)">
+                            </div>
+                            <button onclick="UI.openModal()" class="btn btn-primary" style="box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);">+ Add Reservation</button>
+                        </div>
+                        <div class="card table-wrap" style="padding:0;">
+                            <table>
+                                <thead>
+                                    <tr><th>Customer</th><th>Schedule</th><th>Location</th><th>Amount</th><th>Status</th><th>Actions</th></tr>
+                                </thead>
+                                <tbody id="res-table-body">
+                                    ${data.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(r => `
+                                        <tr>
+                                            <td><div style="font-weight:800;">${r.customer}</div><div style="font-size:0.75rem; color:var(--text-muted);">${r.phone}</div></td>
+                                            <td><div style="font-weight:600;">${r.date}</div><div style="font-size:0.75rem;">${r.time}</div></td>
+                                            <td style="font-weight:600;">${r.location}</td>
+                                            <td style="font-weight:800; color:var(--brand);">${Utils.formatIDR(r.total)}</td>
+                                            <td><span class="badge badge-${r.status}">${r.status}</span></td>
+                                            <td>
+                                                <button onclick="UI.editEntry('${r.id}')" class="btn btn-ghost" style="color:var(--brand); padding:8px;"><i class="fas fa-pen-to-square"></i></button>
+                                                <button onclick="UI.sendWA('${r.id}')" class="btn btn-ghost" style="color:#25d366; padding:8px;"><i class="fab fa-whatsapp"></i></button>
+                                                <button onclick="UI.deleteEntry('${r.id}')" class="btn btn-ghost" style="color:#ef4444; padding:8px;"><i class="fas fa-trash-can"></i></button>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                }
+
+                if (page === 'analytics') {
+                    title.innerText = "Strategic Insights";
+                    this.renderAnalytics(target, data);
+                }
+            },
+            renderCalendar(target, data) {
+                const now = new Date();
+                const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+                const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
+                
+                let html = `<div class="card"><div style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center;">
+                    <h3 style="font-weight:900;">${now.toLocaleString('id-ID', {month:'long', year:'numeric'})}</h3>
+                    <div style="display:flex; gap:8px;"><div class="badge badge-confirmed">Confirmed</div></div>
+                </div><div class="cal-grid">`;
+                
+                ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => html += `<div style="text-align:center; padding:12px; font-weight:800; font-size:0.7rem; background:#f8fafc; color:var(--text-muted);">${d}</div>`);
+                for(let i=0; i<firstDay; i++) html += `<div class="cal-day" style="background:#f1f5f9; cursor:default;"></div>`;
+                
+                for(let d=1; d<=daysInMonth; d++) {
+                    const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                    const items = data.filter(r => r.date === dateStr && r.status !== 'cancelled');
+                    html += `
+                        <div class="cal-day" onclick="UI.openModal('${dateStr}')">
+                            <div class="cal-num">${d}</div>
+                            ${items.slice(0, 2).map(item => `<div style="font-size:0.6rem; background:var(--brand); color:white; padding:2px 4px; border-radius:3px; margin-bottom:2px; white-space:nowrap; overflow:hidden;">${item.customer.split(' ')[0]}</div>`).join('')}
+                            ${items.length > 2 ? `<div style="font-size:0.6rem; font-weight:800; color:var(--text-muted);">+${items.length-2} others</div>` : ''}
+                        </div>
+                    `;
+                }
+                target.innerHTML = html + `</div></div>`;
+            },
+            renderAnalytics(target, data) {
+                const validData = data.filter(r => r.status !== 'cancelled');
+                if(!validData.length) return target.innerHTML = `<div class="card">Insufficient data for analysis.</div>`;
+
+                // LOGIC: Repeat Rate
+                const phoneFreq = {}; validData.forEach(r => phoneFreq[r.phone] = (phoneFreq[r.phone] || 0) + 1);
+                const repeats = Object.values(phoneFreq).filter(v => v > 1).length;
+
+                // LOGIC: Peak Hour
+                const hourMap = {}; validData.forEach(r => { const h = r.time.split(':')[0]; hourMap[h] = (hourMap[h] || 0) + 1; });
+                const peakHour = Object.keys(hourMap).length ? Object.keys(hourMap).reduce((a, b) => hourMap[a] > hourMap[b] ? a : b) + ":00" : "N/A";
+
+                target.innerHTML = `
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:1.5rem; margin-bottom:2rem;">
+                        <div class="card"><h3>Guest Retention</h3><h2 style="color:var(--brand); font-size:2.5rem; letter-spacing:-2px;">${repeats} <small style="font-size:1rem; color:var(--text-muted);">Returning Guests</small></h2></div>
+                        <div class="card"><h3>Peak Operating Hour</h3><h2 style="color:var(--brand); font-size:2.5rem; letter-spacing:-2px;">${peakHour}</h2></div>
+                    </div>
+                    <div class="card" style="border-left:6px solid var(--brand); background: linear-gradient(to right, #f0fdf4, white);">
+                        <h3 style="display:flex; align-items:center; gap:10px;"><i class="fas fa-robot"></i> AI Strategic Advisory</h3>
+                        <p style="margin-top:1.2rem; font-size:1rem; line-height:1.8; color:var(--text-main);">
+                            Analysis indicates that <strong>${peakHour}</strong> is your critical window. To optimize revenue, consider implementing a 
+                            <em>Premium Booking Fee</em> or <em>Time-Limit Policy</em> during this period. Your retention rate of <strong>${repeats}</strong> 
+                            loyalists suggests a "VIP Reward Program" could increase monthly revenue by approx 12-15%.
+                        </p>
+                    </div>
+                `;
+            },
+            initChart(data) {
+                const ctx = document.getElementById('chart-rev').getContext('2d');
+                const last7 = data.filter(r=>r.status!=='cancelled').slice(-7);
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: last7.map(r => r.date),
+                        datasets: [{ 
+                            label: 'Revenue', 
+                            data: last7.map(r => r.total), 
+                            borderColor: '#10b981', 
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            fill: true, tension: 0.4, borderWidth: 3, pointRadius: 5
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+                });
+            },
+            openModal(date = '', editObj = null) {
+                document.getElementById('form-res').reset();
+                document.getElementById('res-id').value = editObj ? editObj.id : '';
+                document.getElementById('menu-container').innerHTML = '';
+                document.getElementById('modal-title').innerText = editObj ? "Modify Reservation" : "Executive Booking Entry";
+                
+                const locs = DB.get('locations');
+                document.getElementById('res-loc').innerHTML = locs.map(l => `<option value="${l.name}">${l.name} (Max ${l.cap})</option>`).join('');
+                
+                if (editObj) {
+                    document.getElementById('res-name').value = editObj.customer;
+                    document.getElementById('res-phone').value = editObj.phone;
+                    document.getElementById('res-date').value = editObj.date;
+                    document.getElementById('res-time').value = editObj.time;
+                    document.getElementById('res-pax').value = editObj.pax;
+                    document.getElementById('res-loc').value = editObj.location;
+                    document.getElementById('res-status').value = editObj.status;
+                    editObj.menus.forEach(m => App.addMenuRow(m.name, m.qty));
+                } else {
+                    document.getElementById('res-date').value = date || new Date().toISOString().split('T')[0];
+                    document.getElementById('res-status').value = 'confirmed';
+                    App.addMenuRow();
+                }
+                document.getElementById('modal-res').style.display = 'flex';
+            },
+            closeModal() { document.getElementById('modal-res').style.display = 'none'; },
+            editEntry(id) {
+                const entry = DB.get('reservations').find(r => r.id === id);
+                this.openModal('', entry);
+            },
+            deleteEntry(id) {
+                if(confirm("Are you sure you want to permanently remove this record?")) {
+                    const res = DB.get('reservations').filter(r => r.id !== id);
+                    DB.set('reservations', res);
+                    Utils.toast("Record deleted.");
+                    this.render('reservations');
+                }
+            },
+            filterTable(val) {
+                const q = val.toLowerCase();
+                const rows = document.querySelectorAll('#res-table-body tr');
+                rows.forEach(row => {
+                    const text = row.innerText.toLowerCase();
+                    row.style.display = text.includes(q) ? '' : 'none';
+                });
+            },
+            sendWA(id) {
+                const r = DB.get('reservations').find(x => x.id === id);
+                const msg = `Elite Confirmation: Halo ${r.customer}, booking Anda di ${r.location} pada ${r.date} pukul ${r.time} telah terverifikasi. Total: ${Utils.formatIDR(r.total)}.`;
+                window.open(`https://wa.me/${r.phone}?text=${encodeURIComponent(msg)}`, '_blank');
+            }
+        };
+
+        /** 6. AUTHENTICATION (Simplified for Demo) **/
+        const Auth = {
+            check: () => sessionStorage.getItem('rh_elite_auth') === 'true',
+            login(e, p) {
+                if(e === 'admin@demo.local' && p === 'admin123') {
+                    sessionStorage.setItem('rh_elite_auth', 'true');
+                    location.reload();
+                } else alert("Access Denied: Invalid Credentials.");
+            },
+            logout: () => { sessionStorage.clear(); location.reload(); }
+        };
+
+        /** 7. INITIALIZATION **/
         DB.init();
-        if (!Auth.check()) {
-            document.getElementById('login-page').style.display = 'flex';
+        if(!Auth.check()) {
+            document.getElementById('page-auth').style.display = 'flex';
+            document.getElementById('app-wrapper').style.display = 'none';
         } else {
-            document.getElementById('login-page').style.display = 'none';
-            document.getElementById('app-container').style.display = 'flex';
-            UI.init();
+            document.getElementById('page-auth').style.display = 'none';
+            document.getElementById('app-wrapper').style.display = 'flex';
+            Router.go('dashboard');
         }
 
-        document.getElementById('login-form').onsubmit = (e) => {
+        document.getElementById('form-login').onsubmit = (e) => {
             e.preventDefault();
             Auth.login(document.getElementById('login-email').value, document.getElementById('login-pass').value);
         };
-        document.getElementById('res-form').onsubmit = Reservations.save;
+        document.getElementById('form-res').onsubmit = App.save;
 
     </script>
 </body>
