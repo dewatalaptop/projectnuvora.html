@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARISANIN - Arisan Digital Aman & Mudah</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =====================================================
+           RESET & GLOBAL STYLES
+        ===================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        /* =====================================================
+           CONTAINER & LAYOUT
+        ===================================================== */
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            min-height: 600px;
+        }
+        
+        .screen {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* =====================================================
+           HEADER & LOGO
+        ===================================================== */
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 42px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .screen-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .screen-subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #4caf50;
+            border: 2px solid #4caf50;
+        }
+        
+        .btn-secondary:hover {
+            background: #f1f8e9;
+        }
+        
+        /* =====================================================
+           FORM INPUTS
+        ===================================================== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: border 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+        
+        .phone-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .phone-prefix {
+            padding: 14px 20px;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        /* =====================================================
+           DASHBOARD CARDS
+        ===================================================== */
+        .card-grid {
+            display: grid;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background: white;
+            border: 2px solid #e8f5e9;
+            border-radius: 15px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .card:hover {
+            border-color: #4caf50;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
+        }
+        
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon.green { color: #4caf50; }
+        .card-icon.blue { color: #2196f3; }
+        .card-icon.orange { color: #ff9800; }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .card-desc {
+            font-size: 13px;
+            color: #999;
+        }
+        
+        /* =====================================================
+           COUNTER (JUMLAH PESERTA)
+        ===================================================== */
+        .counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .counter-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #4caf50;
+            background: white;
+            color: #4caf50;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .counter-btn:hover {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .counter-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4caf50;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        /* =====================================================
+           RADIO BUTTONS (METODE ARISAN)
+        ===================================================== */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .radio-option:hover {
+            border-color: #4caf50;
+            background: #f1f8e9;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        
+        .radio-option label {
+            cursor: pointer;
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .radio-option.selected {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+        
+        /* =====================================================
+           LIST ARISAN & PESERTA
+        ===================================================== */
+        .arisan-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .arisan-item {
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .arisan-item:hover {
+            border-color: #4caf50;
+            background: #f1f8e9;
+        }
+        
+        .arisan-item-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .arisan-item-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .peserta-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        
+        .peserta-table th {
+            background: #4caf50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+        
+        .peserta-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        
+        .peserta-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-aman {
+            background: #e8f5e9;
+            color: #4caf50;
+        }
+        
+        .status-belum {
+            background: #ffebee;
+            color: #f44336;
+        }
+        
+        /* =====================================================
+           INFO BOX (KEAMANAN)
+        ===================================================== */
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        
+        .info-box i {
+            color: #2196f3;
+            font-size: 24px;
+        }
+        
+        .info-box p {
+            color: #1976d2;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        /* =====================================================
+           EMPTY STATE
+        ===================================================== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-state i {
+            font-size: 80px;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            color: #999;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .empty-state p {
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        /* =====================================================
+           BACK BUTTON
+        ===================================================== */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #4caf50;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            padding: 8px 0;
+        }
+        
+        .back-btn:hover {
+            color: #388e3c;
+        }
+        
+        /* =====================================================
+           DETAIL ARISAN HEADER
+        ===================================================== */
+        .arisan-header {
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .arisan-header h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .arisan-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 0;
+                min-height: 100vh;
+            }
+            
+            body {
+                padding: 0;
+                background: white;
+            }
+        }
+        
+        /* =====================================================
+           UTILITY CLASSES
+        ===================================================== */
+        .mt-20 { margin-top: 20px; }
+        .mb-20 { margin-bottom: 20px; }
+        .text-center { text-align: center; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- =====================================================
+             SCREEN 1: LOGIN
+        ===================================================== -->
+        <div id="screenLogin" class="screen active">
+            <div class="logo">
+                <h1>ARISANIN</h1>
+                <p>Arisan Digital Aman & Mudah</p>
+            </div>
+            
+            <h2 class="screen-title">
+                <i class="fas fa-sign-in-alt"></i>
+                Masuk dengan WhatsApp
+            </h2>
+            <p class="screen-subtitle">Nomor HP Anda akan digunakan sebagai identitas</p>
+            
+            <div class="form-group">
+                <label class="form-label">Nomor WhatsApp</label>
+                <div class="phone-input">
+                    <div class="phone-prefix">+62</div>
+                    <input type="tel" id="inputPhone" class="form-input" placeholder="8123456789" maxlength="13">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Nama Lengkap</label>
+                <input type="text" id="inputName" class="form-input" placeholder="Masukkan nama Anda">
+            </div>
+            
+            <button class="btn btn-primary" onclick="handleLogin()">
+                <i class="fas fa-arrow-right"></i> Masuk
+            </button>
+        </div>
+        
+        <!-- =====================================================
+             SCREEN 2: DASHBOARD
+        ===================================================== -->
+        <div id="screenDashboard" class="screen">
+            <div class="logo">
+                <h1>ARISANIN</h1>
+            </div>
+            
+            <h2 class="screen-title">
+                <i class="fas fa-home"></i>
+                Selamat Datang, <span id="userName"></span>!
+            </h2>
+            <p class="screen-subtitle">Pilih menu yang ingin Anda akses</p>
+            
+            <div class="card-grid">
+                <div class="card" onclick="showScreen('screenBuatArisan')">
+                    <div class="card-icon green">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="card-title">Buat Arisan Baru</div>
+                    <div class="card-desc">Mulai arisan dengan teman atau keluarga</div>
+                </div>
+                
+                <div class="card" onclick="showScreen('screenArisanSaya')">
+                    <div class="card-icon blue">
+                        <i class="fas fa-list-ul"></i>
+                    </div>
+                    <div class="card-title">Arisan Saya</div>
+                    <div class="card-desc">Lihat semua arisan yang sedang berjalan</div>
+                </div>
+                
+                <div class="card" onclick="showScreen('screenRiwayat')">
+                    <div class="card-icon orange">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="card-title">Riwayat Pembayaran</div>
+                    <div class="card-desc">Cek transaksi yang sudah dilakukan</div>
+                </div>
+            </div>
+            
+            <button class="btn btn-secondary mt-20" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i> Keluar
+            </button>
+        </div>
+        
+        <!-- =====================================================
+             SCREEN 3: BUAT ARISAN
+        ===================================================== -->
+        <div id="screenBuatArisan" class="screen">
+            <div class="back-btn" onclick="showScreen('screenDashboard')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </div>
+            
+            <h2 class="screen-title">
+                <i class="fas fa-plus-circle"></i>
+                Buat Arisan Baru
+            </h2>
+            <p class="screen-subtitle">Isi informasi arisan yang akan dibuat</p>
+            
+            <div class="form-group">
+                <label class="form-label">Nama Arisan</label>
+                <input type="text" id="inputNamaArisan" class="form-input" placeholder="Contoh: Arisan Keluarga">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Jumlah Peserta</label>
+                <div class="counter">
+                    <button class="counter-btn" onclick="changeCounter(-1)">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <div class="counter-value" id="counterPeserta">5</div>
+                    <button class="counter-btn" onclick="changeCounter(1)">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Nominal Per Orang (Rp)</label>
+                <input type="number" id="inputNominal" class="form-input" placeholder="100000">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Metode Pengundian</label>
+                <div class="radio-group">
+                    <div class="radio-option" onclick="selectMetode('acak')">
+                        <input type="radio" name="metode" value="acak" id="metodeAcak" checked>
+                        <label for="metodeAcak">
+                            <strong>Undian Acak</strong><br>
+                            <small>Sistem akan mengundi siapa yang mendapat giliran</small>
+                        </label>
+                    </div>
+                    <div class="radio-option" onclick="selectMetode('urutan')">
+                        <input type="radio" name="metode" value="urutan" id="metodeUrutan">
+                        <label for="metodeUrutan">
+                            <strong>Urutan Tetap</strong><br>
+                            <small>Giliran sesuai urutan yang sudah ditentukan</small>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" onclick="handleBuatArisan()">
+                <i class="fas fa-check"></i> Buat Arisan
+            </button>
+        </div>
+        
+        <!-- =====================================================
+             SCREEN 4: ARISAN SAYA (LIST)
+        ===================================================== -->
+        <div id="screenArisanSaya" class="screen">
+            <div class="back-btn" onclick="showScreen('screenDashboard')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </div>
+            
+            <h2 class="screen-title">
+                <i class="fas fa-list-ul"></i>
+                Arisan Saya
+            </h2>
+            <p class="screen-subtitle">Semua arisan yang sedang berjalan</p>
+            
+            <div id="arisanListContainer" class="arisan-list">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+        
+        <!-- =====================================================
+             SCREEN 5: DETAIL ARISAN
+        ===================================================== -->
+        <div id="screenDetailArisan" class="screen">
+            <div class="back-btn" onclick="showScreen('screenArisanSaya')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </div>
+            
+            <div class="arisan-header">
+                <h2 id="detailNamaArisan">-</h2>
+                <div class="arisan-meta">
+                    <span><i class="fas fa-users"></i> <span id="detailJumlahPeserta">0</span> Peserta</span>
+                    <span><i class="fas fa-money-bill-wave"></i> Rp <span id="detailNominal">0</span></span>
+                </div>
+            </div>
+            
+            <h3 style="margin-bottom: 15px; color: #333;">
+                <i class="fas fa-users"></i> Daftar Peserta
+            </h3>
+            
+            <table class="peserta-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="pesertaTableBody">
+                    <!-- Dynamic content -->
+                </tbody>
+            </table>
+            
+            <button class="btn btn-primary" onclick="handleBayarSemua()">
+                <i class="fas fa-check-circle"></i> Tandai Semua Sudah Bayar
+            </button>
+            
+            <div class="info-box">
+                <i class="fas fa-shield-alt"></i>
+                <p>
+                    <strong>Uang Anda Aman!</strong><br>
+                    Sistem ARISANIN hanya mencatat pembayaran. Uang disimpan aman oleh koordinator arisan, admin tidak bisa menarik dana Anda.
+                </p>
+            </div>
+        </div>
+        
+        <!-- =====================================================
+             SCREEN 6: RIWAYAT PEMBAYARAN
+        ===================================================== -->
+        <div id="screenRiwayat" class="screen">
+            <div class="back-btn" onclick="showScreen('screenDashboard')">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </div>
+            
+            <h2 class="screen-title">
+                <i class="fas fa-history"></i>
+                Riwayat Pembayaran
+            </h2>
+            <p class="screen-subtitle">Transaksi yang sudah dicatat</p>
+            
+            <div class="empty-state">
+                <i class="fas fa-file-invoice"></i>
+                <h3>Belum Ada Riwayat</h3>
+                <p>Riwayat pembayaran akan muncul di sini</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        // =====================================================
+        // 🔥 FIREBASE CONFIG (AKAN DIGANTI NANTI)
+        // =====================================================
+        const firebaseConfig = {
+            apiKey: "PASTE_API_KEY_DI_SINI",
+            authDomain: "PASTE_AUTH_DOMAIN",
+            projectId: "PASTE_PROJECT_ID",
+            storageBucket: "PASTE_STORAGE_BUCKET",
+            messagingSenderId: "PASTE_SENDER_ID",
+            appId: "PASTE_APP_ID"
+        };
+        
+        // ⚠️ SAAT INI BELUM DIGUNAKAN
+        // Semua data masih via localStorage
+        
+        // =====================================================
+        // GLOBAL STATE & VARIABLES
+        // =====================================================
+        let currentUser = null;
+        let currentArisanId = null;
+        let counterValue = 5;
+        
+        // =====================================================
+        // INITIALIZE APP
+        // =====================================================
+        window.onload = function() {
+            // Cek apakah user sudah login
+            const savedUser = localStorage.getItem('arisan_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showScreen('screenDashboard');
+                document.getElementById('userName').textContent = currentUser.name;
+            }
+        };
+        
+        // =====================================================
+        // NAVIGATION: SHOW SCREEN
+        // =====================================================
+        function showScreen(screenId) {
+            // Sembunyikan semua screen
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Tampilkan screen yang dipilih
+            document.getElementById(screenId).classList.add('active');
+            
+            // Refresh data jika perlu
+            if (screenId === 'screenArisanSaya') {
+                loadArisanList();
+            } else if (screenId === 'screenDashboard') {
+                document.getElementById('userName').textContent = currentUser.name;
+            }
+        }
+        
+        // =====================================================
+        // LOGIN HANDLER
+        // =====================================================
+        function handleLogin() {
+            const phone = document.getElementById('inputPhone').value.trim();
+            const name = document.getElementById('inputName').value.trim();
+            
+            // Validasi input
+            if (!phone || !name) {
+                alert('❌ Mohon isi nomor WhatsApp dan nama lengkap Anda!');
+                return;
+            }
+            
+            if (phone.length < 9) {
+                alert('❌ Nomor WhatsApp tidak valid! Minimal 9 digit.');
+                return;
+            }
+            
+            // Buat user object
+            currentUser = {
+                id: 'user_' + Date.now(),
+                phone: '+62' + phone,
+                name: name
+            };
+            
+            // Simpan ke localStorage
+            localStorage.setItem('arisan_user', JSON.stringify(currentUser));
+            
+            // Pindah ke dashboard
+            showScreen('screenDashboard');
+            document.getElementById('userName').textContent = name;
+            
+            // Reset form
+            document.getElementById('inputPhone').value = '';
+            document.getElementById('inputName').value = '';
+        }
+        
+        // =====================================================
+        // LOGOUT HANDLER
+        // =====================================================
+        function handleLogout() {
+            const confirm = window.confirm('Apakah Anda yakin ingin keluar?');
+            if (confirm) {
+                currentUser = null;
+                localStorage.removeItem('arisan_user');
+                showScreen('screenLogin');
+            }
+        }
+        
+        // =====================================================
+        // COUNTER (JUMLAH PESERTA)
+        // =====================================================
+        function changeCounter(change) {
+            counterValue += change;
+            
+            // Minimal 2 peserta
+            if (counterValue < 2) {
+                counterValue = 2;
+            }
+            
+            // Maksimal 50 peserta
+            if (counterValue > 50) {
+                counterValue = 50;
+            }
+            
+            document.getElementById('counterPeserta').textContent = counterValue;
+        }
+        
+        // =====================================================
+        // SELECT METODE (RADIO BUTTON)
+        // =====================================================
+        function selectMetode(metode) {
+            // Update radio button
+            if (metode === 'acak') {
+                document.getElementById('metodeAcak').checked = true;
+            } else {
+                document.getElementById('metodeUrutan').checked = true;
+            }
+            
+            // Update visual
+            const options = document.querySelectorAll('.radio-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+        }
+        
+        // =====================================================
+        // BUAT ARISAN HANDLER
+        // =====================================================
+        function handleBuatArisan() {
+            const namaArisan = document.getElementById('inputNamaArisan').value.trim();
+            const nominal = document.getElementById('inputNominal').value.trim();
+            const metode = document.querySelector('input[name="metode"]:checked').value;
+            
+            // Validasi
+            if (!namaArisan) {
+                alert('❌ Mohon isi nama arisan!');
+                return;
+            }
+            
+            if (!nominal || nominal < 10000) {
+                alert('❌ Nominal minimal Rp 10.000!');
+                return;
+            }
+            
+            // Konfirmasi
+            const confirmMsg = `Apakah data sudah benar?\n\nNama: ${namaArisan}\nPeserta: ${counterValue} orang\nNominal: Rp ${parseInt(nominal).toLocaleString('id-ID')}\nMetode: ${metode === 'acak' ? 'Undian Acak' : 'Urutan Tetap'}`;
+            
+            if (!confirm(confirmMsg)) {
+                return;
+            }
+            
+            // Generate peserta dummy
+            const pesertaList = [];
+            const namaDefault = ['Ani', 'Siti', 'Dewi', 'Rina', 'Maya', 'Linda', 'Fitri', 'Nurul', 'Putri', 'Ayu'];
+            
+            for (let i = 0; i < counterValue; i++) {
+                pesertaList.push({
+                    id: 'peserta_' + Date.now() + '_' + i,
+                    name: namaDefault[i % namaDefault.length] + ' ' + (i + 1),
+                    statusBayar: false
+                });
+            }
+            
+            // Buat arisan object
+            const arisan = {
+                id: 'arisan_' + Date.now(),
+                name: namaArisan,
+                nominal: parseInt(nominal),
+                peserta: pesertaList,
+                metode: metode,
+                createdAt: new Date().toISOString(),
+                createdBy: currentUser.id
+            };
+            
+            // Simpan ke localStorage
+            let arisanList = JSON.parse(localStorage.getItem('arisan_list') || '[]');
+            arisanList.push(arisan);
+            localStorage.setItem('arisan_list', JSON.stringify(arisanList));
+            
+            alert('✅ Arisan berhasil dibuat!');
+            
+            // Reset form
+            document.getElementById('inputNamaArisan').value = '';
+            document.getElementById('inputNominal').value = '';
+            counterValue = 5;
+            document.getElementById('counterPeserta').textContent = '5';
+            
+            // Kembali ke dashboard
+            showScreen('screenDashboard');
+        }
+        
+        // =====================================================
+        // LOAD ARISAN LIST
+        // =====================================================
+        function loadArisanList() {
+            const container = document.getElementById('arisanListContainer');
+            const arisanList = JSON.parse(localStorage.getItem('arisan_list') || '[]');
+            
+            // Filter hanya arisan yang dibuat oleh user ini
+            const myArisan = arisanList.filter(a => a.createdBy === currentUser.id);
+            
+            if (myArisan.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>Belum Ada Arisan</h3>
+                        <p>Buat arisan pertama Anda sekarang!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Render list
+            container.innerHTML = myArisan.map(arisan => {
+                const totalPeserta = arisan.peserta.length;
+                const sudahBayar = arisan.peserta.filter(p => p.statusBayar).length;
+                
+                return `
+                    <div class="arisan-item" onclick="showDetailArisan('${arisan.id}')">
+                        <div class="arisan-item-title">${arisan.name}</div>
+                        <div class="arisan-item-info">
+                            <span><i class="fas fa-users"></i> ${totalPeserta} Peserta</span>
+                            <span><i class="fas fa-money-bill-wave"></i> Rp ${arisan.nominal.toLocaleString('id-ID')}</span>
+                        </div>
+                        <div class="arisan-item-info" style="margin-top: 8px;">
+                            <span style="color: #4caf50;">
+                                <i class="fas fa-check-circle"></i> ${sudahBayar}/${totalPeserta} Sudah Bayar
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // =====================================================
+        // SHOW DETAIL ARISAN
+        // =====================================================
+        function showDetailArisan(arisanId) {
+            currentArisanId = arisanId;
+            
+            const arisanList = JSON.parse(localStorage.getItem('arisan_list') || '[]');
+            const arisan = arisanList.find(a => a.id === arisanId);
+            
+            if (!arisan) {
+                alert('❌ Arisan tidak ditemukan!');
+                return;
+            }
+            
+            // Update header
+            document.getElementById('detailNamaArisan').textContent = arisan.name;
+            document.getElementById('detailJumlahPeserta').textContent = arisan.peserta.length;
+            document.getElementById('detailNominal').textContent = arisan.nominal.toLocaleString('id-ID');
+            
+            // Render tabel peserta
+            const tbody = document.getElementById('pesertaTableBody');
+            tbody.innerHTML = arisan.peserta.map((peserta, index) => {
+                const status = peserta.statusBayar 
+                    ? '<span class="status-badge status-aman"><i class="fas fa-check"></i> Aman</span>'
+                    : '<span class="status-badge status-belum"><i class="fas fa-times"></i> Belum Bayar</span>';
+                
+                return `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${peserta.name}</td>
+                        <td>${status}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            // Tampilkan screen
+            showScreen('screenDetailArisan');
+        }
+        
+        // =====================================================
+        // BAYAR SEMUA (SIMULASI)
+        // =====================================================
+        function handleBayarSemua() {
+            if (!confirm('Tandai semua peserta sudah bayar?')) {
+                return;
+            }
+            
+            // Update data
+            const arisanList = JSON.parse(localStorage.getItem('arisan_list') || '[]');
+            const arisanIndex = arisanList.findIndex(a => a.id === currentArisanId);
+            
+            if (arisanIndex === -1) return;
+            
+            // Tandai semua sudah bayar
+            arisanList[arisanIndex].peserta.forEach(p => {
+                p.statusBayar = true;
+            });
+            
+            // Simpan kembali
+            localStorage.setItem('arisan_list', JSON.stringify(arisanList));
+            
+            alert('✅ Semua peserta sudah ditandai lunas!');
+            
+            // Refresh tampilan
+            showDetailArisan(currentArisanId);
+        }
+        
+        // =====================================================
+        // FORMAT RUPIAH (UTILITY)
+        // =====================================================
+        function formatRupiah(angka) {
+            return 'Rp ' + parseInt(angka).toLocaleString('id-ID');
+        }
+        
+        // =====================================================
+        // GENERATE ID (UTILITY)
+        // =====================================================
+        function generateId(prefix) {
+            return prefix + '_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+        
+    </script>
+
+</body>
+</html>
