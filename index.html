@@ -1,555 +1,1404 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ReservaHub Elite v4.5 | Enterprise Business Suite</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Nuvora Systems — Jasa pembuatan aplikasi web custom profesional. Harga transparan mulai Rp 1.500.000. Selesai 7 hari.">
+<title>Nuvora Systems — Aplikasi Web Custom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --brand: #10b981;
-            --brand-dark: #059669;
-            --bg-body: #f1f5f9;
-            --surface: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --sidebar-bg: #0f172a;
-            --sidebar-width: 280px;
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.05);
-            --glass: rgba(255, 255, 255, 0.9);
-            --danger: #ef4444;
-        }
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  --navy:       #010B18;
+  --navy2:      #030F20;
+  --navy3:      #071828;
+  --surface:    rgba(7,24,40,0.7);
+  --surface2:   rgba(7,24,40,0.9);
+  --border:     rgba(99,200,100,0.12);
+  --border2:    rgba(46,125,214,0.15);
+  --green:      #63C864;
+  --green2:     #4CAF50;
+  --green-glow: rgba(99,200,100,0.2);
+  --blue:       #2E7DD6;
+  --blue-glow:  rgba(46,125,214,0.2);
+  --white:      #F0F6FF;
+  --muted:      #6B8BA4;
+  --muted2:     #3D5A72;
+  --gold:       #F0C060;
+}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* --- LAYOUT --- */
-        #app-wrapper { display: flex; min-height: 100vh; }
-        
-        .sidebar { 
-            width: var(--sidebar-width); background: var(--sidebar-bg); color: white; 
-            position: fixed; height: 100vh; left: 0; top: 0; z-index: 1000;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+/* ═══════════════════════════════════════
+   RESET
+═══════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:'Sora',sans-serif;
+  background:var(--navy);
+  color:var(--white);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
 
-        .sidebar-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999;
-            display: none; backdrop-filter: blur(4px);
-        }
+/* ═══════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════ */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--navy);}
+::-webkit-scrollbar-thumb{background:var(--green2);border-radius:4px;}
 
-        .main-container { 
-            flex: 1; margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); 
-            min-height: 100vh; transition: all 0.3s ease;
-        }
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+  background:rgba(1,11,24,0.0);
+  backdrop-filter:blur(0px);
+  border-bottom:1px solid transparent;
+  transition:all 0.4s ease;
+}
+nav.scrolled{
+  background:rgba(1,11,24,0.92);
+  backdrop-filter:blur(24px);
+  border-bottom-color:var(--border);
+}
+.nav-logo img{
+  height:40px;
+  width:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 0 12px rgba(99,200,100,0.3));
+}
+.nav-links{
+  display:flex;align-items:center;gap:36px;
+  list-style:none;
+}
+.nav-links a{
+  font-size:13px;font-weight:500;
+  letter-spacing:0.04em;
+  color:rgba(240,246,255,0.65);
+  transition:color 0.2s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;
+  height:1px;background:var(--green);
+  transform:scaleX(0);transition:transform 0.25s;
+}
+.nav-links a:hover{color:var(--white);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-cta{
+  background:var(--green)!important;
+  color:var(--navy)!important;
+  padding:10px 24px!important;
+  border-radius:6px!important;
+  font-weight:700!important;
+  font-size:13px!important;
+  letter-spacing:0.02em!important;
+  transition:all 0.2s!important;
+  box-shadow:0 0 24px var(--green-glow)!important;
+}
+.nav-cta::after{display:none!important;}
+.nav-cta:hover{
+  transform:translateY(-1px)!important;
+  box-shadow:0 0 40px rgba(99,200,100,0.4)!important;
+  color:var(--navy)!important;
+}
+.nav-hamburger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;
+}
+.nav-hamburger span{
+  display:block;width:24px;height:2px;
+  background:var(--white);border-radius:2px;
+  transition:all 0.3s;
+}
 
-        header { 
-            height: 72px; background: var(--glass); backdrop-filter: blur(12px); 
-            position: sticky; top: 0; z-index: 900; border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between; padding: 0 2rem;
-        }
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px 24px 80px;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:url('https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/C52772C0-2D67-49A8-956E-E96CB3019BC4.png');
+  background-size:cover;
+  background-position:center bottom;
+  background-repeat:no-repeat;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(1,11,24,0.55) 0%,
+    rgba(1,11,24,0.3) 40%,
+    rgba(1,11,24,0.6) 70%,
+    rgba(1,11,24,1) 100%
+  );
+}
+.hero-content{
+  position:relative;z-index:2;
+  max-width:860px;
+  animation:heroIn 1s ease both;
+}
+@keyframes heroIn{
+  from{opacity:0;transform:translateY(32px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.hero-logo{
+  margin:0 auto 36px;
+  width:220px;
+  filter:drop-shadow(0 0 32px rgba(99,200,100,0.4)) drop-shadow(0 0 64px rgba(46,125,214,0.3));
+  animation:logoPulse 4s ease-in-out infinite;
+}
+@keyframes logoPulse{
+  0%,100%{filter:drop-shadow(0 0 32px rgba(99,200,100,0.4)) drop-shadow(0 0 64px rgba(46,125,214,0.3));}
+  50%{filter:drop-shadow(0 0 48px rgba(99,200,100,0.6)) drop-shadow(0 0 80px rgba(46,125,214,0.5));}
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--green);
+  margin-bottom:20px;
+  animation:heroIn 1s 0.1s ease both;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:'';display:block;width:28px;height:1px;background:var(--green);
+}
+.hero-h1{
+  font-family:'Sora',sans-serif;
+  font-size:clamp(36px,5.5vw,72px);
+  font-weight:800;
+  line-height:1.06;
+  letter-spacing:-0.02em;
+  color:var(--white);
+  margin-bottom:20px;
+  animation:heroIn 1s 0.15s ease both;
+}
+.hero-h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--green) 0%,#88E089 50%,var(--blue) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  font-size:clamp(15px,2vw,18px);
+  font-weight:300;
+  color:rgba(240,246,255,0.65);
+  line-height:1.7;
+  max-width:560px;
+  margin:0 auto 40px;
+  animation:heroIn 1s 0.2s ease both;
+}
+.hero-actions{
+  display:flex;align-items:center;justify-content:center;
+  gap:16px;flex-wrap:wrap;
+  animation:heroIn 1s 0.28s ease both;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--green);color:var(--navy);
+  font-family:'Sora',sans-serif;
+  font-size:14px;font-weight:700;
+  letter-spacing:0.02em;
+  padding:16px 32px;border-radius:8px;
+  border:none;cursor:pointer;
+  transition:all 0.25s;
+  box-shadow:0 0 40px var(--green-glow);
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 64px rgba(99,200,100,0.45);
+}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:10px;
+  background:transparent;color:var(--white);
+  font-family:'Sora',sans-serif;
+  font-size:14px;font-weight:500;
+  padding:15px 28px;border-radius:8px;
+  border:1px solid rgba(240,246,255,0.15);
+  cursor:pointer;transition:all 0.25s;
+}
+.btn-ghost:hover{
+  border-color:rgba(240,246,255,0.35);
+  background:rgba(240,246,255,0.05);
+}
+.hero-stats{
+  display:flex;align-items:center;justify-content:center;
+  gap:48px;
+  margin-top:72px;
+  padding-top:40px;
+  border-top:1px solid var(--border);
+  animation:heroIn 1s 0.36s ease both;
+}
+.stat-num{
+  font-family:'Crimson Pro',serif;
+  font-size:42px;font-weight:300;
+  color:var(--white);line-height:1;
+}
+.stat-num b{color:var(--green);font-weight:400;}
+.stat-label{
+  font-size:11px;font-weight:500;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);margin-top:6px;
+}
 
-        /* --- NAVIGATION --- */
-        .nav-list { list-style: none; padding: 1.5rem 1rem; }
-        .nav-link { 
-            padding: 12px 16px; border-radius: var(--radius-md); color: #94a3b8; 
-            display: flex; align-items: center; gap: 12px; cursor: pointer; 
-            margin-bottom: 6px; font-weight: 600; transition: 0.2s;
-        }
-        .nav-link:hover { color: white; background: rgba(255,255,255,0.05); }
-        .nav-link.active { background: var(--brand); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+/* ═══════════════════════════════════════
+   SECTIONS BASE
+═══════════════════════════════════════ */
+section{padding:96px 48px;}
+.container{max-width:1200px;margin:0 auto;}
 
-        /* --- MOBILE OPTIMIZATION --- */
-        .mobile-nav { 
-            display: none; position: fixed; bottom: 0; left: 0; right: 0; 
-            background: white; border-top: 1px solid var(--border); z-index: 998; 
-            padding: 10px 1rem; justify-content: space-around;
-        }
-        
-        @media (max-width: 1024px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.open { transform: translateX(0); }
-            .sidebar-overlay.show { display: block; }
-            .main-container { margin-left: 0; width: 100%; padding-bottom: 80px; }
-            .mobile-nav { display: flex; }
-            header { padding: 0 1rem; }
-            .desktop-only { display: none; }
-        }
+.section-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:500;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--green);margin-bottom:16px;
+}
+.section-label::before{
+  content:'';display:block;width:20px;height:1px;background:var(--green);
+}
+.section-title{
+  font-family:'Sora',sans-serif;
+  font-size:clamp(28px,3.5vw,46px);
+  font-weight:700;line-height:1.12;
+  letter-spacing:-0.02em;
+  color:var(--white);
+  margin-bottom:12px;
+}
+.section-desc{
+  font-size:15px;font-weight:300;
+  color:rgba(240,246,255,0.55);
+  line-height:1.7;max-width:480px;
+}
 
-        /* --- COMPONENTS --- */
-        .card { background: white; border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 1.5rem; animation: fadeIn 0.4s ease; }
-        .btn { 
-            padding: 10px 18px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; 
-            display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; transition: 0.2s;
-        }
-        .btn-primary { background: var(--brand); color: white; }
-        .btn-ghost { background: #f8fafc; color: var(--text-muted); }
-        
-        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; }
-        .badge-confirmed { background: #ecfdf5; color: #065f46; }
-        .badge-cancelled { background: #fef2f2; color: #991b1b; }
-        .badge-completed { background: #eff6ff; color: #1e40af; }
+/* reveal */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity 0.7s ease,transform 0.7s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
 
-        /* --- CALENDAR --- */
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border); border-radius: 12px; overflow: hidden; }
-        .cal-day { aspect-ratio: 1; background: white; padding: 8px; cursor: pointer; min-height: 90px; }
-        .cal-day:hover { background: #f0fdf4; }
-        .cal-num { font-weight: 800; font-size: 0.85rem; margin-bottom: 4px; }
+/* ═══════════════════════════════════════
+   PACKAGES
+═══════════════════════════════════════ */
+#paket{
+  background:var(--navy);
+  position:relative;overflow:hidden;
+}
+#paket::before{
+  content:'';position:absolute;
+  top:-200px;left:50%;transform:translateX(-50%);
+  width:800px;height:400px;
+  background:radial-gradient(ellipse,rgba(99,200,100,0.06) 0%,transparent 65%);
+  pointer-events:none;
+}
+.pkg-header{
+  text-align:center;
+  margin-bottom:56px;
+}
+.pkg-header .section-label{justify-content:center;}
+.pkg-header .section-desc{margin:0 auto;}
 
-        /* --- TABLES --- */
-        .table-wrap { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th { padding: 16px; background: #f8fafc; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid var(--border); text-align: left;}
-        td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.pkg-note{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--muted);
+  margin-top:16px;
+  padding:8px 16px;
+  border:1px solid var(--border);
+  border-radius:4px;
+}
+.pkg-note span{color:var(--green);}
 
-        /* --- MODAL --- */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 1rem; }
-        .modal-body { background: white; border-radius: 20px; width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; padding: 2rem; position: relative; }
+.pkg-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:48px;
+}
 
-        /* PRINT STYLE */
-        @media print {
-            .sidebar, .mobile-nav, header, .btn, .no-print { display: none !important; }
-            .main-container { margin: 0; padding: 0; width: 100%; }
-            .card { border: none; box-shadow: none; }
-        }
-    </style>
+/* card base */
+.pkg-card{
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:16px;
+  padding:32px 28px;
+  position:relative;
+  overflow:hidden;
+  transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;
+  display:flex;flex-direction:column;
+}
+.pkg-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:var(--border2);
+  transition:background 0.3s;
+}
+.pkg-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(46,125,214,0.3);
+  box-shadow:0 24px 64px rgba(1,11,24,0.6);
+}
+
+/* popular card */
+.pkg-card.popular{
+  border-color:rgba(99,200,100,0.35);
+  background:linear-gradient(160deg,rgba(7,24,40,0.95),rgba(3,30,15,0.9));
+  box-shadow:0 0 48px rgba(99,200,100,0.1);
+}
+.pkg-card.popular::before{
+  background:linear-gradient(90deg,var(--green),#88E089);
+  height:2px;
+}
+.pkg-card.popular:hover{
+  border-color:rgba(99,200,100,0.5);
+  box-shadow:0 24px 64px rgba(99,200,100,0.15);
+}
+
+/* enterprise card */
+.pkg-card.enterprise{
+  border-color:rgba(240,192,96,0.2);
+  background:linear-gradient(160deg,rgba(7,24,40,0.95),rgba(20,16,5,0.9));
+}
+.pkg-card.enterprise::before{
+  background:linear-gradient(90deg,var(--gold),#F5D78E);
+}
+.pkg-card.enterprise:hover{
+  border-color:rgba(240,192,96,0.35);
+  box-shadow:0 24px 64px rgba(240,192,96,0.08);
+}
+
+.pkg-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:500;
+  letter-spacing:0.15em;text-transform:uppercase;
+  padding:4px 10px;border-radius:3px;
+  margin-bottom:20px;
+  width:fit-content;
+}
+.badge-popular{
+  background:rgba(99,200,100,0.12);
+  border:1px solid rgba(99,200,100,0.3);
+  color:var(--green);
+}
+.badge-enterprise{
+  background:rgba(240,192,96,0.1);
+  border:1px solid rgba(240,192,96,0.25);
+  color:var(--gold);
+}
+.badge-placeholder{
+  opacity:0;pointer-events:none;
+  background:transparent;border:1px solid transparent;
+  color:transparent;
+}
+
+.pkg-name{
+  font-size:11px;font-weight:600;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;
+}
+.pkg-hook{
+  font-family:'Crimson Pro',serif;
+  font-size:17px;font-weight:300;font-style:italic;
+  color:rgba(240,246,255,0.75);
+  line-height:1.5;
+  margin-bottom:24px;
+  min-height:52px;
+}
+.pkg-price{
+  margin-bottom:8px;
+}
+.pkg-price-num{
+  font-family:'Sora',sans-serif;
+  font-size:clamp(28px,3vw,36px);
+  font-weight:800;
+  letter-spacing:-0.02em;
+  color:var(--white);
+  line-height:1;
+}
+.pkg-card.popular .pkg-price-num{color:var(--green);}
+.pkg-card.enterprise .pkg-price-num{color:var(--gold);}
+.pkg-timeline{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--muted);
+  margin-bottom:24px;
+}
+.pkg-divider{
+  height:1px;background:var(--border);
+  margin-bottom:20px;
+}
+.pkg-for{
+  font-size:12px;font-weight:500;
+  letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;
+}
+.pkg-target{
+  font-size:13px;font-weight:300;
+  color:rgba(240,246,255,0.6);
+  line-height:1.6;margin-bottom:20px;
+  min-height:40px;
+}
+.pkg-features{
+  list-style:none;
+  display:flex;flex-direction:column;gap:9px;
+  margin-bottom:28px;
+  flex:1;
+}
+.pkg-features li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13px;font-weight:400;
+  color:rgba(240,246,255,0.75);
+  line-height:1.5;
+}
+.pkg-features li::before{
+  content:'✓';
+  color:var(--blue);
+  font-weight:700;font-size:12px;
+  flex-shrink:0;margin-top:1px;
+}
+.pkg-card.popular .pkg-features li::before{color:var(--green);}
+.pkg-card.enterprise .pkg-features li::before{color:var(--gold);}
+
+.pkg-limits{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin-bottom:24px;
+}
+.pkg-limit{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:500;
+  letter-spacing:0.08em;
+  color:var(--muted2);
+  background:rgba(61,90,114,0.15);
+  border:1px solid rgba(61,90,114,0.2);
+  padding:3px 8px;border-radius:3px;
+}
+
+.pkg-cta{
+  display:block;width:100%;
+  padding:14px;
+  border-radius:8px;
+  font-family:'Sora',sans-serif;
+  font-size:13px;font-weight:700;
+  letter-spacing:0.02em;
+  text-align:center;
+  cursor:pointer;
+  border:none;
+  transition:all 0.25s;
+}
+.cta-default{
+  background:rgba(46,125,214,0.12);
+  border:1px solid rgba(46,125,214,0.25);
+  color:var(--blue);
+}
+.cta-default:hover{
+  background:rgba(46,125,214,0.2);
+  border-color:rgba(46,125,214,0.4);
+}
+.cta-popular{
+  background:var(--green);color:var(--navy);
+  box-shadow:0 0 32px var(--green-glow);
+}
+.cta-popular:hover{
+  transform:translateY(-1px);
+  box-shadow:0 0 48px rgba(99,200,100,0.45);
+}
+.cta-enterprise{
+  background:rgba(240,192,96,0.1);
+  border:1px solid rgba(240,192,96,0.25);
+  color:var(--gold);
+}
+.cta-enterprise:hover{
+  background:rgba(240,192,96,0.18);
+  border-color:rgba(240,192,96,0.4);
+}
+
+/* ═══════════════════════════════════════
+   COMPARISON TABLE
+═══════════════════════════════════════ */
+.compare-wrap{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+}
+.compare-title{
+  padding:20px 28px;
+  border-bottom:1px solid var(--border);
+  font-size:13px;font-weight:600;
+  letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--muted);
+}
+.compare-table{width:100%;border-collapse:collapse;}
+.compare-table th{
+  padding:14px 20px;
+  font-size:11px;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);
+  text-align:center;
+  border-bottom:1px solid var(--border);
+}
+.compare-table th:first-child{text-align:left;}
+.compare-table td{
+  padding:14px 20px;
+  font-size:13px;
+  color:rgba(240,246,255,0.7);
+  text-align:center;
+  border-bottom:1px solid rgba(99,200,100,0.05);
+}
+.compare-table td:first-child{
+  text-align:left;font-weight:400;
+  color:rgba(240,246,255,0.55);
+}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table tr:hover td{background:rgba(99,200,100,0.03);}
+.check-yes{color:var(--green);font-size:16px;}
+.check-no{color:var(--muted2);font-size:14px;}
+.check-partial{color:var(--blue);font-size:12px;font-weight:600;}
+.col-popular{background:rgba(99,200,100,0.04);}
+
+/* ═══════════════════════════════════════
+   WHY NUVORA
+═══════════════════════════════════════ */
+#kenapa{
+  background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%);
+  position:relative;overflow:hidden;
+}
+#kenapa::before{
+  content:'';position:absolute;
+  bottom:-100px;right:-100px;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(46,125,214,0.06) 0%,transparent 65%);
+  pointer-events:none;
+}
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  margin-top:56px;
+}
+.why-card{
+  padding:32px 28px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:14px;
+  transition:all 0.3s;
+  position:relative;overflow:hidden;
+}
+.why-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--blue),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.why-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(46,125,214,0.25);
+}
+.why-card:hover::before{opacity:1;}
+.why-icon{
+  font-size:28px;margin-bottom:18px;
+  filter:drop-shadow(0 0 8px var(--green-glow));
+}
+.why-title{
+  font-size:16px;font-weight:700;
+  color:var(--white);margin-bottom:10px;
+}
+.why-desc{
+  font-size:13px;font-weight:300;
+  color:rgba(240,246,255,0.55);
+  line-height:1.7;
+}
+.why-vs{
+  margin-top:16px;padding-top:16px;
+  border-top:1px solid var(--border);
+  display:flex;flex-direction:column;gap:6px;
+}
+.why-vs-item{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:12px;color:rgba(240,246,255,0.5);
+}
+.why-vs-item .x{color:#F87171;flex-shrink:0;}
+.why-vs-item .v{color:var(--green);flex-shrink:0;}
+
+/* ═══════════════════════════════════════
+   PROCESS
+═══════════════════════════════════════ */
+#proses{background:var(--navy);}
+.process-steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  margin-top:56px;
+  position:relative;
+}
+.process-steps::before{
+  content:'';position:absolute;
+  top:28px;left:calc(12.5% + 16px);right:calc(12.5% + 16px);
+  height:1px;
+  background:linear-gradient(90deg,var(--green),var(--blue));
+  opacity:0.3;
+}
+.process-step{
+  text-align:center;padding:0 20px;
+  position:relative;
+}
+.step-num{
+  width:56px;height:56px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:16px;font-weight:500;
+  position:relative;z-index:1;
+  transition:all 0.3s;
+}
+.step-num-1{background:rgba(99,200,100,0.1);border:1px solid rgba(99,200,100,0.3);color:var(--green);}
+.step-num-2{background:rgba(46,125,214,0.1);border:1px solid rgba(46,125,214,0.3);color:var(--blue);}
+.step-num-3{background:rgba(99,200,100,0.1);border:1px solid rgba(99,200,100,0.3);color:var(--green);}
+.step-num-4{background:rgba(46,125,214,0.1);border:1px solid rgba(46,125,214,0.3);color:var(--blue);}
+.process-step:hover .step-num{transform:scale(1.1);}
+.step-title{
+  font-size:15px;font-weight:700;
+  color:var(--white);margin-bottom:10px;
+}
+.step-desc{
+  font-size:13px;font-weight:300;
+  color:rgba(240,246,255,0.5);line-height:1.7;
+}
+
+/* ═══════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════ */
+#kontak{
+  background:var(--navy2);
+  position:relative;overflow:hidden;
+}
+#kontak::before{
+  content:'';position:absolute;inset:0;
+  background-image:url('https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/C52772C0-2D67-49A8-956E-E96CB3019BC4.png');
+  background-size:cover;background-position:center top;
+  opacity:0.08;pointer-events:none;
+}
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:start;
+  position:relative;z-index:1;
+}
+.contact-info{}
+.contact-info .section-title{margin-bottom:20px;}
+.contact-info p{
+  font-size:15px;font-weight:300;
+  color:rgba(240,246,255,0.55);
+  line-height:1.7;margin-bottom:36px;
+}
+.contact-channels{display:flex;flex-direction:column;gap:14px;}
+.contact-channel{
+  display:flex;align-items:center;gap:16px;
+  padding:18px 22px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  transition:all 0.25s;
+  text-decoration:none;
+}
+.contact-channel:hover{
+  border-color:rgba(99,200,100,0.3);
+  background:rgba(99,200,100,0.04);
+  transform:translateX(4px);
+}
+.cc-icon{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.cc-wa{background:rgba(99,200,100,0.1);border:1px solid rgba(99,200,100,0.2);}
+.cc-loc{background:rgba(46,125,214,0.1);border:1px solid rgba(46,125,214,0.2);}
+.cc-meta{flex:1;}
+.cc-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:3px;
+}
+.cc-value{
+  font-size:14px;font-weight:500;color:var(--white);
+}
+
+.contact-form{
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:16px;padding:36px;
+}
+.form-title{
+  font-size:18px;font-weight:700;
+  color:var(--white);margin-bottom:24px;
+}
+.form-group{
+  display:flex;flex-direction:column;gap:7px;
+  margin-bottom:16px;
+}
+.form-group label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  background:rgba(1,11,24,0.6);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  padding:13px 16px;
+  font-family:'Sora',sans-serif;
+  font-size:13px;color:var(--white);
+  outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+  -webkit-appearance:none;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder{color:rgba(107,139,164,0.5);}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:var(--green);
+  box-shadow:0 0 0 3px rgba(99,200,100,0.1);
+}
+.form-group select option{background:#071828;color:var(--white);}
+.form-group textarea{resize:vertical;min-height:90px;}
+.form-submit{
+  width:100%;margin-top:6px;
+}
+.form-note{
+  font-size:11px;color:var(--muted);
+  text-align:center;margin-top:14px;
+  line-height:1.6;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer{
+  padding:32px 48px;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.footer-logo img{
+  height:28px;width:auto;object-fit:contain;
+  opacity:0.7;filter:grayscale(30%);
+}
+.footer-copy{
+  font-size:12px;color:var(--muted);
+}
+.footer-links{
+  display:flex;gap:24px;list-style:none;
+}
+.footer-links a{
+  font-size:12px;color:var(--muted);
+  transition:color 0.2s;
+}
+.footer-links a:hover{color:var(--white);}
+
+/* ═══════════════════════════════════════
+   WA FLOAT
+═══════════════════════════════════════ */
+.wa-float{
+  position:fixed;bottom:28px;right:28px;z-index:200;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--green);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 24px rgba(99,200,100,0.45);
+  transition:all 0.25s;
+  text-decoration:none;
+}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 8px 40px rgba(99,200,100,0.6);}
+.wa-float svg{width:28px;height:28px;fill:#010B18;}
+
+/* ═══════════════════════════════════════
+   MOBILE NAV MENU
+═══════════════════════════════════════ */
+.mobile-menu{
+  position:fixed;inset:0;z-index:99;
+  background:rgba(1,11,24,0.98);
+  backdrop-filter:blur(24px);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:32px;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s;
+}
+.mobile-menu.open{opacity:1;pointer-events:all;}
+.mobile-menu a{
+  font-size:22px;font-weight:600;
+  color:rgba(240,246,255,0.8);
+  transition:color 0.2s;
+}
+.mobile-menu a:hover{color:var(--green);}
+.mobile-menu-close{
+  position:absolute;top:24px;right:24px;
+  background:none;border:none;color:var(--white);
+  font-size:28px;cursor:pointer;opacity:0.6;
+  transition:opacity 0.2s;
+}
+.mobile-menu-close:hover{opacity:1;}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:1100px){
+  .pkg-grid{grid-template-columns:repeat(2,1fr);}
+  .why-grid{grid-template-columns:repeat(2,1fr);}  
+  .process-steps{grid-template-columns:repeat(2,1fr);gap:32px;}
+  .process-steps::before{display:none;}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .nav-hamburger{display:flex;}
+  section{padding:72px 20px;}
+  .hero{padding:100px 20px 64px;}
+  .hero-stats{gap:24px;flex-wrap:wrap;}
+  .pkg-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .process-steps{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;gap:40px;}
+  footer{flex-direction:column;text-align:center;padding:24px 20px;}
+  .compare-wrap{overflow-x:auto;}
+  .hero-logo{width:160px;}
+}
+</style>
+
 </head>
 <body>
 
-    <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
-    <div class="sidebar-overlay" id="sidebar-overlay" onclick="UI.toggleSidebar()"></div>
+<!-- ═══ MOBILE MENU ═══ -->
 
-    <div id="page-auth" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0f172a;">
-        <div class="card" style="width: 100%; max-width: 400px; text-align: center; padding: 3rem; border: none;">
-            <h1 style="font-weight: 900; letter-spacing: -1.5px; font-size: 2rem; margin-bottom: 2rem;">Reserva<span style="color: var(--brand);">Hub</span></h1>
-            <form id="form-login">
-                <input type="email" id="login-email" class="btn btn-ghost" style="width:100%; margin-bottom:1rem; border:1px solid var(--border);" value="admin@demo.local">
-                <input type="password" id="login-pass" class="btn btn-ghost" style="width:100%; margin-bottom:2rem; border:1px solid var(--border);" value="admin123">
-                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; height: 50px;">Login Executive</button>
-            </form>
-        </div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="menuClose">✕</button>
+  <a href="#paket" onclick="closeMobileMenu()">Paket & Harga</a>
+  <a href="#kenapa" onclick="closeMobileMenu()">Mengapa Nuvora</a>
+  <a href="#proses" onclick="closeMobileMenu()">Proses Kerja</a>
+  <a href="#kontak" onclick="closeMobileMenu()" style="color:var(--green)">Hubungi Kami</a>
+</div>
+
+<!-- ═══ NAV ═══ -->
+
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <img src="https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/38E4CBBE-7911-4A53-AC56-9215874F58F3.png"
+         alt="Nuvora Systems"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span style="display:none;font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:var(--white);">Nu<span style="color:var(--green)">vora</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#paket">Paket & Harga</a></li>
+    <li><a href="#kenapa">Mengapa Nuvora</a></li>
+    <li><a href="#proses">Proses Kerja</a></li>
+    <li><a href="#kontak" class="nav-cta">Hubungi Kami</a></li>
+  </ul>
+  <button class="nav-hamburger" id="menuOpen" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <img class="hero-logo"
+         src="https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/38E4CBBE-7911-4A53-AC56-9215874F58F3.png"
+         alt="Nuvora Systems"
+         onerror="this.style.display='none'">
+    <div class="hero-eyebrow">Jasa Aplikasi Web Custom</div>
+    <h1 class="hero-h1">
+      Sistem Digital yang<br>
+      <em>Benar-benar Bekerja</em><br>
+      untuk Bisnis Anda
+    </h1>
+    <p class="hero-sub">
+      Harga transparan. Tidak ada biaya tersembunyi.<br>
+      Selesai dalam 7 hari. Dibangun khusus — bukan template.
+    </p>
+    <div class="hero-actions">
+      <a href="#paket" class="btn-primary">
+        Lihat Paket & Harga
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#kontak" class="btn-ghost">Konsultasi Gratis</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num"><b>7</b> hari</div>
+        <div class="stat-label">Waktu Pengerjaan</div>
+      </div>
+      <div>
+        <div class="stat-num"><b>4</b> paket</div>
+        <div class="stat-label">Pilihan Harga</div>
+      </div>
+      <div>
+        <div class="stat-num"><b>0</b> ribet</div>
+        <div class="stat-label">Tanpa Jargon Teknis</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PAKET & HARGA ═══ -->
+
+<section id="paket">
+  <div class="container">
+    <div class="pkg-header reveal">
+      <div class="section-label">Paket & Harga</div>
+      <h2 class="section-title">Bisnis Anda Ada di Tahap Mana?</h2>
+      <p class="section-desc">Tidak perlu tahu teknologinya. Kenali masalah Anda — pilih paketnya.</p>
+      <div class="pkg-note">
+        Semua paket sudah termasuk <span>2× revisi gratis</span> &nbsp;·&nbsp;
+        Hosting & domain <span>tidak termasuk</span>, ditagih terpisah — kami bantu rekomendasikan
+      </div>
     </div>
 
-    <div id="app-wrapper" style="display: none;">
-        <aside class="sidebar" id="main-sidebar">
-            <div style="padding: 2rem;">
-                <h2 style="font-weight: 900; color: white;">RH <span style="color: var(--brand);">ELITE</span></h2>
-            </div>
-            <nav class="nav-list">
-                <div class="nav-link active" onclick="Router.go('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</div>
-                <div class="nav-link" onclick="Router.go('calendar')"><i class="fas fa-calendar-alt"></i> Penjadwalan</div>
-                <div class="nav-link" onclick="Router.go('reservations')"><i class="fas fa-database"></i> Database</div>
-                <div class="nav-link" onclick="Router.go('analytics')"><i class="fas fa-microchip"></i> Analytics AI</div>
-            </nav>
-            <div style="position: absolute; bottom: 20px; width: 100%; padding: 0 1rem;">
-                <button onclick="Auth.logout()" class="btn btn-ghost" style="width:100%; color: var(--danger); background: rgba(239,68,68,0.1); border:none;">
-                    <i class="fas fa-power-off"></i> Keluar Sistem
-                </button>
-            </div>
-        </aside>
+```
+<div class="pkg-grid reveal">
 
-        <div class="main-container">
-            <header>
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <i class="fas fa-bars-staggered" style="font-size: 1.2rem; cursor: pointer;" onclick="UI.toggleSidebar()"></i>
-                    <h3 id="view-title" style="font-weight: 800;">Dashboard</h3>
-                </div>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div class="desktop-only" style="text-align: right;">
-                        <p style="font-weight: 800; font-size: 0.8rem;">Administrator</p>
-                        <p style="font-size: 0.65rem; color: var(--brand); font-weight: 700;">Verified Elite Access</p>
-                    </div>
-                    <img src="https://ui-avatars.com/api/?name=Admin&background=10b981&color=fff&bold=true" style="width: 40px; border-radius: 10px;">
-                </div>
-            </header>
-
-            <main id="render-target" style="padding: 1.5rem;"></main>
-        </div>
-
-        <nav class="mobile-nav">
-            <div class="mobile-item" onclick="Router.go('dashboard')"><i class="fas fa-home"></i></div>
-            <div class="mobile-item" onclick="Router.go('calendar')"><i class="fas fa-calendar"></i></div>
-            <div class="mobile-item" onclick="Router.go('reservations')"><i class="fas fa-list"></i></div>
-            <div class="mobile-item" onclick="Router.go('analytics')"><i class="fas fa-brain"></i></div>
-        </nav>
+  <!-- PAKET 1 -->
+  <div class="pkg-card">
+    <div class="pkg-badge badge-placeholder">·</div>
+    <div class="pkg-name">Paket 1 — Tampil Profesional</div>
+    <div class="pkg-hook">"Ketika calon pelanggan Google bisnis Anda — mereka menemukan sesuatu yang meyakinkan."</div>
+    <div class="pkg-price">
+      <div class="pkg-price-num">Rp 1.500.000</div>
     </div>
-
-    <div id="modal-res" class="modal-overlay">
-        <div class="modal-body">
-            <div style="display:flex; justify-content:space-between; margin-bottom:2rem;">
-                <h3 id="modal-title" style="font-weight: 900;">Reservasi Baru</h3>
-                <i class="fas fa-times" onclick="UI.closeModal()" style="cursor:pointer; color:var(--text-muted);"></i>
-            </div>
-            <form id="form-res">
-                <input type="hidden" id="res-id">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">NAMA GUEST</label>
-                         <input type="text" id="res-name" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border);" required></div>
-                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">WHATSAPP (62...)</label>
-                         <input type="tel" id="res-phone" class="btn btn-ghost" style="width:100%; text-align:left; border:1px solid var(--border);" required></div>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">TANGGAL</label>
-                         <input type="date" id="res-date" class="btn btn-ghost" style="width:100%; border:1px solid var(--border);" required></div>
-                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">WAKTU</label>
-                         <input type="time" id="res-time" class="btn btn-ghost" style="width:100%; border:1px solid var(--border);" required></div>
-                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">PAX</label>
-                         <input type="number" id="res-pax" class="btn btn-ghost" style="width:100%; border:1px solid var(--border);" min="1" required></div>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
-                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">AREA</label>
-                         <select id="res-loc" class="btn btn-ghost" style="width:100%; border:1px solid var(--border);"></select></div>
-                    <div><label style="font-size:0.65rem; font-weight:800; color:var(--text-muted);">STATUS</label>
-                         <select id="res-status" class="btn btn-ghost" style="width:100%; border:1px solid var(--border);">
-                            <option value="confirmed">Confirmed</option>
-                            <option value="completed">Completed</option>
-                            <option value="cancelled">Cancelled</option>
-                         </select></div>
-                </div>
-                
-                <div style="background:#f8fafc; padding:1.2rem; border-radius:12px; margin-bottom:1.5rem;">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
-                        <span style="font-weight:800; font-size:0.8rem;">Pre-Order Menu</span>
-                        <button type="button" class="btn btn-primary" style="padding:4px 10px; font-size:0.7rem;" onclick="App.addMenuRow()">+ Item</button>
-                    </div>
-                    <div id="menu-container"></div>
-                    <div style="border-top:1px solid var(--border); padding-top:10px; font-size:0.8rem;">
-                        <div style="display:flex; justify-content:space-between; color:var(--text-muted);"><span>Subtotal:</span> <span id="label-sub">Rp 0</span></div>
-                        <div style="display:flex; justify-content:space-between; color:var(--text-muted);"><span>Tax (11%) & Service (5%):</span> <span id="label-tax">Rp 0</span></div>
-                        <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1rem; margin-top:5px; color:var(--brand);"><span>Grand Total:</span> <span id="label-total">Rp 0</span></div>
-                    </div>
-                </div>
-
-                <div style="display:flex; justify-content:flex-end; gap:10px;">
-                    <button type="button" class="btn btn-ghost" onclick="UI.closeModal()">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Reservasi</button>
-                </div>
-            </form>
-        </div>
+    <div class="pkg-timeline">⏱ Selesai dalam 7 hari</div>
+    <div class="pkg-divider"></div>
+    <div class="pkg-for">Cocok untuk</div>
+    <div class="pkg-target">Toko, klinik, kontraktor, homestay, kuliner — yang belum punya website sama sekali.</div>
+    <ul class="pkg-features">
+      <li>Website tampilan profesional, bukan template gratisan</li>
+      <li>Tombol WhatsApp langsung — satu klik jadi pelanggan</li>
+      <li>Muncul di Google & Google Maps</li>
+      <li>Foto produk/layanan ditampilkan optimal</li>
+      <li>Tanpa sentuh kode apapun dari sisi Anda</li>
+    </ul>
+    <div class="pkg-limits">
+      <span class="pkg-limit">Tanpa login</span>
+      <span class="pkg-limit">Tanpa database</span>
+      <span class="pkg-limit">Tanpa notifikasi</span>
     </div>
+    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20dengan%20Paket%201%20Tampil%20Profesional%20Rp%201.500.000" target="_blank" class="pkg-cta cta-default">Mulai dengan Paket Ini →</a>
+  </div>
 
-    <script>
-        /** LOGIC & UTILS **/
-        const Utils = {
-            formatIDR: (v) => "Rp " + Math.floor(v).toLocaleString('id-ID'),
-            toast(msg) {
-                const t = document.createElement('div');
-                t.style = "background: #0f172a; color: white; padding: 12px 20px; border-radius: 10px; margin-bottom: 10px; font-size: 0.85rem; font-weight: 600; box-shadow: 0 10px 15px rgba(0,0,0,0.2); animation: fadeIn 0.3s ease;";
-                t.innerHTML = `<i class="fas fa-check-circle" style="color:var(--brand); margin-right:8px;"></i> ${msg}`;
-                document.getElementById('toast-container').appendChild(t);
-                setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 3000);
-            }
-        };
+  <!-- PAKET 2 -->
+  <div class="pkg-card">
+    <div class="pkg-badge badge-placeholder">·</div>
+    <div class="pkg-name">Paket 2 — Kelola Lebih Mudah</div>
+    <div class="pkg-hook">"Ganti buku catatan dan grup WhatsApp dengan satu sistem rapi — dari HP kapan saja."</div>
+    <div class="pkg-price">
+      <div class="pkg-price-num">Rp 3.500.000</div>
+    </div>
+    <div class="pkg-timeline">⏱ Selesai dalam 7 hari</div>
+    <div class="pkg-divider"></div>
+    <div class="pkg-for">Cocok untuk</div>
+    <div class="pkg-target">Bisnis yang masih catat manual — warung, toko, laundry, kursus, salon.</div>
+    <ul class="pkg-features">
+      <li>Sistem sesuai alur kerja bisnis Anda, bukan template generic</li>
+      <li>Akses dari HP, tablet, laptop — tanpa install apapun</li>
+      <li>Data tersimpan aman, tidak hilang meski HP rusak</li>
+      <li>Laporan harian otomatis — tidak perlu rekap manual</li>
+      <li>Bisa dioperasikan karyawan tanpa pelatihan teknis</li>
+    </ul>
+    <div class="pkg-limits">
+      <span class="pkg-limit">1 akun pengguna</span>
+      <span class="pkg-limit">1 fitur utama</span>
+      <span class="pkg-limit">Tanpa notifikasi</span>
+    </div>
+    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20dengan%20Paket%202%20Kelola%20Lebih%20Mudah%20Rp%203.500.000" target="_blank" class="pkg-cta cta-default">Mulai dengan Paket Ini →</a>
+  </div>
 
-        const DB = {
-            init() {
-                if(!localStorage.getItem('rh_reservations')) localStorage.setItem('rh_reservations', JSON.stringify([]));
-                if(!localStorage.getItem('rh_menus')) localStorage.setItem('rh_menus', JSON.stringify([
-                    {name: 'Wagyu Steak Prime', price: 450000},
-                    {name: 'Atlantic Lobster', price: 750000},
-                    {name: 'Premium Champagne', price: 1850000},
-                    {name: 'Truffle Pasta', price: 285000}
-                ]));
-                if(!localStorage.getItem('rh_locations')) localStorage.setItem('rh_locations', JSON.stringify([
-                    {name: 'Diamond VIP Box', cap: 8},
-                    {name: 'Sky Deck Terrace', cap: 45},
-                    {name: 'Grand Ballroom', cap: 120}
-                ]));
-            },
-            get: (k) => JSON.parse(localStorage.getItem('rh_'+k)),
-            set: (k, v) => localStorage.setItem('rh_'+k, JSON.stringify(v))
-        };
+  <!-- PAKET 3 — POPULAR -->
+  <div class="pkg-card popular">
+    <div class="pkg-badge badge-popular">⭐ Paling Populer</div>
+    <div class="pkg-name">Paket 3 — Tumbuh Lebih Cepat</div>
+    <div class="pkg-hook">"Sistem yang tidak hanya mencatat — tapi bekerja sendiri dan memberi tahu hal penting."</div>
+    <div class="pkg-price">
+      <div class="pkg-price-num">Rp 6.000.000</div>
+    </div>
+    <div class="pkg-timeline">⏱ Selesai dalam 7 hari</div>
+    <div class="pkg-divider"></div>
+    <div class="pkg-for">Cocok untuk</div>
+    <div class="pkg-target">Bisnis dengan beberapa karyawan atau lokasi — butuh koordinasi & laporan real-time.</div>
+    <ul class="pkg-features">
+      <li>Notifikasi otomatis ke WhatsApp atau email</li>
+      <li>Multi-user — kasir, manajer, owner punya akses berbeda</li>
+      <li>Dashboard grafik omset & tren penjualan</li>
+      <li>Terhubung ke satu platform eksternal yang sudah Anda pakai</li>
+      <li>Keputusan bisnis berdasarkan data, bukan feeling</li>
+    </ul>
+    <div class="pkg-limits">
+      <span class="pkg-limit">Maks 2 fitur utama</span>
+      <span class="pkg-limit">1 integrasi eksternal</span>
+    </div>
+    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20dengan%20Paket%203%20Tumbuh%20Lebih%20Cepat%20Rp%206.000.000" target="_blank" class="pkg-cta cta-popular">Mulai dengan Paket Ini →</a>
+  </div>
 
-        const App = {
-            calcTotal() {
-                let subtotal = 0;
-                document.querySelectorAll('.m-row').forEach(row => {
-                    const price = row.querySelector('.m-name').selectedOptions[0].dataset.price;
-                    const qty = row.querySelector('.m-qty').value;
-                    subtotal += price * qty;
-                });
-                const taxService = subtotal * 0.16; // 11% tax + 5% service
-                const grandTotal = subtotal + taxService;
+  <!-- PAKET 4 — ENTERPRISE -->
+  <div class="pkg-card enterprise">
+    <div class="pkg-badge badge-enterprise">◆ Untuk Bisnis Kompleks</div>
+    <div class="pkg-name">Paket 4 — Enterprise Custom</div>
+    <div class="pkg-hook">"Platform digital dari nol — untuk operasional sekompleks apapun yang bisnis Anda butuhkan."</div>
+    <div class="pkg-price">
+      <div class="pkg-price-num">Rp 12.000.000</div>
+    </div>
+    <div class="pkg-timeline">⏱ Estimasi sesuai kompleksitas</div>
+    <div class="pkg-divider"></div>
+    <div class="pkg-for">Cocok untuk</div>
+    <div class="pkg-target">Bisnis multi-lokasi, banyak tim, proses berlapis — terlalu kompleks untuk solusi standar.</div>
+    <ul class="pkg-features">
+      <li>Autentikasi lengkap — register, login, reset password, manajemen sesi</li>
+      <li>Multi-user dengan hierarki akses berbeda per peran</li>
+      <li>Sinkronisasi cloud otomatis, tetap berjalan penuh saat offline</li>
+      <li>Import data massal dari Excel, export laporan CSV & JSON</li>
+      <li>Enkripsi & keamanan tingkat lanjut di setiap lapisan sistem</li>
+      <li>Audit trail — setiap perubahan data tercatat dengan timestamp</li>
+      <li>Arsitektur skalabel — tumbuh seiring bisnis berkembang</li>
+    </ul>
+    <div class="pkg-limits">
+      <span class="pkg-limit">Fitur tidak terbatas</span>
+    </div>
+    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20diskusi%20kebutuhan%20untuk%20Paket%20Enterprise%20Custom" target="_blank" class="pkg-cta cta-enterprise">Diskusikan Kebutuhan Saya →</a>
+  </div>
 
-                document.getElementById('label-sub').innerText = Utils.formatIDR(subtotal);
-                document.getElementById('label-tax').innerText = Utils.formatIDR(taxService);
-                document.getElementById('label-total').innerText = Utils.formatIDR(grandTotal);
-                return { subtotal, grandTotal };
-            },
-            addMenuRow(name = '', qty = 1) {
-                const container = document.getElementById('menu-container');
-                const menus = DB.get('menus');
-                const div = document.createElement('div');
-                div.className = 'm-row';
-                div.style = "display:grid; grid-template-columns: 1fr 70px 30px; gap:8px; margin-bottom:8px;";
-                div.innerHTML = `
-                    <select class="m-name btn btn-ghost" style="text-align:left; border:1px solid var(--border); font-size:0.75rem;" onchange="App.calcTotal()">
-                        ${menus.map(m => `<option value="${m.name}" data-price="${m.price}" ${m.name===name?'selected':''}>${m.name} (${Utils.formatIDR(m.price)})</option>`).join('')}
-                    </select>
-                    <input type="number" class="m-qty btn btn-ghost" value="${qty}" min="1" style="border:1px solid var(--border); font-size:0.75rem;" onchange="App.calcTotal()">
-                    <i class="fas fa-trash" style="color:var(--danger); cursor:pointer; align-self:center;" onclick="this.parentElement.remove(); App.calcTotal()"></i>
-                `;
-                container.appendChild(div);
-                App.calcTotal();
-            },
-            save(e) {
-                e.preventDefault();
-                const id = document.getElementById('res-id').value || Date.now().toString();
-                const { grandTotal } = App.calcTotal();
-                
-                const entry = {
-                    id,
-                    customer: document.getElementById('res-name').value,
-                    phone: document.getElementById('res-phone').value,
-                    date: document.getElementById('res-date').value,
-                    time: document.getElementById('res-time').value,
-                    pax: document.getElementById('res-pax').value,
-                    location: document.getElementById('res-loc').value,
-                    status: document.getElementById('res-status').value,
-                    total: grandTotal,
-                    menus: [...document.querySelectorAll('.m-row')].map(r => ({
-                        name: r.querySelector('.m-name').value,
-                        qty: r.querySelector('.m-qty').value,
-                        price: r.querySelector('.m-name').selectedOptions[0].dataset.price
-                    }))
-                };
+</div>
 
-                let data = DB.get('reservations');
-                const idx = data.findIndex(r => r.id === id);
-                if(idx > -1) data[idx] = entry; else data.push(entry);
-                
-                DB.set('reservations', data);
-                UI.closeModal();
-                Utils.toast("Database Berhasil Diperbarui");
-                Router.go('reservations');
-            }
-        };
+<!-- TABEL PERBANDINGAN -->
+<div class="compare-wrap reveal">
+  <div class="compare-title">Perbandingan Paket — Berdasarkan Kebutuhan Bisnis Anda</div>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Pertanyaan</th>
+        <th>P1<br><span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">Rp 1,5 jt</span></th>
+        <th>P2<br><span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">Rp 3,5 jt</span></th>
+        <th class="col-popular">P3 ⭐<br><span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--green)">Rp 6 jt</span></th>
+        <th>P4 ◆<br><span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--gold)">Rp 12 jt</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bisnis saya mudah ditemukan online?</td>
+        <td><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+        <td class="col-popular"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Data bisnis tersimpan rapi & aman?</td>
+        <td><span class="check-no">—</span></td>
+        <td><span class="check-yes">✓</span></td>
+        <td class="col-popular"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Sistem memberi tahu saya otomatis?</td>
+        <td><span class="check-no">—</span></td>
+        <td><span class="check-no">—</span></td>
+        <td class="col-popular"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Tim saya bisa akses dengan peran berbeda?</td>
+        <td><span class="check-no">—</span></td>
+        <td><span class="check-no">—</span></td>
+        <td class="col-popular"><span class="check-yes">✓</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Bisa import/export data massal?</td>
+        <td><span class="check-no">—</span></td>
+        <td><span class="check-no">—</span></td>
+        <td class="col-popular"><span class="check-no">—</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Tetap berjalan saat internet mati?</td>
+        <td><span class="check-no">—</span></td>
+        <td><span class="check-no">—</span></td>
+        <td class="col-popular"><span class="check-no">—</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Audit trail & keamanan tingkat lanjut?</td>
+        <td><span class="check-no">—</span></td>
+        <td><span class="check-no">—</span></td>
+        <td class="col-popular"><span class="check-no">—</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+      <tr>
+        <td>Bisa berkembang tanpa batas fitur?</td>
+        <td><span class="check-no">—</span></td>
+        <td><span class="check-no">—</span></td>
+        <td class="col-popular"><span class="check-no">—</span></td>
+        <td><span class="check-yes">✓</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-        const Router = {
-            go(page) {
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                const activeLink = document.querySelector(`[onclick="Router.go('${page}')"]`);
-                if(activeLink) activeLink.classList.add('active');
-                UI.render(page);
-                if(window.innerWidth <= 1024) UI.toggleSidebar(false);
-            }
-        };
+<div style="text-align:center;margin-top:28px;" class="reveal">
+  <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Tidak yakin paket mana yang cocok?</p>
+  <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20konsultasi%20gratis%20untuk%20menentukan%20paket%20yang%20sesuai" target="_blank" class="btn-primary" style="display:inline-flex;">
+    Konsultasi Gratis via WhatsApp
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+```
 
-        const UI = {
-            toggleSidebar(force) {
-                const sb = document.getElementById('main-sidebar');
-                const ov = document.getElementById('sidebar-overlay');
-                if(force === false) {
-                    sb.classList.remove('open'); ov.classList.remove('show');
-                } else {
-                    sb.classList.toggle('open'); ov.classList.toggle('show');
-                }
-            },
-            render(page) {
-                const target = document.getElementById('render-target');
-                const data = DB.get('reservations');
-                const validData = data.filter(r => r.status !== 'cancelled');
+  </div>
+</section>
 
-                if(page === 'dashboard') {
-                    const revenue = validData.reduce((s, r) => s + r.total, 0);
-                    const guests = validData.reduce((s, r) => s + parseInt(r.pax), 0);
-                    target.innerHTML = `
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem; margin-bottom:1.5rem;">
-                            <div class="card"><p style="font-size:0.7rem; font-weight:800; color:var(--text-muted);">TOTAL REVENUE</p><h2>${Utils.formatIDR(revenue)}</h2></div>
-                            <div class="card"><p style="font-size:0.7rem; font-weight:800; color:var(--text-muted);">TOTAL GUESTS</p><h2>${guests} Pax</h2></div>
-                            <div class="card"><p style="font-size:0.7rem; font-weight:800; color:var(--text-muted);">AVG. SPEND / GUEST</p><h2>${guests > 0 ? Utils.formatIDR(revenue/guests) : 'Rp 0'}</h2></div>
-                        </div>
-                        <div class="card">
-                            <h3 style="margin-bottom:1rem;">Revenue Tracking</h3>
-                            <canvas id="chart-main" height="100"></canvas>
-                        </div>
-                    `;
-                    this.initChart(validData.slice(-7));
-                }
+<!-- ═══ MENGAPA NUVORA ═══ -->
 
-                if(page === 'calendar') {
-                    const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
-                    const now = new Date();
-                    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).getDay();
-                    const lastDate = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+<section id="kenapa">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Mengapa Nuvora</div>
+      <h2 class="section-title">Bukan Freelancer Biasa.<br>Bukan Agency Mahal.</h2>
+      <p class="section-desc">Di celah itulah Nuvora Systems berdiri — kualitas profesional, harga yang masuk akal.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">⚡</div>
+        <div class="why-title">Harga Transparan, Tidak Ada Kejutan</div>
+        <div class="why-desc">Harga sudah tercantum jelas. Tidak ada biaya tambahan yang muncul di tengah jalan. Yang Anda lihat adalah yang Anda bayar.</div>
+        <div class="why-vs">
+          <div class="why-vs-item"><span class="x">✕</span><span>Freelancer: harga berubah setelah deal</span></div>
+          <div class="why-vs-item"><span class="x">✕</span><span>Agency: penawaran rahasia, minta ketemu dulu</span></div>
+          <div class="why-vs-item"><span class="v">✓</span><span>Nuvora: harga langsung terlihat di website</span></div>
+        </div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🎯</div>
+        <div class="why-title">Dibangun Khusus, Bukan Template</div>
+        <div class="why-desc">Setiap sistem dibangun dari nol sesuai alur kerja bisnis Anda. Bukan template yang dipaksa cocok dengan kebutuhan berbeda.</div>
+        <div class="why-vs">
+          <div class="why-vs-item"><span class="x">✕</span><span>Platform murah: template yang sama untuk semua</span></div>
+          <div class="why-vs-item"><span class="x">✕</span><span>Freelancer: copy-paste proyek sebelumnya</span></div>
+          <div class="why-vs-item"><span class="v">✓</span><span>Nuvora: custom sesuai bisnis Anda</span></div>
+        </div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🛡️</div>
+        <div class="why-title">Tidak Hilang Setelah Deliver</div>
+        <div class="why-desc">2× revisi gratis sudah termasuk. Setelah launch pun kami tetap bisa dihubungi. Bukan model kerja selesai lalu tidak bisa ditemukan.</div>
+        <div class="why-vs">
+          <div class="why-vs-item"><span class="x">✕</span><span>Freelancer: sering hilang setelah pembayaran</span></div>
+          <div class="why-vs-item"><span class="x">✕</span><span>Platform: support hanya via tiket & FAQ</span></div>
+          <div class="why-vs-item"><span class="v">✓</span><span>Nuvora: langsung bisa chat WhatsApp</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                    let html = `<div class="card">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem;">
-                            <h3>${now.toLocaleString('id-ID', {month:'long', year:'numeric'})}</h3>
-                            <button class="btn btn-primary" onclick="UI.openModal()">+ Booking Baru</button>
-                        </div>
-                        <div class="cal-grid">`;
-                    days.forEach(d => html += `<div style="text-align:center; padding:10px; font-weight:800; font-size:0.7rem; color:var(--text-muted); background:#f8fafc;">${d}</div>`);
-                    for(let i=0; i<firstDay; i++) html += `<div class="cal-day" style="background:#f1f5f9;"></div>`;
-                    for(let d=1; d<=lastDate; d++) {
-                        const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-                        const count = data.filter(r => r.date === dateStr && r.status !== 'cancelled').length;
-                        html += `<div class="cal-day" onclick="UI.openModal('${dateStr}')">
-                            <div class="cal-num">${d}</div>
-                            ${count > 0 ? `<div style="background:var(--brand); color:white; font-size:0.6rem; padding:2px 5px; border-radius:4px;">${count} Booking</div>` : ''}
-                        </div>`;
-                    }
-                    target.innerHTML = html + `</div></div>`;
-                }
+<!-- ═══ PROSES ═══ -->
 
-                if(page === 'reservations') {
-                    target.innerHTML = `
-                        <div style="display:flex; justify-content:space-between; margin-bottom:1rem; align-items:center;">
-                            <input type="text" placeholder="Cari Nama / WhatsApp..." class="btn btn-ghost" style="border:1px solid var(--border); width:250px;" onkeyup="UI.filter(this.value)">
-                            <button class="btn btn-primary" onclick="UI.openModal()">+ Entry Baru</button>
-                        </div>
-                        <div class="card table-wrap" style="padding:0;">
-                            <table>
-                                <thead><tr><th>Guest</th><th>Jadwal</th><th>Area</th><th>Total Bil</th><th>Status</th><th>Actions</th></tr></thead>
-                                <tbody id="table-body">
-                                    ${data.sort((a,b)=>new Date(b.date)-new Date(a.date)).map(r => `
-                                        <tr>
-                                            <td><b>${r.customer}</b><br><small>${r.phone}</small></td>
-                                            <td>${r.date}<br><small>${r.time}</small></td>
-                                            <td>${r.location}</td>
-                                            <td style="color:var(--brand); font-weight:800;">${Utils.formatIDR(r.total)}</td>
-                                            <td><span class="badge badge-${r.status}">${r.status}</span></td>
-                                            <td>
-                                                <button onclick="UI.edit('${r.id}')" class="btn btn-ghost" style="padding:5px 8px;"><i class="fas fa-edit"></i></button>
-                                                <button onclick="UI.print('${r.id}')" class="btn btn-ghost" style="padding:5px 8px;"><i class="fas fa-print"></i></button>
-                                                <button onclick="UI.delete('${r.id}')" class="btn btn-ghost" style="padding:5px 8px; color:var(--danger);"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
-                    `;
-                }
+<section id="proses">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:0;">
+      <div class="section-label" style="justify-content:center;">Cara Kerja</div>
+      <h2 class="section-title">Dari Obrolan ke Sistem Jadi</h2>
+      <p class="section-desc" style="margin:0 auto;">Empat langkah. Transparan. Tanpa kejutan di tengah jalan.</p>
+    </div>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="step-num step-num-1">01</div>
+        <div class="step-title">Konsultasi Gratis</div>
+        <div class="step-desc">Ceritakan bisnis Anda — masalahnya, alur kerjanya, dan yang ingin dicapai. Gratis, tanpa komitmen.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num step-num-2">02</div>
+        <div class="step-title">Proposal & Scope</div>
+        <div class="step-desc">Anda terima dokumen scope lengkap dan estimasi harga sebelum proyek dimulai. Tidak ada ambiguitas.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num step-num-3">03</div>
+        <div class="step-title">Development</div>
+        <div class="step-desc">Kami bangun sistemnya. Anda bisa pantau progress dan beri feedback langsung — tidak perlu tunggu selesai semua.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num step-num-4">04</div>
+        <div class="step-title">Launch & Handover</div>
+        <div class="step-desc">Sistem live, Anda terima akses penuh dan panduan penggunaan. Plus 2× revisi gratis setelah launch.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                if(page === 'analytics') {
-                    const cancels = data.filter(r => r.status === 'cancelled').length;
-                    const rate = data.length > 0 ? ((cancels / data.length) * 100).toFixed(1) : 0;
-                    target.innerHTML = `
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
-                            <div class="card"><h3>Cancellation Rate</h3><h2 style="color:var(--danger);">${rate}%</h2></div>
-                            <div class="card"><h3>Peak Hour</h3><h2>${this.getPeakHour(validData)}</h2></div>
-                        </div>
-                        <div class="card" style="border-left:5px solid var(--brand);">
-                            <h3 style="margin-bottom:1rem;"><i class="fas fa-robot"></i> Strategic Recommendation</h3>
-                            <p>Berdasarkan data, rata-rata pengeluaran tamu Anda adalah <b>${Utils.formatIDR(validData.reduce((s,r)=>s+r.total,0)/validData.reduce((s,r)=>s+parseInt(r.pax),0)||0)}</b>. 
-                            Gunakan data ini untuk mengatur <i>Minimum Spend</i> pada area <b>Diamond VIP Box</b> guna memaksimalkan profit.</p>
-                        </div>
-                    `;
-                }
-            },
-            getPeakHour(data) {
-                const counts = {};
-                data.forEach(r => { const h = r.time.split(':')[0]; counts[h] = (counts[h]||0)+1; });
-                return Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b, 'N/A') + ":00";
-            },
-            initChart(data) {
-                const ctx = document.getElementById('chart-main');
-                if(!ctx) return;
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: data.map(r => r.date),
-                        datasets: [{ label: 'Revenue', data: data.map(r => r.total), borderColor: '#10b981', tension: 0.4, fill: true, backgroundColor: 'rgba(16,185,129,0.1)' }]
-                    },
-                    options: { plugins: { legend: { display: false } } }
-                });
-            },
-            openModal(date = '', editObj = null) {
-                document.getElementById('form-res').reset();
-                document.getElementById('menu-container').innerHTML = '';
-                document.getElementById('res-id').value = editObj ? editObj.id : '';
-                
-                const locs = DB.get('locations');
-                document.getElementById('res-loc').innerHTML = locs.map(l => `<option value="${l.name}">${l.name} (Max ${l.cap})</option>`).join('');
-                
-                if(editObj) {
-                    document.getElementById('res-name').value = editObj.customer;
-                    document.getElementById('res-phone').value = editObj.phone;
-                    document.getElementById('res-date').value = editObj.date;
-                    document.getElementById('res-time').value = editObj.time;
-                    document.getElementById('res-pax').value = editObj.pax;
-                    document.getElementById('res-loc').value = editObj.location;
-                    document.getElementById('res-status').value = editObj.status;
-                    editObj.menus.forEach(m => App.addMenuRow(m.name, m.qty));
-                } else {
-                    document.getElementById('res-date').value = date || new Date().toISOString().split('T')[0];
-                    App.addMenuRow();
-                }
-                document.getElementById('modal-res').style.display = 'flex';
-            },
-            closeModal() { document.getElementById('modal-res').style.display = 'none'; },
-            edit(id) { this.openModal('', DB.get('reservations').find(r => r.id === id)); },
-            delete(id) {
-                if(confirm("Hapus permanen data ini?")) {
-                    const data = DB.get('reservations').filter(r => r.id !== id);
-                    DB.set('reservations', data);
-                    this.render('reservations');
-                }
-            },
-            filter(val) {
-                const q = val.toLowerCase();
-                document.querySelectorAll('#table-body tr').forEach(row => {
-                    row.style.display = row.innerText.toLowerCase().includes(q) ? '' : 'none';
-                });
-            },
-            print(id) {
-                const r = DB.get('reservations').find(x => x.id === id);
-                const printWindow = window.open('', '_blank');
-                printWindow.document.write(`
-                    <html><head><title>Invoice ${r.customer}</title>
-                    <style>body{font-family:sans-serif; padding:40px;} .header{text-align:center; border-bottom:2px solid #333; padding-bottom:20px;}
-                    table{width:100%; border-collapse:collapse; margin-top:20px;} th,td{padding:10px; border-bottom:1px solid #eee; text-align:left;}</style></head>
-                    <body>
-                        <div class="header"><h1>ReservaHub Elite</h1><p>Official Booking Invoice</p></div>
-                        <p><b>Guest:</b> ${r.customer} (${r.phone})</p>
-                        <p><b>Schedule:</b> ${r.date} @ ${r.time} | Area: ${r.location}</p>
-                        <table><thead><tr><th>Item</th><th>Qty</th><th>Price</th></tr></thead>
-                        <tbody>${r.menus.map(m=>`<tr><td>${m.name}</td><td>${m.qty}</td><td>${Utils.formatIDR(m.price)}</td></tr>`).join('')}</tbody>
-                        </table>
-                        <h2 style="text-align:right; margin-top:30px;">Total: ${Utils.formatIDR(r.total)}</h2>
-                        <script>window.print();<\/script>
-                    </body></html>
-                `);
-            }
-        };
+<!-- ═══ KONTAK ═══ -->
 
-        const Auth = {
-            check: () => sessionStorage.getItem('rh_auth') === 'true',
-            login(e, p) {
-                if(e === 'admin@demo.local' && p === 'admin123') {
-                    sessionStorage.setItem('rh_auth', 'true');
-                    location.reload();
-                } else alert("Invalid Credentials");
-            },
-            logout: () => { sessionStorage.clear(); location.reload(); }
-        };
+<section id="kontak">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="section-label">Hubungi Kami</div>
+        <h2 class="section-title">Mulai dari<br>Obrolan Singkat</h2>
+        <p>Konsultasi pertama selalu gratis. Kami bantu identifikasi solusi terbaik sebelum Anda memutuskan apapun.</p>
+        <div class="contact-channels">
+          <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%20Systems%2C%20saya%20ingin%20konsultasi%20gratis" target="_blank" class="contact-channel">
+            <div class="cc-icon cc-wa">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#63C864"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div class="cc-meta">
+              <div class="cc-label">WhatsApp</div>
+              <div class="cc-value">0814-6034-8354</div>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--muted);flex-shrink:0"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="contact-channel" style="cursor:default;">
+            <div class="cc-icon cc-loc">📍</div>
+            <div class="cc-meta">
+              <div class="cc-label">Alamat</div>
+              <div class="cc-value" style="font-size:13px;line-height:1.5;">Perum Gunungsari Asri Blok D3,<br>Tingkir, Salatiga</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        /** INIT **/
-        DB.init();
-        if(!Auth.check()) {
-            document.getElementById('page-auth').style.display = 'flex';
-            document.getElementById('app-wrapper').style.display = 'none';
-        } else {
-            document.getElementById('page-auth').style.display = 'none';
-            document.getElementById('app-wrapper').style.display = 'flex';
-            Router.go('dashboard');
-        }
+```
+  <div class="contact-form reveal">
+    <div class="form-title">Kirim Pesan Langsung</div>
+    <div class="form-group">
+      <label>Nama Anda</label>
+      <input type="text" id="fName" placeholder="Budi Santoso">
+    </div>
+    <div class="form-group">
+      <label>Nama Bisnis</label>
+      <input type="text" id="fBiz" placeholder="Toko Makmur Jaya">
+    </div>
+    <div class="form-group">
+      <label>Paket yang Diminati</label>
+      <select id="fPkg">
+        <option value="" disabled selected>Pilih paket...</option>
+        <option value="Paket 1 - Tampil Profesional (Rp 1.500.000)">Paket 1 — Tampil Profesional · Rp 1.500.000</option>
+        <option value="Paket 2 - Kelola Lebih Mudah (Rp 3.500.000)">Paket 2 — Kelola Lebih Mudah · Rp 3.500.000</option>
+        <option value="Paket 3 - Tumbuh Lebih Cepat (Rp 6.000.000)">Paket 3 — Tumbuh Lebih Cepat · Rp 6.000.000</option>
+        <option value="Paket 4 - Enterprise Custom (Rp 12.000.000)">Paket 4 — Enterprise Custom · Rp 12.000.000</option>
+        <option value="Belum yakin, minta konsultasi">Belum yakin — minta konsultasi gratis</option>
+      </select>
+    </div>
+    <button class="btn-primary form-submit" onclick="sendWhatsApp()">
+      Kirim via WhatsApp
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+    <p class="form-note">Kami merespons dalam 24 jam kerja.<br>Tidak ada komitmen di tahap ini.</p>
+  </div>
+</div>
+```
 
-        document.getElementById('form-login').onsubmit = (e) => {
-            e.preventDefault();
-            Auth.login(document.getElementById('login-email').value, document.getElementById('login-pass').value);
-        };
-        document.getElementById('form-res').onsubmit = App.save;
-    </script>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+
+<footer>
+  <div class="footer-logo">
+    <img src="https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/38E4CBBE-7911-4A53-AC56-9215874F58F3.png"
+         alt="Nuvora Systems"
+         onerror="this.innerHTML='<span style=\'font-family:Sora,sans-serif;font-size:14px;font-weight:700;color:var(--muted)\'>Nuvora Systems</span>'">
+  </div>
+  <div class="footer-copy">© 2025 Nuvora Systems · Salatiga, Indonesia</div>
+  <ul class="footer-links">
+    <li><a href="#paket">Paket</a></li>
+    <li><a href="#kenapa">Tentang</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+</footer>
+
+<!-- ═══ WA FLOAT ═══ -->
+
+<a href="https://wa.me/6281460348354?text=Halo%20Nuvora%20Systems" target="_blank" class="wa-float" aria-label="Chat WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+/* ─── NAV SCROLL ─── */
+var nav = document.getElementById('mainNav');
+window.addEventListener('scroll', function(){
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, {passive:true});
+
+/* ─── MOBILE MENU ─── */
+document.getElementById('menuOpen').onclick = function(){
+  document.getElementById('mobileMenu').classList.add('open');
+};
+document.getElementById('menuClose').onclick = closeMobileMenu;
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+/* ─── SCROLL REVEAL ─── */
+var revealEls = document.querySelectorAll('.reveal');
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry, i){
+    if(entry.isIntersecting){
+      setTimeout(function(){ entry.target.classList.add('visible'); }, i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.1});
+revealEls.forEach(function(el){ observer.observe(el); });
+
+/* ─── WHATSAPP FORM ─── */
+function sendWhatsApp(){
+  var name = document.getElementById('fName').value.trim();
+  var biz  = document.getElementById('fBiz').value.trim();
+  var pkg  = document.getElementById('fPkg').value;
+  if(!name){ alert('Mohon isi nama Anda.'); return; }
+  if(!pkg) { alert('Mohon pilih paket yang diminati.'); return; }
+  var msg = 'Halo Nuvora Systems,\n\n';
+  msg += 'Nama: ' + name + '\n';
+  if(biz) msg += 'Bisnis: ' + biz + '\n';
+  msg += 'Paket: ' + pkg + '\n\n';
+  msg += 'Saya ingin konsultasi lebih lanjut.';
+  window.open('https://wa.me/6281460348354?text=' + encodeURIComponent(msg), '_blank');
+}
+
+/* ─── SMOOTH ANCHOR ─── */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var target = document.querySelector(this.getAttribute('href'));
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
+</script>
+
 </body>
 </html>
