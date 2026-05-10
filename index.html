@@ -3,616 +3,2562 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="Nuvora Systems — Jasa pembuatan aplikasi web custom profesional. Harga transparan mulai Rp 1.500.000. Selesai 7 hari.">
+<meta name="theme-color" content="#010B18">
 <title>Nuvora Systems — Aplikasi Web Custom</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-:root{
-  --navy:#010B18;--navy2:#030F20;--navy3:#071828;
-  --surface:rgba(7,24,40,0.75);--surface2:rgba(3,15,32,0.92);
-  --border:rgba(99,200,100,0.12);--border-b:rgba(46,125,214,0.15);
-  --green:#63C864;--green2:#4CAF50;--green-glow:rgba(99,200,100,0.22);
-  --blue:#2E7DD6;--blue-glow:rgba(46,125,214,0.2);
-  --white:#F0F6FF;--muted:#6B8BA4;--muted2:#3D5A72;
-  --gold:#F0C060;--gold-glow:rgba(240,192,96,0.15);
+/* ══════════════════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════════════════ */
+:root {
+  --navy:         #010B18;
+  --navy2:        #030F20;
+  --navy3:        #071828;
+  --card:         rgba(7, 24, 40, 0.78);
+  --card2:        rgba(3, 15, 32, 0.94);
+  --border:       rgba(99, 200, 100, 0.13);
+  --border-b:     rgba(46, 125, 214, 0.16);
+  --border-soft:  rgba(255, 255, 255, 0.06);
+  --green:        #63C864;
+  --green-dim:    #4CAF50;
+  --green-glow:   rgba(99, 200, 100, 0.24);
+  --green-faint:  rgba(99, 200, 100, 0.08);
+  --blue:         #2E7DD6;
+  --blue-glow:    rgba(46, 125, 214, 0.22);
+  --blue-faint:   rgba(46, 125, 214, 0.08);
+  --white:        #F0F6FF;
+  --muted:        #6B8BA4;
+  --muted2:       #3D5A72;
+  --gold:         #F0C060;
+  --gold-glow:    rgba(240, 192, 96, 0.18);
+  --gold-faint:   rgba(240, 192, 96, 0.08);
+  --shadow-sm:    0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md:    0 8px 32px rgba(0,0,0,0.4);
+  --shadow-lg:    0 20px 64px rgba(0,0,0,0.55);
+  --shadow-xl:    0 32px 96px rgba(0,0,0,0.65);
+  --r-sm:         8px;
+  --r-md:         14px;
+  --r-lg:         20px;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'Sora',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
-a{text-decoration:none;color:inherit;}
-img{display:block;max-width:100%;}
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:var(--navy);}
-::-webkit-scrollbar-thumb{background:var(--green2);border-radius:4px;}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;background:transparent;border-bottom:1px solid transparent;transition:all 0.4s ease;}
-nav.scrolled{background:rgba(1,11,24,0.94);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-bottom-color:var(–border);}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.nav-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,#2E7DD6,#1A5BA8 50%,#63C864);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:‘Sora’,sans-serif;font-size:16px;font-weight:800;color:#fff;box-shadow:0 0 16px rgba(99,200,100,0.3);flex-shrink:0;}
-.nav-logo-text{display:flex;flex-direction:column;line-height:1;}
-.nav-logo-name{font-family:‘Sora’,sans-serif;font-size:18px;font-weight:800;letter-spacing:-0.01em;color:var(–white);}
-.nav-logo-name span{color:var(–green);}
-.nav-logo-sub{font-family:‘JetBrains Mono’,monospace;font-size:9px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(–muted);margin-top:2px;}
-.nav-links{display:flex;align-items:center;gap:36px;list-style:none;}
-.nav-links a{font-size:13px;font-weight:500;letter-spacing:0.03em;color:rgba(240,246,255,0.6);transition:color 0.2s;position:relative;}
-.nav-links a::after{content:’’;position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(–green);transform:scaleX(0);transition:transform 0.25s;}
-.nav-links a:hover{color:var(–white);}
-.nav-links a:hover::after{transform:scaleX(1);}
-.nav-cta{background:var(–green)!important;color:var(–navy)!important;padding:10px 22px!important;border-radius:6px!important;font-weight:700!important;font-size:13px!important;box-shadow:0 0 24px var(–green-glow)!important;transition:all 0.2s!important;}
-.nav-cta::after{display:none!important;}
-.nav-cta:hover{transform:translateY(-1px)!important;box-shadow:0 0 40px rgba(99,200,100,0.42)!important;}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
-.nav-hamburger span{display:block;width:22px;height:2px;background:var(–white);border-radius:2px;transition:all 0.3s;}
-
-/* MOBILE MENU */
-.mobile-menu{position:fixed;inset:0;z-index:99;background:rgba(1,11,24,0.98);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;pointer-events:none;transition:opacity 0.3s;}
-.mobile-menu.open{opacity:1;pointer-events:all;}
-.mobile-menu a{font-size:20px;font-weight:600;color:rgba(240,246,255,0.8);transition:color 0.2s;}
-.mobile-menu a:hover{color:var(–green);}
-.mobile-close{position:absolute;top:22px;right:22px;background:none;border:none;color:var(–white);font-size:26px;cursor:pointer;opacity:0.5;transition:opacity 0.2s;}
-.mobile-close:hover{opacity:1;}
-
-/* HERO */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 24px 60px;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background-image:url(‘https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/C52772C0-2D67-49A8-956E-E96CB3019BC4.png’);background-size:cover;background-position:center center;background-repeat:no-repeat;}
-.hero-bg::after{content:’’;position:absolute;inset:0;background:linear-gradient(to bottom,rgba(1,11,24,0.45) 0%,rgba(1,11,24,0.22) 35%,rgba(1,11,24,0.55) 70%,rgba(1,11,24,1) 100%);}
-.hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center;max-width:1160px;width:100%;margin:0 auto;}
-.hero-left{animation:fadeUp 0.9s ease both;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:‘JetBrains Mono’,monospace;font-size:10px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(–green);margin-bottom:18px;}
-.hero-eyebrow::before{content:’’;display:block;width:24px;height:1px;background:var(–green);}
-.hero-h1{font-family:‘Sora’,sans-serif;font-size:clamp(34px,4.8vw,64px);font-weight:800;line-height:1.07;letter-spacing:-0.025em;color:var(–white);margin-bottom:18px;}
-.hero-h1 em{font-style:normal;background:linear-gradient(130deg,var(–green) 0%,#88E089 45%,var(–blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:clamp(14px,1.6vw,17px);font-weight:300;color:rgba(240,246,255,0.6);line-height:1.75;max-width:480px;margin-bottom:32px;}
-.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
-.btn-primary{display:inline-flex;align-items:center;gap:9px;background:var(–green);color:var(–navy);font-family:‘Sora’,sans-serif;font-size:14px;font-weight:700;letter-spacing:0.01em;padding:15px 30px;border-radius:8px;border:none;cursor:pointer;transition:all 0.25s;box-shadow:0 0 36px var(–green-glow);text-decoration:none;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 56px rgba(99,200,100,0.45);}
-.btn-ghost{display:inline-flex;align-items:center;gap:9px;background:transparent;color:rgba(240,246,255,0.8);font-family:‘Sora’,sans-serif;font-size:14px;font-weight:500;padding:14px 26px;border-radius:8px;border:1px solid rgba(240,246,255,0.18);cursor:pointer;transition:all 0.25s;text-decoration:none;}
-.btn-ghost:hover{border-color:rgba(240,246,255,0.35);background:rgba(240,246,255,0.05);}
-.hero-stats{display:flex;gap:32px;flex-wrap:wrap;padding-top:32px;border-top:1px solid rgba(99,200,100,0.15);}
-.stat-num{font-family:‘Crimson Pro’,serif;font-size:38px;font-weight:300;color:var(–white);line-height:1;}
-.stat-num b{color:var(–green);font-weight:400;}
-.stat-label{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);margin-top:5px;}
-.hero-right{animation:fadeUp 0.9s 0.15s ease both;flex-shrink:0;}
-.hero-logo-wrap{width:260px;height:260px;position:relative;display:flex;align-items:center;justify-content:center;}
-.hero-logo-wrap::before{content:’’;position:absolute;inset:-20px;border-radius:50%;background:radial-gradient(circle,rgba(99,200,100,0.12) 0%,rgba(46,125,214,0.08) 50%,transparent 70%);animation:glowPulse 4s ease-in-out infinite;}
-@keyframes glowPulse{0%,100%{opacity:0.7;transform:scale(1);}50%{opacity:1;transform:scale(1.05);}}
-.hero-logo-img{width:220px;height:220px;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 20px rgba(99,200,100,0.35)) drop-shadow(0 0 40px rgba(46,125,214,0.2));animation:logoDrift 6s ease-in-out infinite;}
-@keyframes logoDrift{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
-
-/* SECTIONS */
-section{padding:96px 52px;}
-.container{max-width:1160px;margin:0 auto;}
-.section-label{display:inline-flex;align-items:center;gap:8px;font-family:‘JetBrains Mono’,monospace;font-size:10px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(–green);margin-bottom:14px;}
-.section-label::before{content:’’;display:block;width:20px;height:1px;background:var(–green);}
-.section-title{font-family:‘Sora’,sans-serif;font-size:clamp(26px,3.2vw,44px);font-weight:700;line-height:1.12;letter-spacing:-0.02em;color:var(–white);margin-bottom:12px;}
-.section-desc{font-size:15px;font-weight:300;color:rgba(240,246,255,0.5);line-height:1.75;max-width:460px;}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.65s ease,transform 0.65s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-
-/* PACKAGES */
-#paket{background:var(–navy);position:relative;overflow:hidden;padding-top:80px;}
-#paket::before{content:’’;position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:900px;height:360px;background:radial-gradient(ellipse,rgba(99,200,100,0.05) 0%,transparent 65%);pointer-events:none;}
-.pkg-header{text-align:center;margin-bottom:48px;}
-.pkg-header .section-label{justify-content:center;}
-.pkg-header .section-desc{margin:0 auto 20px;}
-.pkg-note{display:inline-block;font-family:‘JetBrains Mono’,monospace;font-size:11px;color:var(–muted);padding:8px 18px;border:1px solid var(–border);border-radius:4px;line-height:1.6;}
-.pkg-note b{color:var(–green);}
-.pkg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:44px;align-items:start;}
-.pkg-card{background:var(–surface);border:1px solid var(–border-b);border-radius:16px;padding:28px 24px 24px;position:relative;overflow:hidden;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;display:flex;flex-direction:column;}
-.pkg-card::after{content:’’;position:absolute;top:0;left:0;right:0;height:2px;transition:all 0.3s;}
-.pkg-card:hover{transform:translateY(-5px);box-shadow:0 20px 60px rgba(1,11,24,0.55);}
-.pkg-card.p1::after{background:linear-gradient(90deg,rgba(46,125,214,0.6),rgba(46,125,214,0.2));}
-.pkg-card.p2::after{background:linear-gradient(90deg,rgba(46,125,214,0.8),rgba(99,200,100,0.4));}
-.pkg-card.p1:hover,.pkg-card.p2:hover{border-color:rgba(46,125,214,0.3);}
-.pkg-card.popular{border-color:rgba(99,200,100,0.3);background:linear-gradient(170deg,rgba(7,30,16,0.9),rgba(3,15,32,0.95));box-shadow:0 0 40px rgba(99,200,100,0.08);}
-.pkg-card.popular::after{background:linear-gradient(90deg,var(–green),#88E089);}
-.pkg-card.popular:hover{border-color:rgba(99,200,100,0.5);box-shadow:0 20px 60px rgba(99,200,100,0.12);}
-.pkg-card.enterprise{border-color:rgba(240,192,96,0.2);background:linear-gradient(170deg,rgba(20,16,5,0.9),rgba(3,15,32,0.95));}
-.pkg-card.enterprise::after{background:linear-gradient(90deg,var(–gold),#F5D78E);}
-.pkg-card.enterprise:hover{border-color:rgba(240,192,96,0.38);box-shadow:0 20px 60px rgba(240,192,96,0.07);}
-.pkg-badge{display:inline-flex;align-items:center;gap:5px;font-family:‘JetBrains Mono’,monospace;font-size:9px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:4px 10px;border-radius:3px;margin-bottom:16px;width:fit-content;}
-.badge-pop{background:rgba(99,200,100,0.1);border:1px solid rgba(99,200,100,0.28);color:var(–green);}
-.badge-ent{background:rgba(240,192,96,0.09);border:1px solid rgba(240,192,96,0.22);color:var(–gold);}
-.badge-ph{opacity:0;pointer-events:none;background:transparent;border:1px solid transparent;color:transparent;}
-.pkg-name{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(–muted);margin-bottom:6px;}
-.pkg-hook{font-family:‘Crimson Pro’,serif;font-size:15px;font-weight:300;font-style:italic;color:rgba(240,246,255,0.68);line-height:1.55;margin-bottom:20px;min-height:48px;}
-.pkg-price-num{font-family:‘Sora’,sans-serif;font-size:clamp(24px,2.6vw,32px);font-weight:800;letter-spacing:-0.02em;color:var(–white);line-height:1;margin-bottom:4px;}
-.pkg-card.popular .pkg-price-num{color:var(–green);}
-.pkg-card.enterprise .pkg-price-num{color:var(–gold);}
-.pkg-timeline{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:var(–muted);margin-bottom:18px;}
-.pkg-div{height:1px;background:var(–border);margin-bottom:16px;}
-.pkg-for{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted2);margin-bottom:6px;}
-.pkg-target{font-size:12px;font-weight:300;color:rgba(240,246,255,0.55);line-height:1.65;margin-bottom:16px;min-height:36px;}
-.pkg-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;flex:1;}
-.pkg-features li{display:flex;align-items:flex-start;gap:9px;font-size:12px;font-weight:400;color:rgba(240,246,255,0.72);line-height:1.5;}
-.pkg-features li::before{content:‘✓’;font-weight:700;font-size:11px;flex-shrink:0;margin-top:1px;color:var(–blue);}
-.pkg-card.popular .pkg-features li::before{color:var(–green);}
-.pkg-card.enterprise .pkg-features li::before{color:var(–gold);}
-.pkg-limits{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px;}
-.pkg-limit{font-family:‘JetBrains Mono’,monospace;font-size:9px;font-weight:500;letter-spacing:0.06em;color:var(–muted2);background:rgba(61,90,114,0.12);border:1px solid rgba(61,90,114,0.18);padding:3px 8px;border-radius:3px;}
-.pkg-cta{display:block;width:100%;padding:13px;border-radius:8px;font-family:‘Sora’,sans-serif;font-size:13px;font-weight:700;letter-spacing:0.01em;text-align:center;cursor:pointer;border:none;transition:all 0.25s;text-decoration:none;}
-.cta-1{background:rgba(46,125,214,0.15);border:1.5px solid rgba(46,125,214,0.4);color:rgba(180,210,255,0.9);}
-.cta-1:hover{background:rgba(46,125,214,0.28);border-color:var(–blue);color:#fff;}
-.cta-2{background:rgba(46,125,214,0.2);border:1.5px solid rgba(46,125,214,0.5);color:rgba(180,210,255,0.95);}
-.cta-2:hover{background:rgba(46,125,214,0.35);border-color:var(–blue);color:#fff;}
-.cta-pop{background:var(–green);color:var(–navy);box-shadow:0 0 28px var(–green-glow);}
-.cta-pop:hover{transform:translateY(-1px);box-shadow:0 0 48px rgba(99,200,100,0.45);}
-.cta-ent{background:rgba(240,192,96,0.12);border:1.5px solid rgba(240,192,96,0.35);color:var(–gold);}
-.cta-ent:hover{background:rgba(240,192,96,0.22);border-color:var(–gold);}
-
-/* COMPARE */
-.compare-wrap{background:var(–surface);border:1px solid var(–border);border-radius:16px;overflow:hidden;}
-.compare-head{padding:18px 28px;border-bottom:1px solid var(–border);font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(–muted);}
-.compare-table{width:100%;border-collapse:collapse;}
-.compare-table th{padding:13px 18px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);text-align:center;border-bottom:1px solid var(–border);}
-.compare-table th:first-child{text-align:left;}
-.compare-table td{padding:13px 18px;font-size:12px;color:rgba(240,246,255,0.62);text-align:center;border-bottom:1px solid rgba(99,200,100,0.04);transition:background 0.2s;}
-.compare-table td:first-child{text-align:left;font-weight:400;color:rgba(240,246,255,0.5);}
-.compare-table tr:last-child td{border-bottom:none;}
-.compare-table tr:hover td{background:rgba(99,200,100,0.03);}
-.compare-table tr.key-row td{background:rgba(99,200,100,0.04);}
-.compare-table tr.key-row td:first-child{color:rgba(240,246,255,0.75);font-weight:500;}
-.col-pop{background:rgba(99,200,100,0.05)!important;}
-.check-y{color:var(–green);font-size:15px;}
-.check-n{color:var(–muted2);font-size:13px;}
-
-/* WHY */
-#kenapa{background:linear-gradient(180deg,var(–navy) 0%,var(–navy2) 100%);position:relative;overflow:hidden;}
-#kenapa::after{content:’’;position:absolute;bottom:-120px;right:-80px;width:480px;height:480px;background:radial-gradient(circle,rgba(46,125,214,0.05) 0%,transparent 65%);pointer-events:none;}
-.why-layout{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:auto auto;gap:16px;margin-top:52px;}
-.why-card{background:var(–surface);border:1px solid var(–border-b);border-radius:14px;padding:28px 26px;position:relative;overflow:hidden;transition:all 0.3s;}
-.why-card:hover{transform:translateY(-4px);border-color:rgba(46,125,214,0.28);box-shadow:0 16px 48px rgba(1,11,24,0.4);}
-.why-card.featured{grid-column:1;grid-row:1/3;background:linear-gradient(160deg,rgba(7,30,16,0.85),rgba(3,15,32,0.9));border-color:rgba(99,200,100,0.2);padding:36px 32px;}
-.why-card.featured:hover{border-color:rgba(99,200,100,0.38);}
-.why-icon{font-size:26px;margin-bottom:14px;}
-.why-card.featured .why-icon{font-size:36px;margin-bottom:20px;}
-.why-title{font-size:15px;font-weight:700;color:var(–white);margin-bottom:10px;}
-.why-card.featured .why-title{font-size:20px;margin-bottom:14px;}
-.why-desc{font-size:13px;font-weight:300;color:rgba(240,246,255,0.55);line-height:1.7;}
-.why-card.featured .why-desc{font-size:14px;}
-.why-vs{margin-top:20px;padding-top:18px;border-top:1px solid var(–border);display:flex;flex-direction:column;gap:8px;}
-.why-vs-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(240,246,255,0.5);line-height:1.5;}
-.why-vs-item .x{color:#F87171;flex-shrink:0;}
-.why-vs-item .v{color:var(–green);flex-shrink:0;}
-.why-stat{display:flex;align-items:center;gap:12px;padding:16px 18px;background:rgba(99,200,100,0.06);border:1px solid rgba(99,200,100,0.15);border-radius:10px;margin-top:20px;}
-.why-stat-num{font-family:‘Crimson Pro’,serif;font-size:36px;font-weight:300;color:var(–green);line-height:1;}
-.why-stat-label{font-size:12px;font-weight:400;color:rgba(240,246,255,0.6);line-height:1.5;}
-
-/* PROCESS */
-#proses{background:var(–navy);}
-.process-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:52px;position:relative;}
-.process-wrap::before{content:’’;position:absolute;top:27px;left:calc(12.5% + 12px);right:calc(12.5% + 12px);height:1px;background:linear-gradient(90deg,var(–green),rgba(46,125,214,0.6));opacity:0.25;}
-.proc-step{text-align:center;padding:0 16px;position:relative;}
-.proc-num{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-family:‘JetBrains Mono’,monospace;font-size:15px;font-weight:500;position:relative;z-index:1;transition:transform 0.3s,box-shadow 0.3s;}
-.proc-step:hover .proc-num{transform:scale(1.1);}
-.n1,.n3{background:rgba(99,200,100,0.08);border:1px solid rgba(99,200,100,0.28);color:var(–green);}
-.n2,.n4{background:rgba(46,125,214,0.08);border:1px solid rgba(46,125,214,0.28);color:var(–blue);}
-.proc-step:hover .n1,.proc-step:hover .n3{box-shadow:0 0 24px rgba(99,200,100,0.25);}
-.proc-step:hover .n2,.proc-step:hover .n4{box-shadow:0 0 24px rgba(46,125,214,0.25);}
-.proc-title{font-size:14px;font-weight:700;color:var(–white);margin-bottom:8px;}
-.proc-desc{font-size:12px;font-weight:300;color:rgba(240,246,255,0.48);line-height:1.7;}
-
-/* CONTACT */
-#kontak{background:var(–navy2);position:relative;overflow:hidden;}
-#kontak::before{content:’’;position:absolute;inset:0;background-image:url(‘https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/C52772C0-2D67-49A8-956E-E96CB3019BC4.png’);background-size:cover;background-position:center top;opacity:0.07;pointer-events:none;}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;position:relative;z-index:1;}
-.contact-info p{font-size:15px;font-weight:300;color:rgba(240,246,255,0.52);line-height:1.75;margin:16px 0 32px;}
-.channels{display:flex;flex-direction:column;gap:12px;}
-.channel{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(–surface);border:1px solid var(–border);border-radius:12px;transition:all 0.25s;text-decoration:none;}
-.channel:hover{border-color:rgba(99,200,100,0.28);background:rgba(99,200,100,0.04);transform:translateX(4px);}
-.ch-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.ch-wa{background:rgba(99,200,100,0.1);border:1px solid rgba(99,200,100,0.18);}
-.ch-loc{background:rgba(46,125,214,0.1);border:1px solid rgba(46,125,214,0.18);}
-.ch-lbl{font-family:‘JetBrains Mono’,monospace;font-size:9px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(–muted);margin-bottom:3px;}
-.ch-val{font-size:13px;font-weight:500;color:var(–white);}
-.cform{background:var(–surface2);border:1px solid var(–border);border-radius:16px;padding:32px;}
-.cform-title{font-size:17px;font-weight:700;color:var(–white);margin-bottom:22px;}
-.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
-.fg label{font-family:‘JetBrains Mono’,monospace;font-size:9px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(–muted);}
-.fg input,.fg select,.fg textarea{background:rgba(1,11,24,0.6);border:1px solid var(–border-b);border-radius:8px;padding:12px 14px;font-family:‘Sora’,sans-serif;font-size:13px;color:var(–white);outline:none;transition:border-color 0.2s,box-shadow 0.2s;-webkit-appearance:none;}
-.fg input::placeholder,.fg textarea::placeholder{color:rgba(107,139,164,0.45);}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(–green);box-shadow:0 0 0 3px rgba(99,200,100,0.1);}
-.fg select option{background:#071828;color:var(–white);}
-.form-note{font-size:11px;color:var(–muted);text-align:center;margin-top:12px;line-height:1.6;}
-
-/* FOOTER */
-footer{padding:40px 52px 32px;border-top:1px solid var(–border);background:var(–navy);}
-.footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(–border);}
-.footer-logo-name{font-family:‘Sora’,sans-serif;font-size:20px;font-weight:800;color:var(–white);letter-spacing:-0.01em;margin-bottom:6px;}
-.footer-logo-name span{color:var(–green);}
-.footer-tagline{font-family:‘Crimson Pro’,serif;font-style:italic;font-size:14px;font-weight:300;color:rgba(240,246,255,0.4);max-width:280px;line-height:1.6;}
-.footer-links{display:flex;gap:28px;list-style:none;align-items:center;}
-.footer-links a{font-size:12px;color:var(–muted);transition:color 0.2s;}
-.footer-links a:hover{color:var(–white);}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.footer-copy{font-size:11px;color:var(–muted2);}
-.footer-loc{font-size:11px;color:var(–muted2);display:flex;align-items:center;gap:5px;}
-
-/* WA FLOAT */
-.wa-float{position:fixed;bottom:26px;right:26px;z-index:200;width:54px;height:54px;border-radius:50%;background:var(–green);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(99,200,100,0.4);transition:all 0.25s;text-decoration:none;}
-.wa-float:hover{transform:scale(1.08);box-shadow:0 8px 36px rgba(99,200,100,0.55);}
-.wa-float svg{width:26px;height:26px;fill:var(–navy);}
-
-/* RESPONSIVE */
-@media(max-width:1100px){
-.pkg-grid{grid-template-columns:repeat(2,1fr);}
-.why-layout{grid-template-columns:1fr 1fr;}
-.why-card.featured{grid-column:1/3;grid-row:auto;}
-.process-wrap{grid-template-columns:repeat(2,1fr);gap:28px;}
-.process-wrap::before{display:none;}
+/* ══════════════════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-@media(max-width:768px){
-nav{padding:0 20px;}
-.nav-links{display:none;}
-.nav-hamburger{display:flex;}
-section{padding:68px 20px;}
-.hero{padding:80px 20px 56px;}
-.hero-inner{grid-template-columns:1fr;gap:32px;text-align:center;}
-.hero-right{order:-1;}
-.hero-logo-wrap{width:180px;height:180px;margin:0 auto;}
-.hero-logo-img{width:160px;height:160px;}
-.hero-stats{justify-content:center;}
-.hero-actions{justify-content:center;}
-.hero-sub{margin:0 auto 28px;}
-.pkg-grid{grid-template-columns:1fr;}
-.why-layout{grid-template-columns:1fr;}
-.why-card.featured{grid-column:auto;grid-row:auto;}
-.process-wrap{grid-template-columns:1fr;}
-.contact-grid{grid-template-columns:1fr;gap:36px;}
-footer{padding:32px 20px 24px;}
-.footer-top{flex-direction:column;gap:20px;}
-.footer-bottom{flex-direction:column;text-align:center;}
-.compare-wrap{overflow-x:auto;}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; }
+
+/* Noise overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 200px;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.35;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 4px; }
+
+/* ══════════════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 52px;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.nav.scrolled {
+  background: rgba(1, 11, 24, 0.92);
+  backdrop-filter: blur(32px) saturate(1.4);
+  -webkit-backdrop-filter: blur(32px) saturate(1.4);
+  border-bottom-color: var(--border);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.3);
+}
+
+/* Logo */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-logo-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2E7DD6 0%, #1558C7 50%, #63C864 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(99,200,100,0.35), 0 4px 12px rgba(0,0,0,0.3);
+  letter-spacing: -0.02em;
+}
+
+.nav-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 3px;
+}
+
+.nav-logo-name {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.nav-logo-name span { color: var(--green); }
+
+.nav-logo-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: rgba(240, 246, 255, 0.6);
+  transition: color 0.2s;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s ease;
+}
+
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+.nav-cta {
+  background: var(--green) !important;
+  color: var(--navy) !important;
+  padding: 10px 24px !important;
+  border-radius: var(--r-sm) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.02em !important;
+  box-shadow: 0 0 28px var(--green-glow) !important;
+  transition: all 0.22s !important;
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 48px rgba(99,200,100,0.45) !important;
+  color: var(--navy) !important;
+}
+
+/* Hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,0.06); }
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE MENU
+══════════════════════════════════════════════════════ */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: rgba(1, 11, 24, 0.97);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.mobile-menu a {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgba(240, 246, 255, 0.75);
+  letter-spacing: -0.01em;
+  transition: color 0.2s, transform 0.2s;
+}
+.mobile-menu a:hover {
+  color: var(--green);
+  transform: translateX(6px);
+}
+.mobile-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 20px;
+  width: 40px; height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.2s, background 0.2s;
+}
+.mobile-close:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+
+/* ══════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 88px 52px 72px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/C52772C0-2D67-49A8-956E-E96CB3019BC4.png');
+  background-size: cover;
+  background-position: center 60%;
+  background-repeat: no-repeat;
+  transform: scale(1.03);
+  transition: transform 8s ease;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(1,11,24,0.75) 0%, rgba(1,11,24,0.25) 55%, rgba(1,11,24,0.1) 100%),
+    linear-gradient(to bottom, rgba(1,11,24,0.4) 0%, transparent 40%, rgba(1,11,24,0.7) 80%, rgba(1,11,24,1) 100%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 80px;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Left */
+.hero-left {
+  animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 22px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--green));
+}
+
+.hero-h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(36px, 5vw, 68px);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  margin-bottom: 22px;
+}
+
+.hero-h1 em {
+  font-style: normal;
+  background: linear-gradient(128deg, var(--green) 0%, #A8EFA9 40%, var(--blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(14px, 1.5vw, 17px);
+  font-weight: 300;
+  color: rgba(240, 246, 255, 0.62);
+  line-height: 1.8;
+  max-width: 500px;
+  margin-bottom: 36px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 52px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--green);
+  color: var(--navy);
+  font-family: 'Sora', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  padding: 16px 32px;
+  border-radius: var(--r-sm);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.22s, box-shadow 0.22s;
+  box-shadow: 0 0 40px var(--green-glow), 0 4px 16px rgba(0,0,0,0.3);
+  text-decoration: none;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 64px rgba(99,200,100,0.5), 0 8px 24px rgba(0,0,0,0.3);
+}
+.btn-primary:active { transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(240,246,255,0.05);
+  color: rgba(240, 246, 255, 0.85);
+  font-family: 'Sora', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 15px 28px;
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(240, 246, 255, 0.16);
+  cursor: pointer;
+  transition: all 0.22s;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover {
+  border-color: rgba(240, 246, 255, 0.35);
+  background: rgba(240, 246, 255, 0.09);
+  color: var(--white);
+}
+
+/* Hero stats */
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding-top: 36px;
+  border-top: 1px solid rgba(99, 200, 100, 0.18);
+}
+
+.stat-item {}
+
+.stat-num {
+  font-family: 'Crimson Pro', serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat-num b {
+  color: var(--green);
+  font-weight: 400;
+}
+.stat-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* Right — Logo */
+.hero-right {
+  animation: fadeUp 1s 0.18s cubic-bezier(0.22,1,0.36,1) both;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-logo-wrap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient glow rings */
+.hero-logo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -32px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(99,200,100,0.14) 0%,
+    rgba(46,125,214,0.09) 45%,
+    transparent 70%
+  );
+  animation: glowPulse 4.5s ease-in-out infinite;
+}
+.hero-logo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(99,200,100,0.12);
+  animation: ringPulse 4.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.65; transform: scale(0.97); }
+  50%       { opacity: 1;    transform: scale(1.03); }
+}
+@keyframes ringPulse {
+  0%, 100% { transform: scale(0.95); opacity: 0.4; }
+  50%       { transform: scale(1.05); opacity: 0.8; }
+}
+
+.hero-logo-img {
+  width: 260px;
+  height: 260px;
+  object-fit: contain;
+  /* screen mode eliminates black background optically */
+  mix-blend-mode: screen;
+  filter:
+    drop-shadow(0 0 24px rgba(99,200,100,0.4))
+    drop-shadow(0 0 56px rgba(46,125,214,0.25))
+    brightness(1.08);
+  animation: logoDrift 7s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes logoDrift {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-10px) rotate(0.5deg); }
+  66%       { transform: translateY(-4px) rotate(-0.3deg); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════════════════
+   SECTION BASE
+══════════════════════════════════════════════════════ */
+section { padding: 100px 52px; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--green);
+}
+
+.section-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+
+.section-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(240, 246, 255, 0.52);
+  line-height: 1.78;
+  max-width: 480px;
+}
+
+/* Reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.72s cubic-bezier(0.22,1,0.36,1),
+              transform 0.72s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.40s; }
+
+/* ══════════════════════════════════════════════════════
+   PACKAGES SECTION
+══════════════════════════════════════════════════════ */
+#paket {
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  padding-top: 88px;
+}
+
+#paket::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(99,200,100,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.pkg-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.pkg-header .section-eyebrow { justify-content: center; }
+.pkg-header .section-desc   { margin: 0 auto 24px; }
+
+.pkg-note {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  line-height: 1.7;
+  background: rgba(99,200,100,0.03);
+}
+.pkg-note b { color: var(--green); }
+
+/* Grid */
+.pkg-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 52px;
+  align-items: start;
+}
+
+/* Card base */
+.pkg-card {
+  background: var(--card);
+  border: 1px solid var(--border-b);
+  border-radius: var(--r-lg);
+  padding: 32px 26px 28px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.32s cubic-bezier(0.22,1,0.36,1),
+    border-color 0.32s,
+    box-shadow 0.32s;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Top accent line */
+.pkg-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  transition: opacity 0.32s;
+}
+
+.pkg-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* P1 */
+.pkg-card.p1::before {
+  background: linear-gradient(90deg, rgba(46,125,214,0.7), rgba(46,125,214,0.2));
+}
+.pkg-card.p1:hover {
+  border-color: rgba(46, 125, 214, 0.32);
+  box-shadow: 0 24px 64px rgba(46,125,214,0.12), 0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* P2 */
+.pkg-card.p2::before {
+  background: linear-gradient(90deg, rgba(46,125,214,0.85), rgba(99,200,100,0.45));
+}
+.pkg-card.p2:hover {
+  border-color: rgba(46, 125, 214, 0.35);
+  box-shadow: 0 24px 64px rgba(46,125,214,0.14), 0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* Popular */
+.pkg-card.popular {
+  border-color: rgba(99, 200, 100, 0.32);
+  background: linear-gradient(168deg,
+    rgba(5, 25, 13, 0.92) 0%,
+    rgba(3, 15, 32, 0.96) 100%
+  );
+  box-shadow: 0 0 48px rgba(99,200,100,0.1), 0 4px 16px rgba(0,0,0,0.35);
+}
+.pkg-card.popular::before {
+  background: linear-gradient(90deg, var(--green), #A8EFA9, var(--green));
+  height: 2px;
+}
+.pkg-card.popular:hover {
+  border-color: rgba(99, 200, 100, 0.52);
+  box-shadow: 0 28px 72px rgba(99,200,100,0.18), 0 4px 16px rgba(0,0,0,0.4);
+  transform: translateY(-10px);
+}
+
+/* Enterprise */
+.pkg-card.enterprise {
+  border-color: rgba(240, 192, 96, 0.22);
+  background: linear-gradient(168deg,
+    rgba(22, 18, 4, 0.92) 0%,
+    rgba(3, 15, 32, 0.96) 100%
+  );
+}
+.pkg-card.enterprise::before {
+  background: linear-gradient(90deg, var(--gold), #F8E4A0, var(--gold));
+}
+.pkg-card.enterprise:hover {
+  border-color: rgba(240, 192, 96, 0.42);
+  box-shadow: 0 28px 72px rgba(240,192,96,0.1), 0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* Badge */
+.pkg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+  width: fit-content;
+}
+.badge-popular {
+  background: rgba(99,200,100,0.11);
+  border: 1px solid rgba(99,200,100,0.3);
+  color: var(--green);
+}
+.badge-enterprise {
+  background: rgba(240,192,96,0.1);
+  border: 1px solid rgba(240,192,96,0.25);
+  color: var(--gold);
+}
+.badge-spacer {
+  opacity: 0;
+  pointer-events: none;
+  border: 1px solid transparent;
+  color: transparent;
+  background: transparent;
+}
+
+/* Package name */
+.pkg-name {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* Hook quote */
+.pkg-hook {
+  font-family: 'Crimson Pro', serif;
+  font-size: 15px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(240, 246, 255, 0.68);
+  line-height: 1.6;
+  margin-bottom: 22px;
+  min-height: 52px;
+}
+
+/* Price */
+.pkg-price-num {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(26px, 2.8vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.pkg-card.popular   .pkg-price-num { color: var(--green); text-shadow: 0 0 32px rgba(99,200,100,0.4); }
+.pkg-card.enterprise .pkg-price-num { color: var(--gold);  text-shadow: 0 0 32px rgba(240,192,96,0.3); }
+
+.pkg-timeline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Divider */
+.pkg-divider {
+  height: 1px;
+  background: var(--border-soft);
+  margin-bottom: 18px;
+}
+
+.pkg-for {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 7px;
+}
+
+.pkg-target {
+  font-size: 12.5px;
+  font-weight: 300;
+  color: rgba(240, 246, 255, 0.55);
+  line-height: 1.65;
+  margin-bottom: 18px;
+  min-height: 38px;
+}
+
+/* Features list */
+.pkg-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 22px;
+  flex: 1;
+}
+.pkg-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: rgba(240, 246, 255, 0.74);
+  line-height: 1.55;
+}
+.pkg-features li::before {
+  content: '✓';
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--blue);
+  background: var(--blue-faint);
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pkg-card.popular   .pkg-features li::before { color: var(--green); background: var(--green-faint); }
+.pkg-card.enterprise .pkg-features li::before { color: var(--gold);  background: var(--gold-faint); }
+
+/* Limits */
+.pkg-limits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.pkg-limit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted2);
+  background: rgba(61, 90, 114, 0.12);
+  border: 1px solid rgba(61, 90, 114, 0.2);
+  padding: 4px 9px;
+  border-radius: 4px;
+}
+
+/* CTA buttons */
+.pkg-cta {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: var(--r-sm);
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: all 0.24s;
+  text-decoration: none;
+}
+
+.cta-p1 {
+  background: rgba(46, 125, 214, 0.12);
+  border: 1.5px solid rgba(46, 125, 214, 0.38);
+  color: rgba(160, 200, 255, 0.92);
+}
+.cta-p1:hover {
+  background: rgba(46, 125, 214, 0.24);
+  border-color: var(--blue);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(46,125,214,0.2);
+}
+
+.cta-p2 {
+  background: rgba(46, 125, 214, 0.16);
+  border: 1.5px solid rgba(46, 125, 214, 0.45);
+  color: rgba(170, 210, 255, 0.95);
+}
+.cta-p2:hover {
+  background: rgba(46, 125, 214, 0.3);
+  border-color: var(--blue);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(46,125,214,0.24);
+}
+
+.cta-popular {
+  background: var(--green);
+  color: var(--navy);
+  box-shadow: 0 0 32px var(--green-glow), 0 4px 12px rgba(0,0,0,0.25);
+}
+.cta-popular:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 56px rgba(99,200,100,0.5), 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.cta-enterprise {
+  background: rgba(240, 192, 96, 0.11);
+  border: 1.5px solid rgba(240, 192, 96, 0.38);
+  color: var(--gold);
+}
+.cta-enterprise:hover {
+  background: rgba(240, 192, 96, 0.22);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(240,192,96,0.18);
+}
+
+/* ══════════════════════════════════════════════════════
+   COMPARE TABLE
+══════════════════════════════════════════════════════ */
+.compare-wrap {
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+}
+
+.compare-head {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(255,255,255,0.02);
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-table th {
+  padding: 14px 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  border-bottom: 1px solid var(--border-soft);
+  background: rgba(255,255,255,0.02);
+}
+.compare-table th:first-child { text-align: left; }
+
+.compare-table td {
+  padding: 14px 20px;
+  font-size: 12.5px;
+  color: rgba(240, 246, 255, 0.62);
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: background 0.18s;
+}
+.compare-table td:first-child {
+  text-align: left;
+  color: rgba(240, 246, 255, 0.52);
+  font-weight: 400;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:hover td { background: rgba(99,200,100,0.03); }
+
+.row-highlight td {
+  background: rgba(99, 200, 100, 0.05) !important;
+}
+.row-highlight td:first-child {
+  color: rgba(240, 246, 255, 0.8) !important;
+  font-weight: 500 !important;
+}
+.row-highlight-gold td {
+  background: rgba(240, 192, 96, 0.04) !important;
+}
+.row-highlight-gold td:first-child {
+  color: rgba(240, 246, 255, 0.8) !important;
+  font-weight: 500 !important;
+}
+
+.col-pop { background: rgba(99,200,100,0.04) !important; }
+
+.badge-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-left: 6px;
+}
+.badge-row-g { color: var(--green); background: var(--green-faint); }
+.badge-row-d { color: var(--gold);  background: var(--gold-faint); }
+
+.check-yes { color: var(--green); font-size: 16px; }
+.check-no  { color: var(--muted2); font-size: 14px; opacity: 0.6; }
+
+/* ══════════════════════════════════════════════════════
+   WHY NUVORA
+══════════════════════════════════════════════════════ */
+#kenapa {
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+#kenapa::before {
+  content: '';
+  position: absolute;
+  bottom: -150px; right: -100px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(46,125,214,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.why-header {
+  margin-bottom: 56px;
+}
+
+/* Varied grid — featured card spans 2 rows */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 18px;
+}
+
+.why-card {
+  background: var(--card);
+  border: 1px solid var(--border-b);
+  border-radius: var(--r-lg);
+  padding: 30px 28px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.32s cubic-bezier(0.22,1,0.36,1),
+    border-color 0.32s,
+    box-shadow 0.32s;
+  backdrop-filter: blur(10px);
+}
+
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(46,125,214,0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.32s;
+}
+
+.why-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(46, 125, 214, 0.3);
+  box-shadow: 0 20px 56px rgba(1,11,24,0.5);
+}
+.why-card:hover::before { opacity: 1; }
+
+/* Featured card — bigger, green tinted */
+.why-card.featured {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  background: linear-gradient(168deg,
+    rgba(5, 25, 12, 0.88) 0%,
+    rgba(3, 14, 28, 0.92) 100%
+  );
+  border-color: rgba(99, 200, 100, 0.22);
+  padding: 38px 34px;
+}
+.why-card.featured::before {
+  background: linear-gradient(90deg, transparent, rgba(99,200,100,0.4), transparent);
+}
+.why-card.featured:hover {
+  border-color: rgba(99, 200, 100, 0.42);
+  box-shadow: 0 24px 64px rgba(99,200,100,0.12);
+}
+
+.why-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+.why-card.featured .why-icon { font-size: 40px; margin-bottom: 22px; }
+
+.why-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+.why-card.featured .why-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+
+.why-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(240, 246, 255, 0.56);
+  line-height: 1.75;
+}
+.why-card.featured .why-desc {
+  font-size: 14px;
+  color: rgba(240, 246, 255, 0.62);
+}
+
+/* Zero stat block inside featured */
+.why-stat-block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: rgba(99, 200, 100, 0.07);
+  border: 1px solid rgba(99, 200, 100, 0.18);
+  border-radius: var(--r-md);
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.why-stat-big {
+  font-family: 'Crimson Pro', serif;
+  font-size: 52px;
+  font-weight: 300;
+  color: var(--green);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.why-stat-desc {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(240, 246, 255, 0.65);
+  line-height: 1.6;
+}
+
+/* VS comparison rows */
+.why-vs {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.why-vs-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12.5px;
+  color: rgba(240, 246, 255, 0.52);
+  line-height: 1.55;
+}
+.why-vs-x {
+  color: #F87171;
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 12px;
+  margin-top: 1px;
+}
+.why-vs-v {
+  color: var(--green);
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 12px;
+  margin-top: 1px;
+}
+
+/* ══════════════════════════════════════════════════════
+   PROCESS
+══════════════════════════════════════════════════════ */
+#proses {
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+
+#proses::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 400px;
+  background: radial-gradient(ellipse, rgba(46,125,214,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.process-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.process-header .section-eyebrow { justify-content: center; }
+.process-header .section-desc    { margin: 0 auto; }
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+}
+
+/* Connecting line */
+.process-grid::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: calc(12.5% + 14px);
+  right: calc(12.5% + 14px);
+  height: 1px;
+  background: linear-gradient(90deg,
+    var(--green),
+    rgba(46,125,214,0.7) 50%,
+    rgba(99,200,100,0.3)
+  );
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.proc-step {
+  text-align: center;
+  padding: 0 20px;
+  position: relative;
+}
+
+.proc-num {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.proc-step:hover .proc-num {
+  transform: scale(1.12);
+}
+
+.n1, .n3 {
+  background: rgba(99,200,100,0.09);
+  border: 1px solid rgba(99,200,100,0.32);
+  color: var(--green);
+}
+.n2, .n4 {
+  background: rgba(46,125,214,0.09);
+  border: 1px solid rgba(46,125,214,0.32);
+  color: var(--blue);
+}
+.proc-step:hover .n1,
+.proc-step:hover .n3 { box-shadow: 0 0 32px rgba(99,200,100,0.3); }
+.proc-step:hover .n2,
+.proc-step:hover .n4 { box-shadow: 0 0 32px rgba(46,125,214,0.3); }
+
+.proc-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.proc-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(240, 246, 255, 0.5);
+  line-height: 1.75;
+}
+
+/* ══════════════════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════════════════ */
+#kontak {
+  background: var(--navy2);
+  position: relative;
+  overflow: hidden;
+}
+
+#kontak::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/C52772C0-2D67-49A8-956E-E96CB3019BC4.png');
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+#kontak::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--navy2) 0%, transparent 30%, transparent 70%, var(--navy2) 100%);
+  pointer-events: none;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-lead {}
+.contact-lead p {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(240, 246, 255, 0.54);
+  line-height: 1.8;
+  margin: 18px 0 36px;
+  max-width: 420px;
+}
+
+.contact-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-channel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-md);
+  transition: all 0.26s;
+  text-decoration: none;
+  backdrop-filter: blur(12px);
+}
+.contact-channel:hover {
+  border-color: rgba(99, 200, 100, 0.3);
+  background: rgba(99, 200, 100, 0.05);
+  transform: translateX(6px);
+  box-shadow: var(--shadow-sm);
+}
+
+.ch-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.ch-wa  { background: rgba(99,200,100,0.12);  border: 1px solid rgba(99,200,100,0.22); }
+.ch-loc { background: rgba(46,125,214,0.12);  border: 1px solid rgba(46,125,214,0.22); }
+
+.ch-meta { flex: 1; }
+.ch-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.ch-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.5;
+}
+
+/* Form */
+.contact-form {
+  background: var(--card2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  padding: 38px;
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+.contact-form::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--green), rgba(46,125,214,0.6));
+}
+
+.form-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.form-group label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: rgba(1, 11, 24, 0.65);
+  border: 1px solid var(--border-b);
+  border-radius: var(--r-sm);
+  padding: 13px 16px;
+  font-family: 'Sora', sans-serif;
+  font-size: 13.5px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.22s, box-shadow 0.22s;
+  -webkit-appearance: none;
+  width: 100%;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(107, 139, 164, 0.45);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(99, 200, 100, 0.12);
+}
+.form-group select option { background: #071828; color: var(--white); }
+.form-group textarea      { resize: vertical; min-height: 90px; }
+
+.form-submit-wrap { margin-top: 8px; }
+
+.form-note {
+  font-size: 11.5px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.65;
+}
+
+/* ══════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════ */
+footer {
+  padding: 48px 52px 36px;
+  border-top: 1px solid var(--border-soft);
+  background: var(--navy);
+  position: relative;
+}
+
+.footer-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.footer-brand {}
+.footer-name {
+  font-family: 'Sora', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.footer-name span { color: var(--green); }
+
+.footer-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-style: italic;
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(240, 246, 255, 0.38);
+  max-width: 300px;
+  line-height: 1.65;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer-nav-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 4px;
+}
+.footer-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+.footer-nav-links a {
+  font-size: 13px;
+  color: rgba(240, 246, 255, 0.5);
+  transition: color 0.2s, transform 0.2s;
+  display: inline-block;
+}
+.footer-nav-links a:hover {
+  color: var(--white);
+  transform: translateX(4px);
+}
+
+.footer-contact {}
+.footer-contact-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 12px;
+}
+.footer-contact-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green);
+  margin-bottom: 10px;
+  transition: color 0.2s;
+}
+.footer-contact-wa:hover { color: #88E089; }
+.footer-contact-addr {
+  font-size: 12.5px;
+  color: rgba(240, 246, 255, 0.4);
+  line-height: 1.65;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-copy {
+  font-size: 11.5px;
+  color: var(--muted2);
+}
+.footer-made {
+  font-size: 11.5px;
+  color: var(--muted2);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.footer-made span { color: var(--green); }
+
+/* ══════════════════════════════════════════════════════
+   WA FLOATING BUTTON
+══════════════════════════════════════════════════════ */
+.wa-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 197;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 24px rgba(99,200,100,0.45),
+    0 2px 8px rgba(0,0,0,0.3);
+  transition: all 0.26s cubic-bezier(0.22,1,0.36,1);
+  text-decoration: none;
+}
+.wa-fab:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow:
+    0 8px 40px rgba(99,200,100,0.6),
+    0 4px 16px rgba(0,0,0,0.35);
+}
+.wa-fab svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--navy);
+}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE — TABLET 1100px
+══════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .hero-inner      { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+  .hero-right      { order: -1; }
+  .hero-logo-wrap  { margin: 0 auto; }
+  .hero-sub        { margin-left: auto; margin-right: auto; }
+  .hero-actions    { justify-content: center; }
+  .hero-stats      { justify-content: center; }
+  .hero-eyebrow    { margin-left: auto; margin-right: auto; }
+
+  .pkg-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .why-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .why-card.featured {
+    grid-column: 1 / 3;
+    grid-row: auto;
+  }
+
+  .process-grid  { grid-template-columns: repeat(2, 1fr); gap: 36px; }
+  .process-grid::before { display: none; }
+
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 32px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE 768px
+══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Nav */
+  .nav { padding: 0 20px; height: 60px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* Sections */
+  section { padding: 72px 20px; }
+  .hero   { padding: 80px 20px 56px; min-height: 100svh; }
+
+  /* Hero */
+  .hero-logo-wrap { width: 200px; height: 200px; }
+  .hero-logo-img  { width: 180px; height: 180px; }
+  .hero-h1        { font-size: clamp(30px, 8vw, 44px); }
+  .hero-stats     { gap: 24px; }
+  .stat-num       { font-size: 32px; }
+
+  /* Packages */
+  .pkg-grid { grid-template-columns: 1fr; }
+
+  /* Why */
+  .why-grid { grid-template-columns: 1fr; }
+  .why-card.featured {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  /* Process */
+  .process-grid { grid-template-columns: 1fr; gap: 28px; }
+
+  /* Contact */
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .contact-form { padding: 26px 20px; }
+
+  /* Footer */
+  footer { padding: 40px 20px 28px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+
+  /* Compare */
+  .compare-wrap { overflow-x: auto; }
+  .compare-table { min-width: 560px; }
+
+  /* WA FAB */
+  .wa-fab { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+
+  /* Section titles */
+  .section-title { font-size: clamp(24px, 7vw, 36px); }
+}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE — SMALL 480px
+══════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .hero-actions  { flex-direction: column; align-items: center; width: 100%; }
+  .btn-primary,
+  .btn-ghost     { width: 100%; justify-content: center; }
+  .hero-stats    { gap: 20px; }
 }
 </style>
 
 </head>
 <body>
 
+<!-- ═══════════════════════════════════════
+     MOBILE MENU
+═══════════════════════════════════════ -->
+
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" id="menuClose">✕</button>
-  <a href="#paket" onclick="closeMob()">Paket & Harga</a>
+  <button class="mobile-close" id="menuClose" aria-label="Tutup menu">✕</button>
+  <a href="#paket"  onclick="closeMob()">Paket &amp; Harga</a>
   <a href="#kenapa" onclick="closeMob()">Mengapa Nuvora</a>
   <a href="#proses" onclick="closeMob()">Proses Kerja</a>
   <a href="#kontak" onclick="closeMob()" style="color:var(--green)">Hubungi Kami</a>
 </div>
 
-<nav id="nav">
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-icon">N</div>
+<!-- ═══════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════ -->
+
+<nav class="nav" id="mainNav" role="navigation" aria-label="Navigasi utama">
+  <a href="#" class="nav-logo" aria-label="Nuvora Systems">
+    <div class="nav-logo-mark">N</div>
     <div class="nav-logo-text">
       <div class="nav-logo-name">Nu<span>vora</span></div>
       <div class="nav-logo-sub">Systems</div>
     </div>
   </a>
-  <ul class="nav-links">
-    <li><a href="#paket">Paket & Harga</a></li>
+
+  <ul class="nav-links" role="list">
+    <li><a href="#paket">Paket &amp; Harga</a></li>
     <li><a href="#kenapa">Mengapa Nuvora</a></li>
     <li><a href="#proses">Proses Kerja</a></li>
     <li><a href="#kontak" class="nav-cta">Hubungi Kami</a></li>
   </ul>
-  <button class="nav-hamburger" id="menuOpen"><span></span><span></span><span></span></button>
+
+  <button class="nav-hamburger" id="menuOpen" aria-label="Buka menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<section class="hero" id="hero">
-  <div class="hero-bg"></div>
+<!-- ═══════════════════════════════════════
+     HERO
+═══════════════════════════════════════ -->
+
+<section class="hero" id="hero" aria-label="Hero">
+  <div class="hero-bg" role="img" aria-label="Background kota digital"></div>
+
   <div class="hero-inner">
+    <!-- Left content -->
     <div class="hero-left">
       <div class="hero-eyebrow">Jasa Aplikasi Web Custom — Salatiga</div>
-      <h1 class="hero-h1">Sistem Digital<br>yang <em>Benar-benar<br>Bekerja</em> untuk Anda</h1>
-      <p class="hero-sub">Harga transparan, tidak ada biaya tersembunyi.<br>Dibangun khusus — bukan template. Selesai 7 hari.</p>
-      <div class="hero-actions">
-        <a href="#paket" class="btn-primary">Lihat Paket & Harga <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20konsultasi%20gratis" target="_blank" class="btn-ghost">Konsultasi Gratis</a>
-      </div>
-      <div class="hero-stats">
-        <div><div class="stat-num"><b>7</b> hari</div><div class="stat-label">Waktu Pengerjaan</div></div>
-        <div><div class="stat-num"><b>100%</b></div><div class="stat-label">Custom, Bukan Template</div></div>
-        <div><div class="stat-num"><b>2×</b></div><div class="stat-label">Revisi Gratis</div></div>
-      </div>
+
+```
+  <h1 class="hero-h1">
+    Sistem Digital<br>
+    yang <em>Benar-benar<br>Bekerja</em> untuk Anda
+  </h1>
+
+  <p class="hero-sub">
+    Harga transparan, tidak ada biaya tersembunyi.<br>
+    Dibangun khusus — bukan template siap pakai.<br>
+    Selesai dalam 7 hari kerja.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#paket" class="btn-primary">
+      Lihat Paket &amp; Harga
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20konsultasi%20gratis" target="_blank" rel="noopener" class="btn-ghost">
+      Konsultasi Gratis
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num"><b>7</b> hari</div>
+      <div class="stat-label">Waktu Pengerjaan</div>
     </div>
-    <div class="hero-right">
-      <div class="hero-logo-wrap">
-        <img class="hero-logo-img" src="https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/38E4CBBE-7911-4A53-AC56-9215874F58F3.png" alt="Nuvora Systems">
-      </div>
+    <div class="stat-item">
+      <div class="stat-num"><b>100%</b></div>
+      <div class="stat-label">Custom, Bukan Template</div>
     </div>
+    <div class="stat-item">
+      <div class="stat-num"><b>2×</b></div>
+      <div class="stat-label">Revisi Gratis</div>
+    </div>
+  </div>
+</div>
+
+<!-- Right — Logo -->
+<div class="hero-right">
+  <div class="hero-logo-wrap">
+    <img
+      class="hero-logo-img"
+      src="https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/38E4CBBE-7911-4A53-AC56-9215874F58F3.png"
+      alt="Nuvora Systems logo"
+      loading="eager"
+    >
+  </div>
+</div>
+```
+
   </div>
 </section>
 
-<section id="paket">
+<!-- ═══════════════════════════════════════
+     PAKET & HARGA
+═══════════════════════════════════════ -->
+
+<section id="paket" aria-label="Paket dan Harga">
   <div class="container">
-    <div class="pkg-header reveal">
-      <div class="section-label">Paket & Harga</div>
-      <h2 class="section-title">Bisnis Anda Ada di Tahap Mana?</h2>
-      <p class="section-desc">Tidak perlu tahu teknologinya. Kenali masalah Anda — pilih paketnya.</p><br>
-      <div class="pkg-note">Semua paket sudah termasuk <b>2× revisi gratis</b> &nbsp;·&nbsp; Hosting & domain <b>tidak termasuk</b> — ditagih terpisah, kami bantu rekomendasikan</div>
-    </div>
-    <div class="pkg-grid reveal">
-      <div class="pkg-card p1">
-        <div class="pkg-badge badge-ph">·</div>
-        <div class="pkg-name">Paket 1 — Tampil Profesional</div>
-        <div class="pkg-hook">"Ketika calon pelanggan Google bisnis Anda — mereka menemukan sesuatu yang meyakinkan."</div>
-        <div class="pkg-price-num">Rp 1.500.000</div>
-        <div class="pkg-timeline">⏱ Selesai dalam 7 hari</div>
-        <div class="pkg-div"></div>
-        <div class="pkg-for">Cocok untuk</div>
-        <div class="pkg-target">Toko, klinik, kontraktor, homestay, kuliner — yang belum punya website sama sekali.</div>
-        <ul class="pkg-features">
-          <li>Website tampilan profesional, bukan template gratisan</li>
-          <li>Tombol WhatsApp langsung — satu klik jadi pelanggan</li>
-          <li>Muncul di Google & Google Maps</li>
-          <li>Foto produk/layanan ditampilkan dengan optimal</li>
-          <li>Tanpa Anda perlu sentuh kode apapun</li>
-        </ul>
-        <div class="pkg-limits"><span class="pkg-limit">Tanpa login</span><span class="pkg-limit">Tanpa database</span><span class="pkg-limit">Tanpa notifikasi</span></div>
-        <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20Paket%201%20Tampil%20Profesional%20Rp%201.500.000" target="_blank" class="pkg-cta cta-1">Mulai dengan Paket Ini →</a>
-      </div>
-      <div class="pkg-card p2">
-        <div class="pkg-badge badge-ph">·</div>
-        <div class="pkg-name">Paket 2 — Kelola Lebih Mudah</div>
-        <div class="pkg-hook">"Ganti buku catatan dan grup WhatsApp dengan sistem rapi — diakses dari HP kapan saja."</div>
-        <div class="pkg-price-num">Rp 3.500.000</div>
-        <div class="pkg-timeline">⏱ Selesai dalam 7 hari</div>
-        <div class="pkg-div"></div>
-        <div class="pkg-for">Cocok untuk</div>
-        <div class="pkg-target">Bisnis yang masih catat manual — warung, toko, laundry, kursus, salon.</div>
-        <ul class="pkg-features">
-          <li>Sistem sesuai alur kerja bisnis Anda, bukan template generic</li>
-          <li>Akses dari HP, tablet, laptop — tanpa install apapun</li>
-          <li>Data tersimpan aman, tidak hilang meski HP rusak</li>
-          <li>Laporan harian otomatis — tidak perlu rekap manual</li>
-          <li>Bisa dioperasikan karyawan tanpa pelatihan teknis</li>
-        </ul>
-        <div class="pkg-limits"><span class="pkg-limit">1 akun pengguna</span><span class="pkg-limit">1 fitur utama</span><span class="pkg-limit">Tanpa notifikasi</span></div>
-        <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20Paket%202%20Kelola%20Lebih%20Mudah%20Rp%203.500.000" target="_blank" class="pkg-cta cta-2">Mulai dengan Paket Ini →</a>
-      </div>
-      <div class="pkg-card popular">
-        <div class="pkg-badge badge-pop">⭐ Paling Populer</div>
-        <div class="pkg-name">Paket 3 — Tumbuh Lebih Cepat</div>
-        <div class="pkg-hook">"Sistem yang tidak hanya mencatat — tapi bekerja sendiri dan memberi tahu hal penting."</div>
-        <div class="pkg-price-num">Rp 6.000.000</div>
-        <div class="pkg-timeline">⏱ Selesai dalam 7 hari</div>
-        <div class="pkg-div"></div>
-        <div class="pkg-for">Cocok untuk</div>
-        <div class="pkg-target">Bisnis dengan beberapa karyawan atau lokasi — butuh koordinasi & laporan real-time.</div>
-        <ul class="pkg-features">
-          <li>Notifikasi otomatis ke WhatsApp atau email</li>
-          <li>Multi-user — kasir, manajer, owner akses berbeda</li>
-          <li>Dashboard grafik omset & tren penjualan</li>
-          <li>Terhubung ke satu platform eksternal yang sudah Anda pakai</li>
-          <li>Keputusan bisnis berdasarkan data, bukan feeling</li>
-        </ul>
-        <div class="pkg-limits"><span class="pkg-limit">Maks 2 fitur utama</span><span class="pkg-limit">1 integrasi eksternal</span></div>
-        <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20Paket%203%20Tumbuh%20Lebih%20Cepat%20Rp%206.000.000" target="_blank" class="pkg-cta cta-pop">Mulai dengan Paket Ini →</a>
-      </div>
-      <div class="pkg-card enterprise">
-        <div class="pkg-badge badge-ent">◆ Untuk Bisnis Kompleks</div>
-        <div class="pkg-name">Paket 4 — Enterprise Custom</div>
-        <div class="pkg-hook">"Platform dari nol — untuk operasional bisnis sekompleks apapun yang Anda butuhkan."</div>
-        <div class="pkg-price-num">Rp 12.000.000</div>
-        <div class="pkg-timeline">⏱ Estimasi sesuai kompleksitas</div>
-        <div class="pkg-div"></div>
-        <div class="pkg-for">Cocok untuk</div>
-        <div class="pkg-target">Bisnis multi-lokasi, banyak tim, proses berlapis — terlalu kompleks untuk solusi standar.</div>
-        <ul class="pkg-features">
-          <li>Autentikasi lengkap — login, manajemen sesi & keamanan berlapis</li>
-          <li>Multi-user dengan hierarki akses berbeda per peran</li>
-          <li>Sinkronisasi cloud otomatis, tetap berjalan penuh saat offline</li>
-          <li>Import data massal dari Excel, export laporan CSV & JSON</li>
-          <li>Audit trail — setiap perubahan data tercatat dengan timestamp</li>
-          <li>Arsitektur skalabel — tumbuh seiring bisnis berkembang</li>
-          <li>Tidak ada batasan fitur</li>
-        </ul>
-        <div class="pkg-limits"><span class="pkg-limit">Fitur tidak terbatas</span></div>
-        <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20diskusi%20kebutuhan%20Enterprise%20Custom" target="_blank" class="pkg-cta cta-ent">Diskusikan Kebutuhan Saya →</a>
-      </div>
-    </div>
 
 ```
+<div class="pkg-header reveal">
+  <div class="section-eyebrow">Paket &amp; Harga</div>
+  <h2 class="section-title">Bisnis Anda Ada di Tahap Mana?</h2>
+  <p class="section-desc">Tidak perlu tahu teknologinya. Kenali masalah Anda — pilih paketnya.</p>
+  <div class="pkg-note" style="margin-top:20px;">
+    Semua paket termasuk <b>2× revisi gratis</b> &nbsp;·&nbsp;
+    Hosting &amp; domain <b>tidak termasuk</b> — ditagih terpisah, kami bantu rekomendasikan
+  </div>
+</div>
+
+<div class="pkg-grid">
+
+  <!-- PAKET 1 -->
+  <div class="pkg-card p1 reveal reveal-delay-1">
+    <div class="pkg-badge badge-spacer" aria-hidden="true">·</div>
+    <div class="pkg-name">Paket 1 — Tampil Profesional</div>
+    <div class="pkg-hook">"Ketika calon pelanggan Google bisnis Anda — mereka menemukan sesuatu yang meyakinkan."</div>
+    <div class="pkg-price-num">Rp 1.500.000</div>
+    <div class="pkg-timeline">⏱ Selesai dalam 7 hari</div>
+    <div class="pkg-divider"></div>
+    <div class="pkg-for">Cocok untuk</div>
+    <div class="pkg-target">Toko, klinik, kontraktor, homestay, kuliner — yang belum punya website sama sekali.</div>
+    <ul class="pkg-features">
+      <li>Website tampilan profesional, bukan template gratisan</li>
+      <li>Tombol WhatsApp langsung — satu klik jadi pelanggan</li>
+      <li>Muncul di Google &amp; Google Maps</li>
+      <li>Foto produk/layanan ditampilkan dengan optimal</li>
+      <li>Tanpa Anda perlu sentuh kode apapun</li>
+    </ul>
+    <div class="pkg-limits">
+      <span class="pkg-limit">Tanpa login</span>
+      <span class="pkg-limit">Tanpa database</span>
+      <span class="pkg-limit">Tanpa notifikasi</span>
+    </div>
+    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20Paket%201%20Tampil%20Profesional%20Rp%201.500.000"
+       target="_blank" rel="noopener" class="pkg-cta cta-p1">
+      Mulai dengan Paket Ini →
+    </a>
+  </div>
+
+  <!-- PAKET 2 -->
+  <div class="pkg-card p2 reveal reveal-delay-2">
+    <div class="pkg-badge badge-spacer" aria-hidden="true">·</div>
+    <div class="pkg-name">Paket 2 — Kelola Lebih Mudah</div>
+    <div class="pkg-hook">"Ganti buku catatan dan grup WhatsApp dengan sistem rapi — diakses dari HP kapan saja."</div>
+    <div class="pkg-price-num">Rp 3.500.000</div>
+    <div class="pkg-timeline">⏱ Selesai dalam 7 hari</div>
+    <div class="pkg-divider"></div>
+    <div class="pkg-for">Cocok untuk</div>
+    <div class="pkg-target">Bisnis yang masih catat manual — warung, toko, laundry, kursus, salon.</div>
+    <ul class="pkg-features">
+      <li>Sistem sesuai alur kerja bisnis Anda, bukan template generic</li>
+      <li>Akses dari HP, tablet, laptop — tanpa install apapun</li>
+      <li>Data tersimpan aman, tidak hilang meski HP rusak</li>
+      <li>Laporan harian otomatis — tidak perlu rekap manual</li>
+      <li>Bisa dioperasikan karyawan tanpa pelatihan teknis</li>
+    </ul>
+    <div class="pkg-limits">
+      <span class="pkg-limit">1 akun pengguna</span>
+      <span class="pkg-limit">1 fitur utama</span>
+      <span class="pkg-limit">Tanpa notifikasi</span>
+    </div>
+    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20Paket%202%20Kelola%20Lebih%20Mudah%20Rp%203.500.000"
+       target="_blank" rel="noopener" class="pkg-cta cta-p2">
+      Mulai dengan Paket Ini →
+    </a>
+  </div>
+
+  <!-- PAKET 3 — POPULAR -->
+  <div class="pkg-card popular reveal reveal-delay-3">
+    <div class="pkg-badge badge-popular">⭐ Paling Populer</div>
+    <div class="pkg-name">Paket 3 — Tumbuh Lebih Cepat</div>
+    <div class="pkg-hook">"Sistem yang tidak hanya mencatat — tapi bekerja sendiri dan memberi tahu hal penting."</div>
+    <div class="pkg-price-num">Rp 6.000.000</div>
+    <div class="pkg-timeline">⏱ Selesai dalam 7 hari</div>
+    <div class="pkg-divider"></div>
+    <div class="pkg-for">Cocok untuk</div>
+    <div class="pkg-target">Bisnis dengan beberapa karyawan atau lokasi — butuh koordinasi &amp; laporan real-time.</div>
+    <ul class="pkg-features">
+      <li>Notifikasi otomatis ke WhatsApp atau email</li>
+      <li>Multi-user — kasir, manajer, owner akses berbeda</li>
+      <li>Dashboard grafik omset &amp; tren penjualan</li>
+      <li>Terhubung ke satu platform eksternal yang sudah Anda pakai</li>
+      <li>Keputusan bisnis berdasarkan data, bukan feeling</li>
+    </ul>
+    <div class="pkg-limits">
+      <span class="pkg-limit">Maks 2 fitur utama</span>
+      <span class="pkg-limit">1 integrasi eksternal</span>
+    </div>
+    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20Paket%203%20Tumbuh%20Lebih%20Cepat%20Rp%206.000.000"
+       target="_blank" rel="noopener" class="pkg-cta cta-popular">
+      Mulai dengan Paket Ini →
+    </a>
+  </div>
+
+  <!-- PAKET 4 — ENTERPRISE -->
+  <div class="pkg-card enterprise reveal reveal-delay-4">
+    <div class="pkg-badge badge-enterprise">◆ Untuk Bisnis Kompleks</div>
+    <div class="pkg-name">Paket 4 — Enterprise Custom</div>
+    <div class="pkg-hook">"Platform dari nol — untuk operasional bisnis sekompleks apapun yang Anda butuhkan."</div>
+    <div class="pkg-price-num">Rp 12.000.000</div>
+    <div class="pkg-timeline">⏱ Estimasi sesuai kompleksitas</div>
+    <div class="pkg-divider"></div>
+    <div class="pkg-for">Cocok untuk</div>
+    <div class="pkg-target">Bisnis multi-lokasi, banyak tim, proses berlapis — terlalu kompleks untuk solusi standar.</div>
+    <ul class="pkg-features">
+      <li>Autentikasi lengkap — login, manajemen sesi &amp; keamanan berlapis</li>
+      <li>Multi-user dengan hierarki akses berbeda per peran</li>
+      <li>Sinkronisasi cloud otomatis, tetap berjalan penuh saat offline</li>
+      <li>Import data massal dari Excel, export laporan CSV &amp; JSON</li>
+      <li>Audit trail — setiap perubahan data tercatat dengan timestamp</li>
+      <li>Arsitektur skalabel — tumbuh seiring bisnis berkembang</li>
+      <li>Tidak ada batasan fitur</li>
+    </ul>
+    <div class="pkg-limits">
+      <span class="pkg-limit">Fitur tidak terbatas</span>
+    </div>
+    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20diskusi%20kebutuhan%20Enterprise%20Custom"
+       target="_blank" rel="noopener" class="pkg-cta cta-enterprise">
+      Diskusikan Kebutuhan Saya →
+    </a>
+  </div>
+
+</div><!-- /pkg-grid -->
+
+<!-- COMPARE TABLE -->
 <div class="compare-wrap reveal">
-  <div class="compare-head">Perbandingan Paket — Berdasarkan Kebutuhan Bisnis</div>
-  <table class="compare-table">
+  <div class="compare-head">Perbandingan Paket — Berdasarkan Kebutuhan Bisnis Anda</div>
+  <table class="compare-table" role="table" aria-label="Perbandingan paket">
     <thead>
       <tr>
-        <th>Kebutuhan Bisnis</th>
-        <th>P1<br><span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">Rp 1,5 jt</span></th>
-        <th>P2<br><span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">Rp 3,5 jt</span></th>
-        <th class="col-pop">P3 ⭐<br><span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--green)">Rp 6 jt</span></th>
-        <th>P4 ◆<br><span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--gold)">Rp 12 jt</span></th>
+        <th scope="col">Kebutuhan Bisnis</th>
+        <th scope="col">
+          P1<br>
+          <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">Rp 1,5 jt</span>
+        </th>
+        <th scope="col">
+          P2<br>
+          <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--muted)">Rp 3,5 jt</span>
+        </th>
+        <th scope="col" class="col-pop">
+          P3 ⭐<br>
+          <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--green)">Rp 6 jt</span>
+        </th>
+        <th scope="col">
+          P4 ◆<br>
+          <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:10px;color:var(--gold)">Rp 12 jt</span>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr><td>Bisnis saya mudah ditemukan online</td><td><span class="check-y">✓</span></td><td><span class="check-y">✓</span></td><td class="col-pop"><span class="check-y">✓</span></td><td><span class="check-y">✓</span></td></tr>
-      <tr><td>Data bisnis tersimpan rapi & aman</td><td><span class="check-n">—</span></td><td><span class="check-y">✓</span></td><td class="col-pop"><span class="check-y">✓</span></td><td><span class="check-y">✓</span></td></tr>
-      <tr class="key-row"><td>Sistem memberi tahu saya otomatis <span style="font-size:10px;color:var(--green);margin-left:4px;">← diferensiasi utama</span></td><td><span class="check-n">—</span></td><td><span class="check-n">—</span></td><td class="col-pop"><span class="check-y">✓</span></td><td><span class="check-y">✓</span></td></tr>
-      <tr><td>Tim saya bisa akses dengan peran berbeda</td><td><span class="check-n">—</span></td><td><span class="check-n">—</span></td><td class="col-pop"><span class="check-y">✓</span></td><td><span class="check-y">✓</span></td></tr>
-      <tr class="key-row"><td>Import/export data massal dari Excel <span style="font-size:10px;color:var(--gold);margin-left:4px;">← enterprise only</span></td><td><span class="check-n">—</span></td><td><span class="check-n">—</span></td><td class="col-pop"><span class="check-n">—</span></td><td><span class="check-y">✓</span></td></tr>
-      <tr><td>Tetap berjalan penuh saat internet mati</td><td><span class="check-n">—</span></td><td><span class="check-n">—</span></td><td class="col-pop"><span class="check-n">—</span></td><td><span class="check-y">✓</span></td></tr>
-      <tr><td>Audit trail & keamanan tingkat lanjut</td><td><span class="check-n">—</span></td><td><span class="check-n">—</span></td><td class="col-pop"><span class="check-n">—</span></td><td><span class="check-y">✓</span></td></tr>
-      <tr><td>Fitur tidak terbatas, bisa berkembang</td><td><span class="check-n">—</span></td><td><span class="check-n">—</span></td><td class="col-pop"><span class="check-n">—</span></td><td><span class="check-y">✓</span></td></tr>
+      <tr>
+        <td>Bisnis saya mudah ditemukan secara online</td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+        <td class="col-pop"><span class="check-yes" aria-label="Ya">✓</span></td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+      </tr>
+      <tr>
+        <td>Data bisnis tersimpan rapi &amp; aman</td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+        <td class="col-pop"><span class="check-yes" aria-label="Ya">✓</span></td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+      </tr>
+      <tr class="row-highlight">
+        <td>
+          Sistem memberi tahu saya secara otomatis
+          <span class="badge-row badge-row-g">← diferensiasi utama</span>
+        </td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td class="col-pop"><span class="check-yes" aria-label="Ya">✓</span></td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+      </tr>
+      <tr>
+        <td>Tim saya bisa akses dengan peran berbeda</td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td class="col-pop"><span class="check-yes" aria-label="Ya">✓</span></td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+      </tr>
+      <tr class="row-highlight-gold">
+        <td>
+          Import/export data massal dari Excel
+          <span class="badge-row badge-row-d">← enterprise only</span>
+        </td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td class="col-pop"><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+      </tr>
+      <tr>
+        <td>Tetap berjalan penuh saat internet mati</td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td class="col-pop"><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+      </tr>
+      <tr>
+        <td>Audit trail &amp; keamanan tingkat lanjut</td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td class="col-pop"><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+      </tr>
+      <tr>
+        <td>Fitur tidak terbatas, bisa berkembang</td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-no" aria-label="Tidak">—</span></td>
+        <td class="col-pop"><span class="check-no" aria-label="Tidak">—</span></td>
+        <td><span class="check-yes" aria-label="Ya">✓</span></td>
+      </tr>
     </tbody>
   </table>
 </div>
 
-<div style="text-align:center;margin-top:28px;" class="reveal">
-  <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Tidak yakin paket mana yang cocok untuk bisnis Anda?</p>
-  <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20konsultasi%20gratis%20menentukan%20paket%20yang%20sesuai" target="_blank" class="btn-primary">Chat WhatsApp — Konsultasi Gratis <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+<div style="text-align:center; margin-top:32px;" class="reveal">
+  <p style="font-size:13.5px; color:var(--muted); margin-bottom:16px;">
+    Tidak yakin paket mana yang cocok untuk bisnis Anda?
+  </p>
+  <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20konsultasi%20gratis%20untuk%20menentukan%20paket%20yang%20sesuai"
+     target="_blank" rel="noopener" class="btn-primary">
+    Chat WhatsApp — Konsultasi Gratis
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 </div>
 ```
 
   </div>
 </section>
 
-<section id="kenapa">
+<!-- ═══════════════════════════════════════
+     MENGAPA NUVORA
+═══════════════════════════════════════ -->
+
+<section id="kenapa" aria-label="Mengapa Nuvora">
   <div class="container">
-    <div class="reveal">
-      <div class="section-label">Mengapa Nuvora</div>
-      <h2 class="section-title">Bukan Freelancer Biasa.<br>Bukan Agency Mahal.</h2>
-      <p class="section-desc">Di celah itulah Nuvora Systems berdiri — kualitas profesional, harga yang masuk akal, komunikasi yang manusiawi.</p>
+
+```
+<div class="why-header reveal">
+  <div class="section-eyebrow">Mengapa Nuvora</div>
+  <h2 class="section-title">Bukan Freelancer Biasa.<br>Bukan Agency Mahal.</h2>
+  <p class="section-desc">
+    Di celah itulah Nuvora Systems berdiri — kualitas profesional,
+    harga yang masuk akal, komunikasi yang manusiawi.
+  </p>
+</div>
+
+<div class="why-grid">
+
+  <!-- Featured — Harga Transparan -->
+  <div class="why-card featured reveal">
+    <div class="why-icon">⚡</div>
+    <div class="why-title">Harga Transparan.<br>Tidak Ada Kejutan.</div>
+    <div class="why-desc">
+      Harga sudah tercantum jelas di halaman ini. Tidak ada penawaran rahasia,
+      tidak ada biaya tambahan yang muncul di tengah jalan.
+      Anda tahu persis yang Anda bayar sebelum deal dimulai.
     </div>
-    <div class="why-layout">
-      <div class="why-card featured reveal">
-        <div class="why-icon">⚡</div>
-        <div class="why-title">Harga Transparan.<br>Tidak Ada Kejutan.</div>
-        <div class="why-desc">Harga sudah tercantum jelas di halaman ini. Tidak ada penawaran rahasia, tidak ada biaya tambahan yang muncul di tengah jalan. Anda tahu persis yang Anda bayar sebelum deal dimulai.</div>
-        <div class="why-stat">
-          <div class="why-stat-num">0</div>
-          <div class="why-stat-label">Biaya tersembunyi.<br>Yang Anda lihat adalah yang Anda bayar.</div>
-        </div>
-        <div class="why-vs">
-          <div class="why-vs-item"><span class="x">✕</span><span>Freelancer: harga berubah setelah deal, minta tambahan di tengah jalan</span></div>
-          <div class="why-vs-item"><span class="x">✕</span><span>Agency: penawaran rahasia, harus ketemu dulu baru dapat harga</span></div>
-          <div class="why-vs-item"><span class="v">✓</span><span>Nuvora: harga langsung terlihat, tidak perlu tanya-tanya dulu</span></div>
-        </div>
+    <div class="why-stat-block">
+      <div class="why-stat-big">0</div>
+      <div class="why-stat-desc">
+        Biaya tersembunyi.<br>
+        Yang Anda lihat adalah yang Anda bayar.
       </div>
-      <div class="why-card reveal">
-        <div class="why-icon">🎯</div>
-        <div class="why-title">Dibangun Khusus,<br>Bukan Template</div>
-        <div class="why-desc">Setiap sistem dibangun dari nol sesuai alur kerja bisnis Anda. Bukan template yang dipaksakan untuk semua orang.</div>
-        <div class="why-vs">
-          <div class="why-vs-item"><span class="x">✕</span><span>Platform murah: template yang sama untuk semua bisnis</span></div>
-          <div class="why-vs-item"><span class="v">✓</span><span>Nuvora: custom sesuai cara bisnis Anda bekerja</span></div>
-        </div>
+    </div>
+    <div class="why-vs">
+      <div class="why-vs-row">
+        <span class="why-vs-x">✕</span>
+        <span>Freelancer: harga berubah setelah deal, minta tambahan di tengah jalan</span>
       </div>
-      <div class="why-card reveal">
-        <div class="why-icon">🛡️</div>
-        <div class="why-title">Tidak Hilang<br>Setelah Deliver</div>
-        <div class="why-desc">2× revisi gratis sudah termasuk. Setelah launch pun Anda tetap bisa menghubungi kami langsung via WhatsApp.</div>
-        <div class="why-vs">
-          <div class="why-vs-item"><span class="x">✕</span><span>Freelancer: sering tidak bisa ditemukan setelah pembayaran</span></div>
-          <div class="why-vs-item"><span class="v">✓</span><span>Nuvora: satu nomor WhatsApp, langsung direspons</span></div>
-        </div>
+      <div class="why-vs-row">
+        <span class="why-vs-x">✕</span>
+        <span>Agency: penawaran rahasia, harus ketemu dulu baru dapat harga</span>
       </div>
-      <div class="why-card reveal">
-        <div class="why-icon">⏱</div>
-        <div class="why-title">Selesai dalam<br>7 Hari Kerja</div>
-        <div class="why-desc">Tidak berlarut-larut. Timeline jelas sejak awal. Anda tahu kapan sistem Anda siap dipakai.</div>
-        <div class="why-vs">
-          <div class="why-vs-item"><span class="x">✕</span><span>Agency: proyek bisa molor berminggu-minggu tanpa kejelasan</span></div>
-          <div class="why-vs-item"><span class="v">✓</span><span>Nuvora: 7 hari, termasuk di proposal resmi</span></div>
-        </div>
-      </div>
-      <div class="why-card reveal">
-        <div class="why-icon">💬</div>
-        <div class="why-title">Komunikasi<br>Langsung & Jelas</div>
-        <div class="why-desc">Tidak ada middleman. Langsung bicara dengan orang yang membangun sistemnya — tidak lewat tiket support.</div>
-        <div class="why-vs">
-          <div class="why-vs-item"><span class="x">✕</span><span>Agency besar: lewat account manager dulu, baru ke developer</span></div>
-          <div class="why-vs-item"><span class="v">✓</span><span>Nuvora: langsung dengan developernya</span></div>
-        </div>
+      <div class="why-vs-row">
+        <span class="why-vs-v">✓</span>
+        <span>Nuvora: harga langsung terlihat, tidak perlu tanya-tanya dulu</span>
       </div>
     </div>
   </div>
-</section>
 
-<section id="proses">
-  <div class="container">
-    <div class="reveal" style="text-align:center;">
-      <div class="section-label" style="justify-content:center;">Cara Kerja</div>
-      <h2 class="section-title">Dari Obrolan ke Sistem Jadi</h2>
-      <p class="section-desc" style="margin:0 auto;">Empat langkah. Transparan. Tanpa kejutan di tengah jalan.</p>
+  <!-- Card 2 -->
+  <div class="why-card reveal reveal-delay-1">
+    <div class="why-icon">🎯</div>
+    <div class="why-title">Dibangun Khusus,<br>Bukan Template</div>
+    <div class="why-desc">
+      Setiap sistem dibangun dari nol sesuai alur kerja bisnis Anda.
+      Bukan template yang dipaksakan untuk semua orang.
     </div>
-    <div class="process-wrap reveal">
-      <div class="proc-step"><div class="proc-num n1">01</div><div class="proc-title">Konsultasi Gratis</div><div class="proc-desc">Ceritakan bisnis Anda — masalahnya, alur kerjanya, tujuannya. Gratis, tanpa komitmen apapun.</div></div>
-      <div class="proc-step"><div class="proc-num n2">02</div><div class="proc-title">Proposal & Scope</div><div class="proc-desc">Anda terima dokumen scope lengkap dan harga pasti sebelum proyek dimulai. Tidak ada ambiguitas.</div></div>
-      <div class="proc-step"><div class="proc-num n3">03</div><div class="proc-title">Development</div><div class="proc-desc">Sistem dibangun. Anda pantau progress dan beri feedback langsung — tidak perlu tunggu selesai semua.</div></div>
-      <div class="proc-step"><div class="proc-num n4">04</div><div class="proc-title">Launch & Handover</div><div class="proc-desc">Sistem live, Anda terima akses penuh dan panduan penggunaan. Plus 2× revisi gratis setelah launch.</div></div>
+    <div class="why-vs">
+      <div class="why-vs-row">
+        <span class="why-vs-x">✕</span>
+        <span>Platform murah: template yang sama untuk semua bisnis</span>
+      </div>
+      <div class="why-vs-row">
+        <span class="why-vs-v">✓</span>
+        <span>Nuvora: custom sesuai cara bisnis Anda bekerja</span>
+      </div>
     </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="why-card reveal reveal-delay-2">
+    <div class="why-icon">🛡️</div>
+    <div class="why-title">Tidak Hilang<br>Setelah Deliver</div>
+    <div class="why-desc">
+      2× revisi gratis sudah termasuk. Setelah launch pun Anda
+      tetap bisa menghubungi kami langsung via WhatsApp.
+    </div>
+    <div class="why-vs">
+      <div class="why-vs-row">
+        <span class="why-vs-x">✕</span>
+        <span>Freelancer: sering tidak bisa ditemukan setelah pembayaran</span>
+      </div>
+      <div class="why-vs-row">
+        <span class="why-vs-v">✓</span>
+        <span>Nuvora: satu nomor WhatsApp, langsung direspons</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="why-card reveal reveal-delay-3">
+    <div class="why-icon">⏱</div>
+    <div class="why-title">Selesai dalam<br>7 Hari Kerja</div>
+    <div class="why-desc">
+      Tidak berlarut-larut. Timeline jelas sejak awal.
+      Anda tahu kapan sistem Anda siap dipakai.
+    </div>
+    <div class="why-vs">
+      <div class="why-vs-row">
+        <span class="why-vs-x">✕</span>
+        <span>Agency: proyek bisa molor berminggu-minggu tanpa kejelasan</span>
+      </div>
+      <div class="why-vs-row">
+        <span class="why-vs-v">✓</span>
+        <span>Nuvora: 7 hari, tertulis di proposal resmi</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 5 -->
+  <div class="why-card reveal reveal-delay-4">
+    <div class="why-icon">💬</div>
+    <div class="why-title">Komunikasi<br>Langsung &amp; Jelas</div>
+    <div class="why-desc">
+      Tidak ada middleman. Langsung bicara dengan orang yang
+      membangun sistemnya — tidak lewat tiket support.
+    </div>
+    <div class="why-vs">
+      <div class="why-vs-row">
+        <span class="why-vs-x">✕</span>
+        <span>Agency besar: lewat account manager dulu, baru ke developer</span>
+      </div>
+      <div class="why-vs-row">
+        <span class="why-vs-v">✓</span>
+        <span>Nuvora: langsung dengan developernya</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
   </div>
 </section>
 
-<section id="kontak">
+<!-- ═══════════════════════════════════════
+     PROSES KERJA
+═══════════════════════════════════════ -->
+
+<section id="proses" aria-label="Proses kerja">
+  <div class="container">
+
+```
+<div class="process-header reveal">
+  <div class="section-eyebrow">Cara Kerja</div>
+  <h2 class="section-title">Dari Obrolan ke Sistem Jadi</h2>
+  <p class="section-desc">
+    Empat langkah. Transparan. Tanpa kejutan di tengah jalan.
+  </p>
+</div>
+
+<div class="process-grid">
+  <div class="proc-step reveal reveal-delay-1">
+    <div class="proc-num n1">01</div>
+    <div class="proc-title">Konsultasi Gratis</div>
+    <div class="proc-desc">
+      Ceritakan bisnis Anda — masalahnya, alur kerjanya, tujuannya.
+      Gratis, tanpa komitmen apapun.
+    </div>
+  </div>
+  <div class="proc-step reveal reveal-delay-2">
+    <div class="proc-num n2">02</div>
+    <div class="proc-title">Proposal &amp; Scope</div>
+    <div class="proc-desc">
+      Anda terima dokumen scope lengkap dan harga pasti sebelum
+      proyek dimulai. Tidak ada ambiguitas.
+    </div>
+  </div>
+  <div class="proc-step reveal reveal-delay-3">
+    <div class="proc-num n3">03</div>
+    <div class="proc-title">Development</div>
+    <div class="proc-desc">
+      Sistem dibangun. Anda pantau progress dan beri feedback
+      langsung — tidak perlu tunggu selesai semua.
+    </div>
+  </div>
+  <div class="proc-step reveal reveal-delay-4">
+    <div class="proc-num n4">04</div>
+    <div class="proc-title">Launch &amp; Handover</div>
+    <div class="proc-desc">
+      Sistem live, Anda terima akses penuh dan panduan penggunaan.
+      Plus 2× revisi gratis setelah launch.
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     KONTAK
+═══════════════════════════════════════ -->
+
+<section id="kontak" aria-label="Hubungi kami">
   <div class="container">
     <div class="contact-grid">
-      <div class="reveal">
-        <div class="section-label">Hubungi Kami</div>
-        <h2 class="section-title">Mulai dari<br>Obrolan Singkat</h2>
-        <p>Konsultasi pertama selalu gratis. Kami bantu identifikasi solusi terbaik sebelum Anda memutuskan apapun.</p>
-        <div class="channels">
-          <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%20Systems%2C%20saya%20ingin%20konsultasi%20gratis" target="_blank" class="channel">
-            <div class="ch-icon ch-wa"><svg viewBox="0 0 24 24" width="20" height="20" fill="#63C864"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
-            <div><div class="ch-lbl">WhatsApp</div><div class="ch-val">0814-6034-8354</div></div>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="color:var(--muted);margin-left:auto"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <div class="channel" style="cursor:default;">
-            <div class="ch-icon ch-loc">📍</div>
-            <div><div class="ch-lbl">Alamat</div><div class="ch-val" style="font-size:12px;line-height:1.55;">Perum Gunungsari Asri Blok D3,<br>Tingkir, Salatiga</div></div>
+
+```
+  <!-- Left — Info -->
+  <div class="contact-lead reveal">
+    <div class="section-eyebrow">Hubungi Kami</div>
+    <h2 class="section-title">Mulai dari<br>Obrolan Singkat</h2>
+    <p>
+      Konsultasi pertama selalu gratis. Kami bantu identifikasi
+      solusi terbaik sebelum Anda memutuskan apapun.
+    </p>
+
+    <div class="contact-channels">
+      <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%20Systems%2C%20saya%20ingin%20konsultasi%20gratis"
+         target="_blank" rel="noopener" class="contact-channel" aria-label="Chat WhatsApp">
+        <div class="ch-icon ch-wa">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="#63C864" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </div>
+        <div class="ch-meta">
+          <div class="ch-label">WhatsApp</div>
+          <div class="ch-value">0814-6034-8354</div>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="color:var(--muted);flex-shrink:0" aria-hidden="true">
+          <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <div class="contact-channel" style="cursor:default;">
+        <div class="ch-icon ch-loc" aria-hidden="true">📍</div>
+        <div class="ch-meta">
+          <div class="ch-label">Alamat</div>
+          <div class="ch-value" style="font-size:13px; line-height:1.6;">
+            Perum Gunungsari Asri Blok D3,<br>Tingkir, Salatiga
           </div>
         </div>
       </div>
-      <div class="cform reveal">
-        <div class="cform-title">Kirim Pesan Langsung</div>
-        <div class="fg"><label>Nama Anda</label><input type="text" id="fName" placeholder="Budi Santoso"></div>
-        <div class="fg"><label>Nama Bisnis</label><input type="text" id="fBiz" placeholder="Toko Makmur Jaya"></div>
-        <div class="fg">
-          <label>Paket yang Diminati</label>
-          <select id="fPkg">
-            <option value="" disabled selected>Pilih paket...</option>
-            <option>Paket 1 — Tampil Profesional · Rp 1.500.000</option>
-            <option>Paket 2 — Kelola Lebih Mudah · Rp 3.500.000</option>
-            <option>Paket 3 — Tumbuh Lebih Cepat · Rp 6.000.000</option>
-            <option>Paket 4 — Enterprise Custom · Rp 12.000.000</option>
-            <option>Belum yakin — minta konsultasi gratis</option>
-          </select>
-        </div>
-        <button class="btn-primary" style="width:100%;justify-content:center;margin-top:4px;" onclick="sendWA()">
-          Kirim via WhatsApp
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        </button>
-        <p class="form-note">Kami merespons dalam 24 jam kerja.<br>Tidak ada komitmen di tahap ini.</p>
-      </div>
     </div>
+  </div>
+
+  <!-- Right — Form -->
+  <div class="contact-form reveal reveal-delay-2">
+    <div class="form-title">Kirim Pesan Langsung</div>
+
+    <div class="form-group">
+      <label for="fName">Nama Anda</label>
+      <input type="text" id="fName" placeholder="Budi Santoso" autocomplete="name">
+    </div>
+
+    <div class="form-group">
+      <label for="fBiz">Nama Bisnis</label>
+      <input type="text" id="fBiz" placeholder="Toko Makmur Jaya" autocomplete="organization">
+    </div>
+
+    <div class="form-group">
+      <label for="fPkg">Paket yang Diminati</label>
+      <select id="fPkg">
+        <option value="" disabled selected>Pilih paket...</option>
+        <option value="Paket 1 — Tampil Profesional · Rp 1.500.000">Paket 1 — Tampil Profesional · Rp 1.500.000</option>
+        <option value="Paket 2 — Kelola Lebih Mudah · Rp 3.500.000">Paket 2 — Kelola Lebih Mudah · Rp 3.500.000</option>
+        <option value="Paket 3 — Tumbuh Lebih Cepat · Rp 6.000.000">Paket 3 — Tumbuh Lebih Cepat · Rp 6.000.000</option>
+        <option value="Paket 4 — Enterprise Custom · Rp 12.000.000">Paket 4 — Enterprise Custom · Rp 12.000.000</option>
+        <option value="Belum yakin — minta konsultasi gratis">Belum yakin — minta konsultasi gratis</option>
+      </select>
+    </div>
+
+    <div class="form-submit-wrap">
+      <button class="btn-primary" style="width:100%;justify-content:center;" onclick="sendWA()" type="button">
+        Kirim via WhatsApp
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </button>
+    </div>
+
+    <p class="form-note">
+      Kami merespons dalam 24 jam kerja.<br>
+      Tidak ada komitmen di tahap ini.
+    </p>
+  </div>
+
+</div>
+```
+
   </div>
 </section>
 
-<footer>
+<!-- ═══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
+
+<footer role="contentinfo">
   <div class="footer-top">
-    <div>
-      <div class="footer-logo-name">Nu<span>vora</span> Systems</div>
-      <div class="footer-tagline">"Sistem digital yang benar-benar bekerja untuk bisnis Anda — bukan sekadar website."</div>
-    </div>
-    <ul class="footer-links">
-      <li><a href="#paket">Paket & Harga</a></li>
-      <li><a href="#kenapa">Mengapa Nuvora</a></li>
-      <li><a href="#proses">Proses Kerja</a></li>
-      <li><a href="#kontak">Hubungi Kami</a></li>
-    </ul>
+
+```
+<div class="footer-brand">
+  <div class="footer-name">Nu<span>vora</span> Systems</div>
+  <div class="footer-tagline">
+    "Sistem digital yang benar-benar bekerja untuk bisnis Anda — bukan sekadar website."
   </div>
+</div>
+
+<nav class="footer-nav" aria-label="Footer navigation">
+  <div class="footer-nav-title">Navigasi</div>
+  <ul class="footer-nav-links" role="list">
+    <li><a href="#paket">Paket &amp; Harga</a></li>
+    <li><a href="#kenapa">Mengapa Nuvora</a></li>
+    <li><a href="#proses">Proses Kerja</a></li>
+    <li><a href="#kontak">Hubungi Kami</a></li>
+  </ul>
+</nav>
+
+<div class="footer-contact">
+  <div class="footer-contact-title">Kontak</div>
+  <a href="https://wa.me/6281460348354" target="_blank" rel="noopener" class="footer-contact-wa">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    0814-6034-8354
+  </a>
+  <div class="footer-contact-addr">
+    Perum Gunungsari Asri Blok D3,<br>
+    Tingkir, Salatiga
+  </div>
+</div>
+```
+
+  </div>
+
   <div class="footer-bottom">
     <div class="footer-copy">© 2025 Nuvora Systems. Semua hak dilindungi.</div>
-    <div class="footer-loc">📍 Perum Gunungsari Asri Blok D3, Tingkir, Salatiga</div>
+    <div class="footer-made">Salatiga, Indonesia <span>·</span> Custom Web Apps</div>
   </div>
 </footer>
 
-<a href="https://wa.me/6281460348354?text=Halo%20Nuvora%20Systems" target="_blank" class="wa-float" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<!-- WA Floating Button -->
+
+<a href="https://wa.me/6281460348354?text=Halo%20Nuvora%20Systems"
+target="_blank" rel="noopener"
+class="wa-fab"
+aria-label="Chat WhatsApp dengan Nuvora Systems">
+<svg viewBox="0 0 24 24" aria-hidden="true">
+<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+</svg>
 </a>
 
 <script>
-var nav=document.getElementById('nav');
-window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
-document.getElementById('menuOpen').onclick=function(){document.getElementById('mobileMenu').classList.add('open');};
-document.getElementById('menuClose').onclick=closeMob;
-function closeMob(){document.getElementById('mobileMenu').classList.remove('open');}
-var obs=new IntersectionObserver(function(entries){entries.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('visible');},i*55);obs.unobserve(e.target);}});},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
-function sendWA(){
-  var name=document.getElementById('fName').value.trim();
-  var biz=document.getElementById('fBiz').value.trim();
-  var pkg=document.getElementById('fPkg').value;
-  if(!name){alert('Mohon isi nama Anda.');return;}
-  if(!pkg){alert('Mohon pilih paket yang diminati.');return;}
-  var msg='Halo Nuvora Systems,\n\nNama: '+name+'\n';
-  if(biz)msg+='Bisnis: '+biz+'\n';
-  msg+='Paket: '+pkg+'\n\nSaya ingin konsultasi lebih lanjut.';
-  window.open('https://wa.me/6281460348354?text='+encodeURIComponent(msg),'_blank');
+/* ── NAV SCROLL ── */
+(function() {
+  var nav = document.getElementById('mainNav');
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        nav.classList.toggle('scrolled', window.scrollY > 44);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+/* ── MOBILE MENU ── */
+var menuOpen  = document.getElementById('menuOpen');
+var menuClose = document.getElementById('menuClose');
+var mobileMenu = document.getElementById('mobileMenu');
+
+menuOpen.addEventListener('click', function() {
+  mobileMenu.classList.add('open');
+  menuOpen.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+});
+
+menuClose.addEventListener('click', closeMob);
+function closeMob() {
+  mobileMenu.classList.remove('open');
+  menuOpen.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
 }
-document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});});
+
+/* Close on ESC */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeMob();
+});
+
+/* ── SCROLL REVEAL ── */
+(function() {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  els.forEach(function(el) { observer.observe(el); });
+})();
+
+/* ── WHATSAPP FORM ── */
+function sendWA() {
+  var name = document.getElementById('fName').value.trim();
+  var biz  = document.getElementById('fBiz').value.trim();
+  var pkg  = document.getElementById('fPkg').value;
+
+  if (!name) {
+    document.getElementById('fName').focus();
+    alert('Mohon isi nama Anda.');
+    return;
+  }
+  if (!pkg) {
+    document.getElementById('fPkg').focus();
+    alert('Mohon pilih paket yang diminati.');
+    return;
+  }
+
+  var msg = 'Halo Nuvora Systems,\n\n';
+  msg += 'Nama: ' + name + '\n';
+  if (biz) msg += 'Bisnis: ' + biz + '\n';
+  msg += 'Paket: ' + pkg + '\n\n';
+  msg += 'Saya ingin konsultasi lebih lanjut.';
+
+  window.open(
+    'https://wa.me/6281460348354?text=' + encodeURIComponent(msg),
+    '_blank',
+    'noopener'
+  );
+}
+
+/* ── SMOOTH ANCHOR SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+  anchor.addEventListener('click', function(e) {
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      var offset = 68; /* nav height */
+      var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+  });
+});
 </script>
 
 </body>
