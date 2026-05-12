@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naruna Contract Monitor - Valuasi Aplikasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+-ink:#0A0805;
+-paper:#F7F4EE;
+-cream:#EDE9DF;
+-gold:#B8860B;
+-gold-light:#D4A017;
+-gold-pale:rgba(184,134,11,0.10);
+-gold-mid:rgba(184,134,11,0.22);
+-red:#9B1C1C;
+-red-light:rgba(155,28,28,0.08);
+-green:#1A5C2E;
+-green-light:rgba(26,92,46,0.08);
+-border:#D4CFC3;
+-text2:#4A4540;
+-text3:#7A746C;
+-strike:#C5392A;
+}
+
+html{font-size:15px;scroll-behavior:smooth;}
+body{
+background:var(-paper);
+color:var(-ink);
+font-family:'DM Sans',sans-serif;
+-webkit-font-smoothing:antialiased;
+overflow-x:hidden;
+min-height:100vh;
+}
+
+/* GRAIN OVERLAY */
+body::after{
+content:'';
+position:fixed;inset:0;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+background-size:256px;pointer-events:none;z-index:0;
+}
+
+/* TOP RULE */
+.top-rule{
+height:3px;
+background:repeating-linear-gradient(90deg, var(-gold) 0, var(-gold) 60px, transparent 60px, transparent 64px);
+}
+
+/* MASTHEAD */
+.masthead{
+border-bottom:1px solid var(-border);
+padding:18px 40px;
+display:flex;align-items:center;justify-content:space-between;
+position:relative;z-index:1;
+}
+.masthead-brand{
+font-family:'DM Mono',monospace;
+font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(-text3);
+}
+.masthead-doc{
+font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+text-transform:uppercase;color:var(-gold);border:1px solid var(-gold-mid);
+padding:4px 10px;border-radius:2px;background:var(-gold-pale);
+}
+.masthead-date{
+font-family:'DM Mono',monospace;font-size:10px;color:var(-text3);letter-spacing:1px;
+}
+
+/* HERO */
+.hero{
+text-align:center;
+padding:72px 40px 56px;
+position:relative;z-index:1;
+border-bottom:1px solid var(-border);
+}
+.hero-eyebrow{
+font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:3px;
+text-transform:uppercase;color:var(-gold);margin-bottom:20px;
+display:inline-flex;align-items:center;gap:10px;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+content:'';display:block;width:30px;height:1px;background:var(-gold-mid);
+}
+.hero h1{
+font-family:'Playfair Display',Georgia,serif;
+font-size:clamp(32px,5vw,60px);font-weight:900;line-height:1.05;
+color:var(-ink);margin-bottom:14px;
+letter-spacing:-1px;
+}
+.hero h1 em{
+font-style:italic;color:var(-gold);
+}
+.hero-sub{
+font-size:14px;color:var(-text2);max-width:540px;margin:0 auto 28px;line-height:1.8;
+font-weight:300;
+}
+.hero-verdict{
+display:inline-block;
+background:var(-ink);color:var(-paper);
+font-family:'Playfair Display',serif;font-size:clamp(22px,3.5vw,40px);
+font-weight:900;letter-spacing:-0.5px;
+padding:14px 36px;
+position:relative;
+}
+.hero-verdict::before,.hero-verdict::after{
+content:'';position:absolute;width:8px;height:8px;border:2px solid var(-gold);
+}
+.hero-verdict::before{top:-4px;left:-4px;}
+.hero-verdict::after{bottom:-4px;right:-4px;}
+.hero-verdict-sub{
+margin-top:12px;font-family:'DM Mono',monospace;font-size:10.5px;
+color:var(-text3);letter-spacing:2px;text-transform:uppercase;
+}
+
+/* WRAPPER */
+.wrapper{max-width:900px;margin:0 auto;padding:0 30px;position:relative;z-index:1;}
+
+/* SECTION */
+.section{border-bottom:1px solid var(-border);padding:52px 0;}
+.section-header{
+display:flex;align-items:baseline;gap:16px;margin-bottom:34px;
+}
+.section-num{
+font-family:'Playfair Display',serif;font-size:72px;font-weight:900;
+color:var(-cream);line-height:1;flex-shrink:0;
+-webkit-text-stroke:1px var(-border);
+}
+.section-title-block{}
+.section-label{
+font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:3px;
+text-transform:uppercase;color:var(-gold);margin-bottom:4px;
+}
+.section-title{
+font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(-ink);
+line-height:1.2;
+}
+
+/* COMPONENT TABLE */
+.comp-table{width:100%;border-collapse:collapse;}
+.comp-table thead tr{border-bottom:2px solid var(-ink);}
+.comp-table th{
+font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:2px;
+text-transform:uppercase;color:var(-text3);padding:0 0 11px;text-align:left;
+font-weight:500;
+}
+.comp-table th:last-child,.comp-table td:last-child{text-align:right;}
+.comp-table tbody tr{border-bottom:1px solid var(-border);animation:rowIn .3s ease both;}
+.comp-table tbody tr:hover{background:var(-cream);}
+.comp-table td{padding:14px 0;font-size:13.5px;color:var(-text2);vertical-align:top;}
+.comp-table .td-name{
+font-weight:600;color:var(-ink);font-size:13.5px;max-width:240px;
+}
+.comp-table .td-desc{
+font-size:12px;color:var(-text3);margin-top:3px;line-height:1.6;
+}
+.comp-table .td-hours{
+font-family:'DM Mono',monospace;font-size:12px;color:var(-text2);
+white-space:nowrap;
+}
+.comp-table .td-rate{
+font-family:'DM Mono',monospace;font-size:11.5px;color:var(-text3);
+white-space:nowrap;
+}
+.comp-table .td-value{
+font-family:'DM Mono',monospace;font-size:13px;font-weight:500;
+color:var(-ink);white-space:nowrap;
+}
+.comp-table tfoot tr{border-top:2px solid var(-ink);}
+.comp-table tfoot td{
+padding:13px 0 0;
+font-family:'DM Mono',monospace;font-size:13px;font-weight:500;
+color:var(-ink);
+}
+.comp-table tfoot .td-total-label{
+font-family:'Playfair Display',serif;font-size:15px;font-weight:700;
+letter-spacing:0;color:var(-ink);
+}
+.comp-table tfoot .td-total-val{
+font-family:'DM Mono',monospace;font-size:16px;font-weight:500;
+color:var(-gold);
+}
+
+/* FEATURE BADGE */
+.feature-badge{
+display:inline-flex;align-items:center;gap:4px;
+background:var(-gold-pale);border:1px solid var(-gold-mid);
+color:var(-gold);font-size:10px;font-weight:600;
+font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;
+padding:2px 7px;border-radius:2px;
+}
+
+/* FEATURE GRID */
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.feature-grid{grid-template-columns:1fr;}}
+.feature-item{
+border:1px solid var(-border);padding:18px 20px;
+position:relative;overflow:hidden;
+transition:border-color .2s,transform .2s;
+}
+.feature-item:hover{border-color:var(-gold-mid);transform:translateY(-2px);}
+.feature-item::before{
+content:'';position:absolute;top:0;left:0;width:3px;bottom:0;
+background:var(-gold);
+}
+.feature-icon{font-size:22px;margin-bottom:9px;display:block;}
+.feature-name{font-weight:700;font-size:13.5px;color:var(-ink);margin-bottom:5px;}
+.feature-desc{font-size:12px;color:var(-text3);line-height:1.7;}
+.feature-val{
+margin-top:10px;font-family:'DM Mono',monospace;font-size:11.5px;
+color:var(-gold);font-weight:500;
+}
+
+/* MARKET COMPARE */
+.market-table{width:100%;border-collapse:collapse;margin-top:10px;}
+.market-table th{
+font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;
+text-transform:uppercase;color:var(-text3);padding:0 0 10px;text-align:left;
+font-weight:500;border-bottom:1px solid var(-border);
+}
+.market-table td{padding:12px 0;border-bottom:1px solid var(-border);font-size:13px;color:var(-text2);}
+.market-table td:last-child{text-align:right;font-family:'DM Mono',monospace;font-size:12px;}
+.market-highlight{font-weight:700;color:var(-ink);}
+.market-pos{color:var(-green);font-weight:700;}
+.market-neg{color:var(-red);}
+.pill{
+display:inline-block;padding:2px 8px;border-radius:2px;
+font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+}
+.pill-g{background:var(-green-light);color:var(-green);}
+.pill-r{background:var(-red-light);color:var(-red);}
+.pill-y{background:var(-gold-pale);color:var(-gold);}
+
+/* PRICING SECTION */
+.pricing-section{padding:60px 0 52px;}
+.pricing-cards{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(-ink);margin-top:34px;}
+@media(max-width:580px){.pricing-cards{grid-template-columns:1fr;}}
+.pricing-card{padding:34px 32px;position:relative;overflow:hidden;}
+.pricing-card:first-child{border-right:1px solid var(-border);}
+@media(max-width:580px){.pricing-card:first-child{border-right:none;border-bottom:1px solid var(-border);}}
+.pc-eyebrow{
+font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:2.5px;
+text-transform:uppercase;color:var(-text3);margin-bottom:16px;
+}
+.pc-price-cross{
+font-family:'Playfair Display',serif;font-size:28px;font-weight:700;
+color:var(-text3);position:relative;display:inline-block;margin-bottom:4px;
+}
+.pc-price-cross::after{
+content:'';position:absolute;left:0;top:50%;
+width:100%;height:2px;background:var(-strike);transform:rotate(-3deg);
+}
+.pc-price-cross-label{
+font-size:11px;color:var(-text3);margin-bottom:20px;font-family:'DM Mono',monospace;
+letter-spacing:1px;
+}
+
+/* OFFER CARD */
+.offer-card{
+background:var(-ink);color:var(-paper);
+padding:34px 32px;position:relative;overflow:hidden;
+}
+.offer-card::before{
+content:'';position:absolute;top:-60px;right:-60px;
+width:200px;height:200px;border-radius:50%;
+background:radial-gradient(circle,rgba(184,134,11,0.25) 0%,transparent 70%);
+pointer-events:none;
+}
+.oc-eyebrow{
+font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:2.5px;
+text-transform:uppercase;color:var(-gold);margin-bottom:16px;
+}
+.oc-was{
+font-family:'DM Mono',monospace;font-size:13px;color:rgba(255,255,255,0.35);
+text-decoration:line-through;margin-bottom:4px;
+}
+.oc-price{
+font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,52px);
+font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;margin-bottom:5px;
+}
+.oc-price span{color:var(-gold-light);}
+.oc-save{
+display:inline-flex;align-items:center;gap:6px;
+background:var(-gold);color:var(-ink);
+font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500;letter-spacing:1px;
+padding:4px 11px;text-transform:uppercase;margin-bottom:20px;
+}
+.oc-feats{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.oc-feats li{
+display:flex;align-items:flex-start;gap:9px;font-size:12.5px;
+color:rgba(255,255,255,0.8);line-height:1.5;
+}
+.oc-feats li::before{
+content:'✦';color:var(-gold);font-size:9px;flex-shrink:0;margin-top:2px;
+}
+.oc-cta{
+margin-top:24px;display:block;text-align:center;
+background:var(-gold);color:var(-ink);
+font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;
+text-transform:uppercase;font-weight:500;padding:13px 20px;
+border:none;cursor:pointer;width:100%;transition:all .2s;
+text-decoration:none;
+}
+.oc-cta:hover{background:var(-gold-light);}
+
+/* NUVORA BADGE */
+.nuvora-footer{
+text-align:center;padding:40px 30px;position:relative;z-index:1;
+border-top:1px solid var(-border);
+}
+.nuvora-name{
+font-family:'Playfair Display',serif;font-size:22px;font-weight:900;
+letter-spacing:-0.5px;color:var(-ink);margin-bottom:4px;
+}
+.nuvora-sub{
+font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2.5px;
+text-transform:uppercase;color:var(-text3);
+}
+.nuvora-rule{
+display:flex;align-items:center;gap:14px;margin:18px auto;max-width:300px;
+}
+.nuvora-rule::before,.nuvora-rule::after{
+content:'';flex:1;height:1px;background:var(-border);
+}
+.nuvora-rule span{
+font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;
+text-transform:uppercase;color:var(-text3);white-space:nowrap;
+}
+.nuvora-seal{
+display:inline-block;
+border:2px solid var(-ink);padding:10px 22px;
+font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:2px;
+text-transform:uppercase;color:var(-ink);
+}
+
+/* SUMMARY BOX */
+.summary-box{
+border:1px solid var(-border);padding:26px 30px;
+background:var(-cream);position:relative;overflow:hidden;margin-top:30px;
+}
+.summary-box::before{
+content:'';position:absolute;top:0;left:0;right:0;height:3px;
+background:repeating-linear-gradient(90deg,var(-gold) 0,var(-gold) 8px,transparent 8px,transparent 12px);
+}
+.summary-rows{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+.summary-row{
+display:flex;justify-content:space-between;align-items:center;
+font-size:13px;color:var(-text2);
+padding-bottom:10px;border-bottom:1px dashed var(-border);
+}
+.summary-row:last-child{border-bottom:none;padding-bottom:0;}
+.summary-row.total{
+font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(-ink);
+padding-top:4px;
+}
+.summary-row .sum-val{
+font-family:'DM Mono',monospace;font-weight:500;color:var(-ink);
+}
+.summary-row.total .sum-val{color:var(-gold);}
+.badge-save{
+background:var(-green-light);color:var(-green);border:1px solid rgba(26,92,46,0.2);
+font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;letter-spacing:1px;
+text-transform:uppercase;
+}
+
+/* GUARANTEE STRIP */
+.guarantee{
+display:flex;gap:0;border:1px solid var(-border);margin-top:22px;
+}
+.guarantee-item{
+flex:1;padding:16px 18px;text-align:center;border-right:1px solid var(-border);
+}
+.guarantee-item:last-child{border-right:none;}
+.guarantee-icon{font-size:20px;display:block;margin-bottom:5px;}
+.guarantee-label{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(-text3);}
+.guarantee-desc{font-size:11px;color:var(-text2);margin-top:3px;line-height:1.5;}
+
+/* ANIM */
+@keyframes rowIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+/* DIVIDER */
+.ornamental-divider{
+display:flex;align-items:center;gap:14px;
+padding:28px 0 0;
+}
+.ornamental-divider::before,.ornamental-divider::after{content:'';flex:1;height:1px;background:var(-border);}
+.ornamental-divider span{font-size:13px;color:var(-border);}
+
+/* CALLOUT */
+.callout{
+border-left:3px solid var(-gold);padding:14px 18px;background:var(-gold-pale);
+font-size:12.5px;color:var(-text2);line-height:1.8;margin-top:18px;
+}
+.callout strong{color:var(-ink);}
+
+@media(max-width:600px){
+.masthead{padding:14px 20px;}
+.hero{padding:48px 20px 40px;}
+.wrapper{padding:0 20px;}
+.comp-table td,.comp-table th{font-size:11.5px;}
+.section-num{font-size:50px;}
+.pricing-card,.offer-card{padding:24px 20px;}
+}
+</style>
+
+</head>
+<body>
+
+<div class="top-rule"></div>
+
+<div class="masthead">
+  <div class="masthead-brand">Naruna Contract Monitor</div>
+  <div class="masthead-doc">Dokumen Valuasi</div>
+  <div class="masthead-date" id="docDate"></div>
+</div>
+
+<!-- HERO -->
+
+<div class="hero">
+  <div class="hero-eyebrow">Penilaian Independen Nilai Perangkat Lunak</div>
+  <h1>Berapa Nilai <em>Sesungguhnya</em><br>Aplikasi Ini?</h1>
+  <p class="hero-sub">Analisis menyeluruh biaya pengembangan, nilai fitur, dan posisi pasar dari Naruna Contract Monitor - sistem manajemen kontrak karyawan berbasis web, multi-outlet, real-time.</p>
+  <div class="hero-verdict">Rp 36.300.000 - Rp 52.000.000</div>
+  <div class="hero-verdict-sub">Estimasi harga pasar wajar pengembangan custom</div>
+</div>
+
+<!-- SECTION 1: BREAKDOWN KOMPONEN -->
+
+<div class="wrapper">
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title-block">
+      <div class="section-label">Rincian Biaya</div>
+      <div class="section-title">Breakdown Komponen Pengembangan</div>
+    </div>
+  </div>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th style="width:38%">Komponen</th>
+        <th style="width:20%">Est. Jam Kerja</th>
+        <th style="width:18%">Rate/Jam</th>
+        <th>Nilai</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="td-name">Sistem Autentikasi Lengkap</div>
+          <div class="td-desc">Login, Register, Forgot Password dengan token, Reset Password, session management, hashing SHA-256, max-user slot, user count UI</div>
+        </td>
+        <td class="td-hours">28-35 jam</td>
+        <td class="td-rate">Rp 300rb/jam</td>
+        <td class="td-value">Rp 8.400.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-name">Dual Backend Adapter</div>
+          <div class="td-desc">IndexedDB local + Firebase Firestore dengan offline persistence, auto-fallback, real-time sync badge, seamless switching tanpa perubahan kode</div>
+        </td>
+        <td class="td-hours">32-40 jam</td>
+        <td class="td-rate">Rp 300rb/jam</td>
+        <td class="td-value">Rp 9.600.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-name">Dashboard Outlet Multi-Kolom</div>
+          <div class="td-desc">Grid 1-3 kolom adaptif, collapse/expand per outlet, outlet identity color system (12 palet), KPI card animasi, hero stats, filter bar</div>
+        </td>
+        <td class="td-hours">22-28 jam</td>
+        <td class="td-rate">Rp 300rb/jam</td>
+        <td class="td-value">Rp 6.600.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-name">Sistem Manajemen Kontrak</div>
+          <div class="td-desc">Update kontrak dengan preview, kalkulasi dari akhir kontrak atau hari ini, pilih bulan/tahun, rounding ke akhir bulan, history log per karyawan</div>
+        </td>
+        <td class="td-hours">18-22 jam</td>
+        <td class="td-rate">Rp 300rb/jam</td>
+        <td class="td-value">Rp 5.400.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-name">Kamus Gender AI (166+ Nama)</div>
+          <div class="td-desc">Dictionary 166 nama Naruna + 200+ nama umum Indonesia, algoritma skip-ambiguous, auto-guess dari nama input, override manual, fallback suffix regex</div>
+        </td>
+        <td class="td-hours">12-16 jam</td>
+        <td class="td-rate">Rp 350rb/jam</td>
+        <td class="td-value">Rp 4.200.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-name">Import Excel Cerdas</div>
+          <div class="td-desc">Multi-sheet, auto-detect header row, smart column mapping (30+ alias), date parser format tanggal Indonesia/Inggris, serial number Excel, dedup logic</div>
+        </td>
+        <td class="td-hours">24-30 jam</td>
+        <td class="td-rate">Rp 300rb/jam</td>
+        <td class="td-value">Rp 7.200.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-name">Notifikasi & Monitoring Real-time</div>
+          <div class="td-desc">Bell animasi pulse, panel notifikasi slide-in, count badge, threshold 30 hari, sorting urgensi, warning/danger state, hapus saat klik luar</div>
+        </td>
+        <td class="td-hours">10-14 jam</td>
+        <td class="td-rate">Rp 300rb/jam</td>
+        <td class="td-value">Rp 3.000.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-name">UI/UX Design System Lengkap</div>
+          <div class="td-desc">Dark/light mode, 50+ CSS custom properties, Instrument Serif + Geist typography, noise texture, topbar sticky, toast system, loading screen animasi, responsive mobile</div>
+        </td>
+        <td class="td-hours">26-34 jam</td>
+        <td class="td-rate">Rp 350rb/jam</td>
+        <td class="td-value">Rp 9.100.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-name">Export & Backup Data</div>
+          <div class="td-desc">Export JSON backup berversi, export CSV dengan BOM UTF-8 untuk Excel Indonesia, restore JSON dengan sanitasi, preview import, konfirmasi sebelum overwrite</div>
+        </td>
+        <td class="td-hours">8-11 jam</td>
+        <td class="td-rate">Rp 300rb/jam</td>
+        <td class="td-value">Rp 2.400.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-name">Dashboard Analitik Global</div>
+          <div class="td-desc">Tampilan lintas outlet, section kritis/aman/tanpa-tanggal, statistik per outlet dengan progress bar, navigasi konteks ke update kontrak</div>
+        </td>
+        <td class="td-hours">10-13 jam</td>
+        <td class="td-rate">Rp 300rb/jam</td>
+        <td class="td-value">Rp 3.000.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-name">Keamanan & Ketahanan Data</div>
+          <div class="td-desc">safeText/safeNumber sanitasi, escapeHtml di semua output, debounce input, normalizeText search, validasi email regex, password confirm, confirm sebelum hapus</div>
+        </td>
+        <td class="td-hours">10-14 jam</td>
+        <td class="td-rate">Rp 350rb/jam</td>
+        <td class="td-value">Rp 3.500.000</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="td-total-label">Total Estimasi Pengembangan</td>
+        <td class="td-hours" style="color:var(--text2);">~200-257 jam</td>
+        <td></td>
+        <td class="td-total-val">Rp 62.400.000</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="callout">
+    <strong>Catatan metodologi:</strong> Rate Rp 300.000-350.000/jam mencerminkan rata-rata freelancer senior Indonesia (Upwork/Toptal) untuk pengembangan full-stack web. Rate agency lokal berkisar Rp 350.000-500.000/jam. Estimasi jam sudah termasuk QA, revisi, dan debugging.
+  </div>
+</div>
+
+<!-- SECTION 2: NILAI FITUR UNGGULAN -->
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title-block">
+      <div class="section-label">Nilai Diferensiasi</div>
+      <div class="section-title">Fitur Premium yang Menentukan Harga</div>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-item">
+      <span class="feature-icon">🧠</span>
+      <div class="feature-name">AI Gender Dictionary Indonesia</div>
+      <div class="feature-desc">Kamus 370+ nama terverifikasi dengan logika skip-ambigu (DWI, WAHYU, TRI, dll) dan fallback suffix regex. Tidak ada library publik yang menyediakan ini untuk nama Naruna secara spesifik.</div>
+      <div class="feature-val">Nilai unik: Rp 4.200.000</div>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">🔄</span>
+      <div class="feature-name">Dual Backend Transparan</div>
+      <div class="feature-desc">Satu codebase berjalan di IndexedDB lokal ATAU Firebase Firestore tanpa perubahan logika bisnis. Auto-fallback bila Firebase gagal. Sangat langka dalam single-file HTML app.</div>
+      <div class="feature-val">Nilai unik: Rp 9.600.000</div>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">📊</span>
+      <div class="feature-name">Import Excel Multi-Sheet Cerdas</div>
+      <div class="feature-desc">Auto-detect header di 10 baris pertama, 30+ alias kolom, parse tanggal 6 format berbeda termasuk serial Excel, nama sheet sebagai fallback outlet. Production-grade.</div>
+      <div class="feature-val">Nilai unik: Rp 7.200.000</div>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">🎨</span>
+      <div class="feature-name">Design System 12 Outlet Identity</div>
+      <div class="feature-desc">Sistem warna dinamis berbasis hash ID outlet - setiap outlet selalu mendapat warna konsisten dari 12 palet tanpa konfigurasi. Dark mode penuh dengan 50+ token CSS.</div>
+      <div class="feature-val">Nilai unik: Rp 4.500.000</div>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">📜</span>
+      <div class="feature-name">History Kontrak Lengkap Per Karyawan</div>
+      <div class="feature-desc">Setiap update kontrak tersimpan dengan timestamp, tanggal lama, tanggal baru, durasi, dan keterangan. Audit trail penuh yang bisa di-review kapan saja.</div>
+      <div class="feature-val">Nilai unik: Rp 2.100.000</div>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">🔐</span>
+      <div class="feature-name">Auth Mandiri + Reset Password Email</div>
+      <div class="feature-desc">Sistem auth lengkap tanpa layanan pihak ketiga: SHA-256 salted hashing, token reset 1 jam via EmailJS, slot max user, tanpa backend server.</div>
+      <div class="feature-val">Nilai unik: Rp 8.400.000</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: KOMPARASI PASAR -->
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-title-block">
+      <div class="section-label">Benchmark Pasar</div>
+      <div class="section-title">Komparasi dengan Alternatif yang Ada</div>
+    </div>
+  </div>
+
+  <table class="market-table">
+    <thead>
+      <tr>
+        <th style="width:32%">Solusi</th>
+        <th style="width:28%">Biaya Per Tahun</th>
+        <th>Kesesuaian Kebutuhan</th>
+        <th>Keputusan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="market-highlight">Naruna Contract Monitor <span class="feature-badge">ini</span></td>
+        <td style="font-family:'DM Mono',monospace;font-weight:600;color:var(--green);">Rp 0 / tahun</td>
+        <td>Fit 100% - dibuat khusus untuk struktur outlet Naruna, nama Indonesia, format rupiah, tanggal lokal</td>
+        <td><span class="pill pill-g">✓ Optimal</span></td>
+      </tr>
+      <tr>
+        <td>HRIS SaaS Lokal (Talenta, Gadjian)</td>
+        <td style="font-family:'DM Mono',monospace;">Rp 24-96 jt/tahun</td>
+        <td>Overkill - penggajian lengkap, BPJS, PPh21. Fitur kontrak hanya sebagian kecil. Rigid.</td>
+        <td><span class="pill pill-r">✗ Berlebihan</span></td>
+      </tr>
+      <tr>
+        <td>Spreadsheet Google / Excel</td>
+        <td style="font-family:'DM Mono',monospace;">Rp 0 / tahun</td>
+        <td>Tidak ada notifikasi otomatis, tidak ada multi-user terstruktur, error-prone, tidak mobile-friendly</td>
+        <td><span class="pill pill-r">✗ Tidak Cukup</span></td>
+      </tr>
+      <tr>
+        <td>Pengembangan Custom dari Nol (Agency)</td>
+        <td style="font-family:'DM Mono',monospace;">Rp 50-150 jt</td>
+        <td>Fit tinggi tapi mahal, butuh 3-6 bulan, perlu maintenance server, hosting, ongoing cost</td>
+        <td><span class="pill pill-y">~ Mahal</span></td>
+      </tr>
+      <tr>
+        <td>Aplikasi HR Generik (Jojonomic, dll)</td>
+        <td style="font-family:'DM Mono',monospace;">Rp 18-60 jt/tahun</td>
+        <td>Tidak ada fitur tebak gender Indonesia, import Excel tidak mengenali nama lokal, UI tidak disesuaikan</td>
+        <td><span class="pill pill-r">✗ Tidak Fit</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin-top:20px;">
+    <strong>Kesimpulan komparasi:</strong> Naruna Contract Monitor menghilangkan biaya langganan tahunan Rp 24-96 juta (HRIS SaaS) setiap tahunnya, sekaligus menawarkan fitur spesifik yang tidak tersedia di solusi mana pun - termasuk kamus nama Indonesia, outlet color identity, dan dual backend transparan.
+  </div>
+</div>
+
+<!-- SECTION 4: HARGA -->
+
+<div class="pricing-section">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-title-block">
+      <div class="section-label">Penawaran Eksklusif</div>
+      <div class="section-title">Harga Dari Nuvora Systems</div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <div class="summary-rows">
+      <div class="summary-row">
+        <span>Nilai pasar wajar (pengembangan custom)</span>
+        <span class="sum-val">Rp 62.400.000</span>
+      </div>
+      <div class="summary-row">
+        <span>Harga referensi Nuvora Systems</span>
+        <span class="sum-val">Rp 12.000.000</span>
+      </div>
+      <div class="summary-row">
+        <span>Diskon eksklusif yang diberikan</span>
+        <span class="sum-val" style="color:var(--green);">- Rp 6.000.000</span>
+      </div>
+      <div class="summary-row total">
+        <span>Harga final Anda hari ini</span>
+        <span class="sum-val">Rp 6.000.000</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pricing-cards">
+    <!-- HARGA PASAR -->
+    <div class="pricing-card">
+      <div class="pc-eyebrow">Harga Pasar Wajar</div>
+      <div class="pc-price-cross">Rp 62.400.000</div>
+      <div class="pc-price-cross-label">Estimasi pengembangan custom oleh tim profesional</div>
+
+```
+  <div style="margin-bottom:10px;font-size:12px;color:var(--text3);line-height:1.7;">
+    Harga ini mencerminkan:<br>
+    ~200-257 jam kerja developer senior &nbsp;·&nbsp; Rate pasar Rp 300-350rb/jam &nbsp;·&nbsp; QA & revisi termasuk
+  </div>
+
+  <div style="margin-top:18px;">
+    <div class="pc-eyebrow" style="margin-bottom:10px;">Harga Nuvora Systems (Normal)</div>
+    <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--ink);text-decoration:line-through;text-decoration-color:var(--strike);text-decoration-thickness:2px;">
+      Rp 12.000.000
+    </div>
+    <div style="font-size:12px;color:var(--text3);margin-top:4px;font-family:'DM Mono',monospace;">
+      Hemat 81% dari harga pasar
+    </div>
+  </div>
+</div>
+
+<!-- HARGA FINAL -->
+<div class="offer-card">
+  <div class="oc-eyebrow">✦ Penawaran Spesial Nuvora Systems</div>
+  <div class="oc-was">Harga normal: Rp 12.000.000</div>
+  <div class="oc-price">Rp <span>6.000.000</span></div>
+  <div class="oc-save">🏷 Diskon Rp 6.000.000 (50% OFF)</div>
+  <ul class="oc-feats">
+    <li>Kode sumber HTML lengkap, siap deploy</li>
+    <li>Dokumentasi fitur & cara penggunaan</li>
+    <li>Setup Firebase (bila diinginkan)</li>
+    <li>1x sesi onboarding & pelatihan</li>
+    <li>30 hari dukungan perbaikan bug</li>
+    <li>Bebas biaya lisensi & langganan</li>
+    <li>Hak penuh atas aplikasi & data</li>
+  </ul>
+  <a href="#" class="oc-cta">Hubungi Nuvora Systems →</a>
+</div>
+```
+
+  </div>
+
+  <div class="guarantee">
+    <div class="guarantee-item">
+      <span class="guarantee-icon">🏦</span>
+      <div class="guarantee-label">Investasi, Bukan Biaya</div>
+      <div class="guarantee-desc">Harga final setara ~2 bulan langganan HRIS SaaS. Setelah itu, gratis selamanya.</div>
+    </div>
+    <div class="guarantee-item">
+      <span class="guarantee-icon">🔒</span>
+      <div class="guarantee-label">Data Anda Sendiri</div>
+      <div class="guarantee-desc">Tidak ada vendor lock-in. Data tersimpan di akun Firebase atau browser Anda.</div>
+    </div>
+    <div class="guarantee-item">
+      <span class="guarantee-icon">⚡</span>
+      <div class="guarantee-label">Siap Pakai Hari Ini</div>
+      <div class="guarantee-desc">Bukan prototype. Aplikasi production-grade yang sudah melewati audit kode menyeluruh.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<!-- FOOTER -->
+
+<div class="nuvora-footer">
+  <div class="nuvora-name">Nuvora Systems</div>
+  <div class="nuvora-sub">Software Development &amp; Digital Solutions</div>
+  <div class="nuvora-rule"><span>Dokumen Valuasi Resmi</span></div>
+  <div class="nuvora-seal">Naruna Contract Monitor · Edisi 2025</div>
+</div>
+
+<script>
+  // Set today's date
+  var today = new Date();
+  var months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  document.getElementById('docDate').textContent = today.getDate() + ' ' + months[today.getMonth()] + ' ' + today.getFullYear();
+
+  // Animate numbers on scroll
+  function animateValue(el, start, end, duration) {
+    var range = end - start;
+    var startTime = null;
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      var val = Math.floor(progress * range + start);
+      el.textContent = 'Rp ' + val.toLocaleString('id-ID');
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Intersection observer for table rows
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.comp-table tbody tr').forEach(function(row, i) {
+    row.style.animationDelay = (i * 60) + 'ms';
+    row.style.animationPlayState = 'paused';
+    observer.observe(row);
+  });
+</script>
+
+</body>
+</html>
