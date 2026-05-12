@@ -1242,7 +1242,7 @@ RESPONSIVE
 
           <small>Estimasi Nilai Pasar Wajar</small>
 
-          <h2>Rp 36,3 — 52 Juta</h2>
+          <h2>Rp 58,4M</h2>
 
         </div>
 
@@ -1572,134 +1572,9 @@ RESPONSIVE
 
   <span>Total Estimasi Pengembangan</span>
 
-  <strong>Rp 58.400.000</strong>
+  <strong id="grandTotal"></strong>
 
 </div>
-
-      <div class="table-row">
-
-        <div class="cell">
-
-          <div class="title">
-            Sistem Authentication Mandiri
-          </div>
-
-          <div class="desc">
-            Login system, session management,
-            salted SHA-256 hashing,
-            reset password,
-            dan kontrol slot user enterprise.
-          </div>
-
-        </div>
-
-        <div class="cell level">
-          <div class="badge">
-            High Level
-          </div>
-        </div>
-
-        <div class="cell value">
-          Rp 8.400.000
-        </div>
-
-      </div>
-
-      <div class="table-row">
-
-        <div class="cell">
-
-          <div class="title">
-            Dual Backend Transparent Engine
-          </div>
-
-          <div class="desc">
-            IndexedDB dan Firebase berjalan
-            dalam satu arsitektur
-            dengan fallback otomatis.
-          </div>
-
-        </div>
-
-        <div class="cell level">
-          <div class="badge">
-            Enterprise
-          </div>
-        </div>
-
-        <div class="cell value">
-          Rp 9.600.000
-        </div>
-
-      </div>
-
-      <div class="table-row">
-
-        <div class="cell">
-
-          <div class="title">
-            Smart Excel Import Engine
-          </div>
-
-          <div class="desc">
-            Auto detect header,
-            parser multi-format,
-            alias kolom,
-            dan toleransi data HR tidak konsisten.
-          </div>
-
-        </div>
-
-        <div class="cell level">
-          <div class="badge">
-            Production Grade
-          </div>
-        </div>
-
-        <div class="cell value">
-          Rp 7.200.000
-        </div>
-
-      </div>
-
-      <div class="table-row">
-
-        <div class="cell">
-
-          <div class="title">
-            Enterprise UI/UX Design System
-          </div>
-
-          <div class="desc">
-            Modern dark interface,
-            premium typography,
-            responsive layout,
-            dan interaction system kelas enterprise.
-          </div>
-
-        </div>
-
-        <div class="cell level">
-          <div class="badge">
-            Premium
-          </div>
-        </div>
-
-        <div class="cell value">
-          Rp 9.100.000
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="total">
-
-      <span>Total Estimasi Pengembangan</span>
-
-      <strong>Rp 62.400.000</strong>
-
-    </div>
 
   </section>
 
@@ -1866,6 +1741,33 @@ date.toLocaleDateString('id-ID',{
   month:'long',
   year:'numeric'
 });
+
+/* =========================
+AUTO TOTAL ESTIMATION
+========================= */
+
+const values =
+document.querySelectorAll('.table .value');
+
+let total = 0;
+
+values.forEach(item=>{
+
+  const number =
+    parseInt(
+      item.textContent.replace(/[^\d]/g,'')
+    ) || 0;
+
+  total += number;
+});
+
+document.getElementById('grandTotal')
+.textContent =
+'Rp ' + (total / 1000000)
+.toLocaleString('id-ID',{
+  minimumFractionDigits:1,
+  maximumFractionDigits:1
+}) + ' Juta';
 
 </script>
 
