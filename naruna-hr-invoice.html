@@ -2,849 +2,849 @@
 
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Naruna Contract Monitor - Valuasi Aplikasi</title>
+<meta charset="UTF--8">
+<meta name="viewport" content="width=device--width, initial--scale=1.0">
+<title>Naruna Contract Monitor -- Valuasi Aplikasi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin: 0; padding: 0; box--sizing: border--box; }
 
 :root {
--void: #080705;
--ink: #12100D;
--smoke: #1E1B17;
--ash: #2C2924;
--paper: #F5F1EA;
--cream: #EDE8DC;
--linen: #E4DDD0;
--gold: #C9A84C;
--gold-bright: #E8C56A;
--gold-dim: rgba(201,168,76,0.18);
--gold-glow: rgba(201,168,76,0.08);
--amber: #A0702A;
--rouge: #8B2020;
--forest: #1A4A2A;
--forest-dim: rgba(26,74,42,0.12);
--rouge-dim: rgba(139,32,32,0.10);
--text-muted: #6B6359;
--text-dim: #45403A;
--border: rgba(201,168,76,0.20);
--border-soft: rgba(201,168,76,0.10);
--serif: 'Cormorant Garamond', Georgia, serif;
--sans: 'Syne', sans-serif;
--mono: 'Syne Mono', monospace;
+--void: #080705;
+--ink: #12100D;
+--smoke: #1E1B17;
+--ash: #2C2924;
+--paper: #F5F1EA;
+--cream: #EDE8DC;
+--linen: #E4DDD0;
+--gold: #C9A84C;
+--gold--bright: #E8C56A;
+--gold--dim: rgba(201,168,76,0.18);
+--gold--glow: rgba(201,168,76,0.08);
+--amber: #A0702A;
+--rouge: #8B2020;
+--forest: #1A4A2A;
+--forest--dim: rgba(26,74,42,0.12);
+--rouge--dim: rgba(139,32,32,0.10);
+--text--muted: #6B6359;
+--text--dim: #45403A;
+--border: rgba(201,168,76,0.20);
+--border--soft: rgba(201,168,76,0.10);
+--serif: 'Cormorant Garamond', Georgia, serif;
+--sans: 'Syne', sans--serif;
+--mono: 'Syne Mono', monospace;
 }
 
-html { font-size: 15px; scroll-behavior: smooth; }
+html { font--size: 15px; scroll--behavior: smooth; }
 
 body {
-background: var(-ink);
-color: var(-paper);
-font-family: var(-sans);
--webkit-font-smoothing: antialiased;
-overflow-x: hidden;
-min-height: 100vh;
+background: var(--ink);
+color: var(--paper);
+font--family: var(--sans);
+--webkit--font--smoothing: antialiased;
+overflow--x: hidden;
+min--height: 100vh;
 }
 
 /* GRAIN */
 body::before {
 content: '';
 position: fixed; inset: 0;
-background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
-background-size: 200px;
-pointer-events: none;
-z-index: 0;
+background--image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+background--size: 200px;
+pointer--events: none;
+z--index: 0;
 }
 
 /* AMBIENT GLOW */
 .ambient {
 position: fixed;
-pointer-events: none;
-z-index: 0;
-border-radius: 50%;
+pointer--events: none;
+z--index: 0;
+border--radius: 50%;
 filter: blur(120px);
 }
-.ambient-1 {
+.ambient--1 {
 width: 600px; height: 600px;
-background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
-top: -200px; left: 50%; transform: translateX(-50%);
+background: radial--gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+top: --200px; left: 50%; transform: translateX(--50%);
 }
-.ambient-2 {
+.ambient--2 {
 width: 400px; height: 400px;
-background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
-bottom: 20%; right: -100px;
+background: radial--gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+bottom: 20%; right: --100px;
 }
 
 /* TOPBAR */
 .topbar {
-position: relative; z-index: 10;
-display: flex; align-items: center; justify-content: space-between;
+position: relative; z--index: 10;
+display: flex; align--items: center; justify--content: space--between;
 padding: 22px 52px;
-border-bottom: 1px solid var(-border-soft);
-backdrop-filter: blur(4px);
+border--bottom: 1px solid var(--border--soft);
+backdrop--filter: blur(4px);
 }
-.topbar-brand {
-font-family: var(-mono);
-font-size: 10px; letter-spacing: 3px;
-text-transform: uppercase; color: var(-gold);
+.topbar--brand {
+font--family: var(--mono);
+font--size: 10px; letter--spacing: 3px;
+text--transform: uppercase; color: var(--gold);
 }
-.topbar-center {
-position: absolute; left: 50%; transform: translateX(-50%);
-display: flex; align-items: center; gap: 16px;
+.topbar--center {
+position: absolute; left: 50%; transform: translateX(--50%);
+display: flex; align--items: center; gap: 16px;
 }
-.topbar-center::before, .topbar-center::after {
-content: ''; width: 50px; height: 1px; background: var(-border);
+.topbar--center::before, .topbar--center::after {
+content: ''; width: 50px; height: 1px; background: var(--border);
 }
-.topbar-label {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 3px;
-text-transform: uppercase; color: var(-text-muted);
-white-space: nowrap;
+.topbar--label {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 3px;
+text--transform: uppercase; color: var(--text--muted);
+white--space: nowrap;
 }
-.topbar-date {
-font-family: var(-mono);
-font-size: 10px; letter-spacing: 1px; color: var(-text-muted);
+.topbar--date {
+font--family: var(--mono);
+font--size: 10px; letter--spacing: 1px; color: var(--text--muted);
 }
 
 /* HERO */
 .hero {
-position: relative; z-index: 1;
-text-align: center;
+position: relative; z--index: 1;
+text--align: center;
 padding: 90px 40px 80px;
-border-bottom: 1px solid var(-border-soft);
+border--bottom: 1px solid var(--border--soft);
 overflow: hidden;
 }
 
 /* Decorative lines */
-.hero-deco {
+.hero--deco {
 position: absolute;
-top: 0; left: 50%; transform: translateX(-50%);
+top: 0; left: 50%; transform: translateX(--50%);
 width: 1px; height: 40px;
-background: linear-gradient(to bottom, transparent, var(-gold));
+background: linear--gradient(to bottom, transparent, var(--gold));
 }
-.hero-deco-bottom {
+.hero--deco--bottom {
 position: absolute;
-bottom: 0; left: 50%; transform: translateX(-50%);
+bottom: 0; left: 50%; transform: translateX(--50%);
 width: 1px; height: 40px;
-background: linear-gradient(to top, transparent, var(-gold));
+background: linear--gradient(to top, transparent, var(--gold));
 }
 
-.hero-eyebrow {
-display: inline-flex; align-items: center; gap: 14px;
-font-family: var(-mono);
-font-size: 9.5px; letter-spacing: 4px;
-text-transform: uppercase; color: var(-gold);
-margin-bottom: 28px;
+.hero--eyebrow {
+display: inline--flex; align--items: center; gap: 14px;
+font--family: var(--mono);
+font--size: 9.5px; letter--spacing: 4px;
+text--transform: uppercase; color: var(--gold);
+margin--bottom: 28px;
 opacity: 0;
 animation: fadeUp 0.8s 0.1s ease forwards;
 }
-.hero-eyebrow::before, .hero-eyebrow::after {
-content: ''; width: 40px; height: 1px; background: var(-gold);
+.hero--eyebrow::before, .hero--eyebrow::after {
+content: ''; width: 40px; height: 1px; background: var(--gold);
 opacity: 0.4;
 }
 
-.hero-title {
-font-family: var(-serif);
-font-size: clamp(42px, 7vw, 88px);
-font-weight: 300;
-line-height: 1.0;
-letter-spacing: -2px;
-color: var(-paper);
-margin-bottom: 10px;
+.hero--title {
+font--family: var(--serif);
+font--size: clamp(42px, 7vw, 88px);
+font--weight: 300;
+line--height: 1.0;
+letter--spacing: --2px;
+color: var(--paper);
+margin--bottom: 10px;
 opacity: 0;
 animation: fadeUp 0.9s 0.2s ease forwards;
 }
-.hero-title em {
-font-style: italic;
-color: var(-gold);
+.hero--title em {
+font--style: italic;
+color: var(--gold);
 }
-.hero-title strong {
-font-weight: 600;
+.hero--title strong {
+font--weight: 600;
 }
 
-.hero-sub {
-font-size: 13.5px;
-color: var(-text-muted);
-max-width: 500px;
+.hero--sub {
+font--size: 13.5px;
+color: var(--text--muted);
+max--width: 500px;
 margin: 18px auto 42px;
-line-height: 1.9;
-font-weight: 400;
+line--height: 1.9;
+font--weight: 400;
 opacity: 0;
 animation: fadeUp 1s 0.35s ease forwards;
 }
 
-.hero-verdict-wrap {
+.hero--verdict--wrap {
 opacity: 0;
 animation: fadeUp 1s 0.5s ease forwards;
 }
-.hero-verdict-label {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 3px;
-text-transform: uppercase; color: var(-text-muted);
-margin-bottom: 12px;
+.hero--verdict--label {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 3px;
+text--transform: uppercase; color: var(--text--muted);
+margin--bottom: 12px;
 }
-.hero-verdict {
-display: inline-block;
+.hero--verdict {
+display: inline--block;
 position: relative;
 }
-.hero-verdict-inner {
-font-family: var(-serif);
-font-size: clamp(36px, 6vw, 72px);
-font-weight: 600;
-color: var(-gold-bright);
-letter-spacing: -1.5px;
-line-height: 1;
+.hero--verdict--inner {
+font--family: var(--serif);
+font--size: clamp(36px, 6vw, 72px);
+font--weight: 600;
+color: var(--gold--bright);
+letter--spacing: --1.5px;
+line--height: 1;
 position: relative;
 }
-.hero-verdict-corners::before,
-.hero-verdict-corners::after,
-.hero-verdict-corners .c3,
-.hero-verdict-corners .c4 {
+.hero--verdict--corners::before,
+.hero--verdict--corners::after,
+.hero--verdict--corners .c3,
+.hero--verdict--corners .c4 {
 content: '';
 position: absolute;
 width: 10px; height: 10px;
-border-color: var(-gold);
-border-style: solid;
+border--color: var(--gold);
+border--style: solid;
 }
-.hero-verdict-corners::before { top: -8px; left: -16px; border-width: 1px 0 0 1px; }
-.hero-verdict-corners::after  { top: -8px; right: -16px; border-width: 1px 1px 0 0; }
-.hero-verdict-corners .c3     { bottom: -8px; left: -16px; border-width: 0 0 1px 1px; }
-.hero-verdict-corners .c4     { bottom: -8px; right: -16px; border-width: 0 1px 1px 0; }
-.hero-verdict-sub {
-margin-top: 14px;
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 2.5px;
-text-transform: uppercase; color: var(-text-muted);
+.hero--verdict--corners::before { top: --8px; left: --16px; border--width: 1px 0 0 1px; }
+.hero--verdict--corners::after  { top: --8px; right: --16px; border--width: 1px 1px 0 0; }
+.hero--verdict--corners .c3     { bottom: --8px; left: --16px; border--width: 0 0 1px 1px; }
+.hero--verdict--corners .c4     { bottom: --8px; right: --16px; border--width: 0 1px 1px 0; }
+.hero--verdict--sub {
+margin--top: 14px;
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 2.5px;
+text--transform: uppercase; color: var(--text--muted);
 }
 
 /* LAYOUT */
 .wrapper {
-max-width: 960px;
+max--width: 960px;
 margin: 0 auto;
 padding: 0 40px;
-position: relative; z-index: 1;
+position: relative; z--index: 1;
 }
 
 /* SECTION */
 .section {
 padding: 72px 0;
-border-bottom: 1px solid var(-border-soft);
+border--bottom: 1px solid var(--border--soft);
 }
 
-.section-header {
+.section--header {
 display: grid;
-grid-template-columns: auto 1fr;
+grid--template--columns: auto 1fr;
 gap: 0 32px;
-align-items: start;
-margin-bottom: 48px;
+align--items: start;
+margin--bottom: 48px;
 }
-.section-num-col {
-padding-top: 4px;
+.section--num--col {
+padding--top: 4px;
 }
-.section-num {
-font-family: var(-serif);
-font-size: 90px;
-font-weight: 300;
-line-height: 0.85;
+.section--num {
+font--family: var(--serif);
+font--size: 90px;
+font--weight: 300;
+line--height: 0.85;
 color: transparent;
--webkit-text-stroke: 1px rgba(201,168,76,0.22);
-letter-spacing: -3px;
-user-select: none;
+--webkit--text--stroke: 1px rgba(201,168,76,0.22);
+letter--spacing: --3px;
+user--select: none;
 }
-.section-meta {
-border-left: 1px solid var(-border);
-padding-left: 28px;
-padding-top: 8px;
+.section--meta {
+border--left: 1px solid var(--border);
+padding--left: 28px;
+padding--top: 8px;
 }
-.section-label {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 3.5px;
-text-transform: uppercase; color: var(-gold);
-margin-bottom: 10px;
-display: flex; align-items: center; gap: 10px;
+.section--label {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 3.5px;
+text--transform: uppercase; color: var(--gold);
+margin--bottom: 10px;
+display: flex; align--items: center; gap: 10px;
 }
-.section-label::after {
-content: ''; flex: 1; height: 1px; background: var(-border); max-width: 60px;
+.section--label::after {
+content: ''; flex: 1; height: 1px; background: var(--border); max--width: 60px;
 }
-.section-title {
-font-family: var(-serif);
-font-size: 30px;
-font-weight: 400;
-color: var(-paper);
-line-height: 1.2;
-letter-spacing: -0.5px;
+.section--title {
+font--family: var(--serif);
+font--size: 30px;
+font--weight: 400;
+color: var(--paper);
+line--height: 1.2;
+letter--spacing: --0.5px;
 }
-.section-title em { font-style: italic; color: var(-gold); }
+.section--title em { font--style: italic; color: var(--gold); }
 
 /* =====================
-SECTION 1 - KOMPLEKSITAS
+SECTION 1 -- KOMPLEKSITAS
 ===================== */
 
-.comp-grid {
+.comp--grid {
 display: flex;
-flex-direction: column;
+flex--direction: column;
 gap: 0;
-border: 1px solid var(-border-soft);
+border: 1px solid var(--border--soft);
 }
 
-.comp-header-row {
+.comp--header--row {
 display: grid;
-grid-template-columns: 1fr 120px 140px;
+grid--template--columns: 1fr 120px 140px;
 gap: 0;
 padding: 14px 24px;
-border-bottom: 1px solid var(-border);
-background: var(-smoke);
+border--bottom: 1px solid var(--border);
+background: var(--smoke);
 }
-.comp-header-row span {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 2.5px;
-text-transform: uppercase; color: var(-text-muted);
+.comp--header--row span {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 2.5px;
+text--transform: uppercase; color: var(--text--muted);
 }
-.comp-header-row span:nth-child(2),
-.comp-header-row span:nth-child(3) { text-align: center; }
+.comp--header--row span:nth--child(2),
+.comp--header--row span:nth--child(3) { text--align: center; }
 
-.comp-item {
+.comp--item {
 display: grid;
-grid-template-columns: 1fr 120px 140px;
+grid--template--columns: 1fr 120px 140px;
 gap: 0;
-border-bottom: 1px solid var(-border-soft);
+border--bottom: 1px solid var(--border--soft);
 transition: background 0.2s;
 opacity: 0;
 transform: translateY(6px);
 animation: rowIn 0.4s ease forwards;
 }
-.comp-item:last-child { border-bottom: none; }
-.comp-item:hover { background: rgba(201,168,76,0.03); }
+.comp--item:last--child { border--bottom: none; }
+.comp--item:hover { background: rgba(201,168,76,0.03); }
 
-.comp-cell-main {
+.comp--cell--main {
 padding: 22px 24px;
-border-right: 1px solid var(-border-soft);
+border--right: 1px solid var(--border--soft);
 }
-.comp-name {
-font-family: var(-sans);
-font-size: 13.5px; font-weight: 600;
-color: var(-paper);
-margin-bottom: 6px;
-letter-spacing: -0.2px;
+.comp--name {
+font--family: var(--sans);
+font--size: 13.5px; font--weight: 600;
+color: var(--paper);
+margin--bottom: 6px;
+letter--spacing: --0.2px;
 }
-.comp-desc {
-font-size: 12px; color: var(-text-muted);
-line-height: 1.75;
+.comp--desc {
+font--size: 12px; color: var(--text--muted);
+line--height: 1.75;
 }
 
-.comp-cell-complexity {
+.comp--cell--complexity {
 padding: 22px 16px;
-border-right: 1px solid var(-border-soft);
+border--right: 1px solid var(--border--soft);
 display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+flex--direction: column;
+align--items: center;
+justify--content: center;
 gap: 8px;
 }
-.complexity-label {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 1.5px;
-text-transform: uppercase;
+.complexity--label {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 1.5px;
+text--transform: uppercase;
 }
-.complexity-dots {
+.complexity--dots {
 display: flex; gap: 4px;
 }
 .dot {
 width: 6px; height: 6px;
-border-radius: 50%;
-background: var(-ash);
-border: 1px solid var(-border);
+border--radius: 50%;
+background: var(--ash);
+border: 1px solid var(--border);
 }
-.dot.filled { background: var(-gold); border-color: var(-gold); }
-.dot.filled.half { background: var(-amber); border-color: var(-amber); }
+.dot.filled { background: var(--gold); border--color: var(--gold); }
+.dot.filled.half { background: var(--amber); border--color: var(--amber); }
 
 /* complexity levels */
-.c-low .complexity-label { color: var(-text-muted); }
-.c-mid .complexity-label { color: var(-amber); }
-.c-high .complexity-label { color: var(-gold); }
-.c-rare .complexity-label { color: var(-gold-bright); }
+.c--low .complexity--label { color: var(--text--muted); }
+.c--mid .complexity--label { color: var(--amber); }
+.c--high .complexity--label { color: var(--gold); }
+.c--rare .complexity--label { color: var(--gold--bright); }
 
-.comp-cell-value {
+.comp--cell--value {
 padding: 22px 20px;
 display: flex;
-flex-direction: column;
-align-items: flex-end;
-justify-content: center;
+flex--direction: column;
+align--items: flex--end;
+justify--content: center;
 gap: 4px;
 }
-.comp-value {
-font-family: var(-mono);
-font-size: 14px;
-color: var(-paper);
-font-weight: 500;
-letter-spacing: -0.5px;
+.comp--value {
+font--family: var(--mono);
+font--size: 14px;
+color: var(--paper);
+font--weight: 500;
+letter--spacing: --0.5px;
 }
-.comp-value-note {
-font-family: var(-mono);
-font-size: 9.5px; letter-spacing: 1px;
-color: var(-text-muted);
-text-transform: uppercase;
+.comp--value--note {
+font--family: var(--mono);
+font--size: 9.5px; letter--spacing: 1px;
+color: var(--text--muted);
+text--transform: uppercase;
 }
 
-.comp-total-row {
+.comp--total--row {
 display: flex;
-justify-content: space-between;
-align-items: center;
+justify--content: space--between;
+align--items: center;
 padding: 20px 24px;
-background: var(-smoke);
-border-top: 1px solid var(-border);
+background: var(--smoke);
+border--top: 1px solid var(--border);
 }
-.comp-total-label {
-font-family: var(-serif);
-font-size: 20px; font-weight: 500;
-color: var(-paper);
-letter-spacing: -0.3px;
+.comp--total--label {
+font--family: var(--serif);
+font--size: 20px; font--weight: 500;
+color: var(--paper);
+letter--spacing: --0.3px;
 }
-.comp-total-label span {
-font-family: var(-mono);
-font-size: 10px;
-color: var(-text-muted);
-letter-spacing: 2px;
-text-transform: uppercase;
+.comp--total--label span {
+font--family: var(--mono);
+font--size: 10px;
+color: var(--text--muted);
+letter--spacing: 2px;
+text--transform: uppercase;
 display: block;
-margin-bottom: 2px;
+margin--bottom: 2px;
 }
-.comp-total-val {
-font-family: var(-serif);
-font-size: 34px; font-weight: 600;
-color: var(-gold-bright);
-letter-spacing: -1px;
+.comp--total--val {
+font--family: var(--serif);
+font--size: 34px; font--weight: 600;
+color: var(--gold--bright);
+letter--spacing: --1px;
 }
 
 .callout {
-margin-top: 20px;
-border-left: 2px solid var(-gold);
+margin--top: 20px;
+border--left: 2px solid var(--gold);
 padding: 14px 20px;
-background: var(-gold-glow);
-font-size: 12.5px; color: var(-text-muted);
-line-height: 1.9;
+background: var(--gold--glow);
+font--size: 12.5px; color: var(--text--muted);
+line--height: 1.9;
 }
-.callout strong { color: var(-paper); font-weight: 600; }
+.callout strong { color: var(--paper); font--weight: 600; }
 
 /* =====================
-SECTION 2 - FITUR
+SECTION 2 -- FITUR
 ===================== */
 
-.feature-grid {
+.feature--grid {
 display: grid;
-grid-template-columns: 1fr 1fr 1fr;
+grid--template--columns: 1fr 1fr 1fr;
 gap: 1px;
-background: var(-border-soft);
-border: 1px solid var(-border-soft);
+background: var(--border--soft);
+border: 1px solid var(--border--soft);
 }
-@media(max-width: 640px) {
-.feature-grid { grid-template-columns: 1fr; }
+@media(max--width: 640px) {
+.feature--grid { grid--template--columns: 1fr; }
 }
 
-.feature-item {
-background: var(-ink);
+.feature--item {
+background: var(--ink);
 padding: 28px 26px;
 position: relative;
 overflow: hidden;
 transition: background 0.25s;
 }
-.feature-item:hover { background: var(-smoke); }
+.feature--item:hover { background: var(--smoke); }
 
-.feature-item::after {
+.feature--item::after {
 content: '';
 position: absolute;
 bottom: 0; left: 0; right: 0;
 height: 2px;
-background: linear-gradient(90deg, transparent, var(-gold), transparent);
+background: linear--gradient(90deg, transparent, var(--gold), transparent);
 opacity: 0;
 transition: opacity 0.3s;
 }
-.feature-item:hover::after { opacity: 1; }
+.feature--item:hover::after { opacity: 1; }
 
-.feat-num {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 2px;
-color: var(-border);
-text-transform: uppercase;
-margin-bottom: 16px;
+.feat--num {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 2px;
+color: var(--border);
+text--transform: uppercase;
+margin--bottom: 16px;
 }
-.feat-icon {
-font-size: 26px;
+.feat--icon {
+font--size: 26px;
 display: block;
-margin-bottom: 14px;
+margin--bottom: 14px;
 filter: grayscale(0.2);
 }
-.feat-name {
-font-family: var(-sans);
-font-size: 13px; font-weight: 700;
-color: var(-paper);
-margin-bottom: 10px;
-letter-spacing: -0.2px;
-line-height: 1.3;
+.feat--name {
+font--family: var(--sans);
+font--size: 13px; font--weight: 700;
+color: var(--paper);
+margin--bottom: 10px;
+letter--spacing: --0.2px;
+line--height: 1.3;
 }
-.feat-desc {
-font-size: 11.5px; color: var(-text-muted);
-line-height: 1.8;
+.feat--desc {
+font--size: 11.5px; color: var(--text--muted);
+line--height: 1.8;
 }
-.feat-val {
-margin-top: 18px;
-display: inline-block;
-font-family: var(-mono);
-font-size: 11px;
-color: var(-gold);
-letter-spacing: 0.5px;
-border-top: 1px solid var(-border-soft);
-padding-top: 12px;
+.feat--val {
+margin--top: 18px;
+display: inline--block;
+font--family: var(--mono);
+font--size: 11px;
+color: var(--gold);
+letter--spacing: 0.5px;
+border--top: 1px solid var(--border--soft);
+padding--top: 12px;
 width: 100%;
 }
 
 /* =====================
-SECTION 3 - MARKET
+SECTION 3 -- MARKET
 ===================== */
 
-.market-grid {
-display: flex; flex-direction: column;
-border: 1px solid var(-border-soft);
+.market--grid {
+display: flex; flex--direction: column;
+border: 1px solid var(--border--soft);
 gap: 0;
 }
-.market-head {
+.market--head {
 display: grid;
-grid-template-columns: 200px 1fr 1fr 100px;
+grid--template--columns: 200px 1fr 1fr 100px;
 gap: 0;
 padding: 14px 28px;
-border-bottom: 1px solid var(-border);
-background: var(-smoke);
+border--bottom: 1px solid var(--border);
+background: var(--smoke);
 }
-.market-head span {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 2.5px;
-text-transform: uppercase; color: var(-text-muted);
+.market--head span {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 2.5px;
+text--transform: uppercase; color: var(--text--muted);
 }
-.market-head span:last-child { text-align: right; }
+.market--head span:last--child { text--align: right; }
 
-.market-row {
+.market--row {
 display: grid;
-grid-template-columns: 200px 1fr 1fr 100px;
+grid--template--columns: 200px 1fr 1fr 100px;
 gap: 0;
-border-bottom: 1px solid var(-border-soft);
+border--bottom: 1px solid var(--border--soft);
 transition: background 0.2s;
 }
-.market-row:last-child { border-bottom: none; }
-.market-row:hover { background: rgba(201,168,76,0.025); }
-.market-row.highlight { background: rgba(201,168,76,0.05); }
-.market-row.highlight:hover { background: rgba(201,168,76,0.07); }
+.market--row:last--child { border--bottom: none; }
+.market--row:hover { background: rgba(201,168,76,0.025); }
+.market--row.highlight { background: rgba(201,168,76,0.05); }
+.market--row.highlight:hover { background: rgba(201,168,76,0.07); }
 
-.market-cell {
+.market--cell {
 padding: 20px 28px;
-font-size: 12.5px; color: var(-text-muted);
-line-height: 1.65;
-border-right: 1px solid var(-border-soft);
+font--size: 12.5px; color: var(--text--muted);
+line--height: 1.65;
+border--right: 1px solid var(--border--soft);
 }
-.market-cell:last-child { border-right: none; text-align: right; }
+.market--cell:last--child { border--right: none; text--align: right; }
 
-.market-name {
-font-family: var(-sans);
-font-weight: 600; color: var(-paper);
-font-size: 13px;
-margin-bottom: 3px;
+.market--name {
+font--family: var(--sans);
+font--weight: 600; color: var(--paper);
+font--size: 13px;
+margin--bottom: 3px;
 }
-.market-name-tag {
-display: inline-block;
-background: var(-gold-dim);
-color: var(-gold);
-font-family: var(-mono);
-font-size: 8px; letter-spacing: 1.5px;
-text-transform: uppercase;
+.market--name--tag {
+display: inline--block;
+background: var(--gold--dim);
+color: var(--gold);
+font--family: var(--mono);
+font--size: 8px; letter--spacing: 1.5px;
+text--transform: uppercase;
 padding: 2px 6px;
-margin-left: 6px;
-border-radius: 2px;
+margin--left: 6px;
+border--radius: 2px;
 }
-.market-price {
-font-family: var(-mono);
-font-size: 13px; font-weight: 500;
-color: var(-paper);
+.market--price {
+font--family: var(--mono);
+font--size: 13px; font--weight: 500;
+color: var(--paper);
 }
-.market-price.zero { color: var(-gold); }
-.market-price.neg { color: var(-rouge); opacity: 0.8; }
+.market--price.zero { color: var(--gold); }
+.market--price.neg { color: var(--rouge); opacity: 0.8; }
 
 .pill {
-display: inline-block;
+display: inline--block;
 padding: 3px 10px;
-border-radius: 2px;
-font-family: var(-mono);
-font-size: 9.5px; letter-spacing: 1px;
-text-transform: uppercase;
-font-weight: 500;
+border--radius: 2px;
+font--family: var(--mono);
+font--size: 9.5px; letter--spacing: 1px;
+text--transform: uppercase;
+font--weight: 500;
 }
-.pill-g { background: var(-forest-dim); color: #4CAF7D; border: 1px solid rgba(76,175,125,0.2); }
-.pill-r { background: var(-rouge-dim); color: #E07070; border: 1px solid rgba(224,112,112,0.2); }
-.pill-y { background: var(-gold-dim); color: var(-gold); border: 1px solid var(-border); }
+.pill--g { background: var(--forest--dim); color: #4CAF7D; border: 1px solid rgba(76,175,125,0.2); }
+.pill--r { background: var(--rouge--dim); color: #E07070; border: 1px solid rgba(224,112,112,0.2); }
+.pill--y { background: var(--gold--dim); color: var(--gold); border: 1px solid var(--border); }
 
 /* =====================
-SECTION 4 - PRICING
+SECTION 4 -- PRICING
 ===================== */
 
-.pricing-section {
+.pricing--section {
 padding: 72px 0 80px;
 }
 
-.summary-strip {
+.summary--strip {
 display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-border: 1px solid var(-border-soft);
-margin-bottom: 32px;
-background: var(-smoke);
+grid--template--columns: 1fr 1fr 1fr;
+border: 1px solid var(--border--soft);
+margin--bottom: 32px;
+background: var(--smoke);
 }
-.strip-item {
+.strip--item {
 padding: 24px 28px;
-border-right: 1px solid var(-border-soft);
+border--right: 1px solid var(--border--soft);
 }
-.strip-item:last-child { border-right: none; }
-.strip-eyebrow {
-font-family: var(-mono);
-font-size: 8.5px; letter-spacing: 2.5px;
-text-transform: uppercase; color: var(-text-muted);
-margin-bottom: 10px;
+.strip--item:last--child { border--right: none; }
+.strip--eyebrow {
+font--family: var(--mono);
+font--size: 8.5px; letter--spacing: 2.5px;
+text--transform: uppercase; color: var(--text--muted);
+margin--bottom: 10px;
 }
-.strip-val {
-font-family: var(-serif);
-font-size: 26px; font-weight: 500;
-color: var(-paper);
-letter-spacing: -0.5px;
+.strip--val {
+font--family: var(--serif);
+font--size: 26px; font--weight: 500;
+color: var(--paper);
+letter--spacing: --0.5px;
 }
-.strip-val.green { color: #4CAF7D; }
-.strip-val.gold  { color: var(-gold-bright); }
-.strip-val.cross {
-text-decoration: line-through;
-text-decoration-color: var(-rouge);
-text-decoration-thickness: 2px;
-color: var(-text-muted);
+.strip--val.green { color: #4CAF7D; }
+.strip--val.gold  { color: var(--gold--bright); }
+.strip--val.cross {
+text--decoration: line--through;
+text--decoration--color: var(--rouge);
+text--decoration--thickness: 2px;
+color: var(--text--muted);
 }
 
 /* PRICING CARDS */
-.pricing-cards {
+.pricing--cards {
 display: grid;
-grid-template-columns: 1fr 1.3fr;
+grid--template--columns: 1fr 1.3fr;
 gap: 0;
-border: 1px solid var(-border-soft);
+border: 1px solid var(--border--soft);
 }
-@media(max-width: 600px) { .pricing-cards { grid-template-columns: 1fr; } }
+@media(max--width: 600px) { .pricing--cards { grid--template--columns: 1fr; } }
 
-.price-reference {
+.price--reference {
 padding: 40px 36px;
-border-right: 1px solid var(-border-soft);
-background: var(-smoke);
+border--right: 1px solid var(--border--soft);
+background: var(--smoke);
 }
-.pr-eyebrow {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 3px;
-text-transform: uppercase; color: var(-text-muted);
-margin-bottom: 20px;
+.pr--eyebrow {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 3px;
+text--transform: uppercase; color: var(--text--muted);
+margin--bottom: 20px;
 }
-.pr-item {
+.pr--item {
 padding: 16px 0;
-border-bottom: 1px solid var(-border-soft);
+border--bottom: 1px solid var(--border--soft);
 }
-.pr-item:last-child { border-bottom: none; }
-.pr-item-label {
-font-size: 12px; color: var(-text-muted);
-margin-bottom: 5px;
-line-height: 1.5;
+.pr--item:last--child { border--bottom: none; }
+.pr--item--label {
+font--size: 12px; color: var(--text--muted);
+margin--bottom: 5px;
+line--height: 1.5;
 }
-.pr-item-val {
-font-family: var(-mono);
-font-size: 15px; color: var(-paper);
-font-weight: 500;
+.pr--item--val {
+font--family: var(--mono);
+font--size: 15px; color: var(--paper);
+font--weight: 500;
 }
-.pr-item-val.strike {
-text-decoration: line-through;
-text-decoration-color: var(-rouge);
-color: var(-text-muted);
+.pr--item--val.strike {
+text--decoration: line--through;
+text--decoration--color: var(--rouge);
+color: var(--text--muted);
 }
-.pr-item-val.gold { color: var(-gold); }
-.pr-item-val.dim {
-font-size: 12px; color: var(-text-muted);
-text-decoration: none; font-weight: 400;
+.pr--item--val.gold { color: var(--gold); }
+.pr--item--val.dim {
+font--size: 12px; color: var(--text--muted);
+text--decoration: none; font--weight: 400;
 }
 
-.pr-note {
-margin-top: 22px;
+.pr--note {
+margin--top: 22px;
 padding: 14px 16px;
-background: var(-gold-glow);
-border: 1px solid var(-gold-dim);
-font-size: 11.5px; color: var(-text-muted);
-line-height: 1.8;
+background: var(--gold--glow);
+border: 1px solid var(--gold--dim);
+font--size: 11.5px; color: var(--text--muted);
+line--height: 1.8;
 }
-.pr-note strong { color: var(-gold); }
+.pr--note strong { color: var(--gold); }
 
 /* OFFER CARD */
-.offer-card {
-background: var(-void);
+.offer--card {
+background: var(--void);
 padding: 40px 36px;
 position: relative;
 overflow: hidden;
 }
-.offer-card::before {
+.offer--card::before {
 content: '';
 position: absolute;
-top: -100px; right: -100px;
+top: --100px; right: --100px;
 width: 300px; height: 300px;
-border-radius: 50%;
-background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
-pointer-events: none;
+border--radius: 50%;
+background: radial--gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+pointer--events: none;
 }
-.offer-card::after {
+.offer--card::after {
 content: '';
 position: absolute;
-bottom: -60px; left: -60px;
+bottom: --60px; left: --60px;
 width: 200px; height: 200px;
-border-radius: 50%;
-background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
-pointer-events: none;
+border--radius: 50%;
+background: radial--gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+pointer--events: none;
 }
-.oc-eyebrow {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 3px;
-text-transform: uppercase; color: var(-gold);
-margin-bottom: 22px;
-display: flex; align-items: center; gap: 10px;
+.oc--eyebrow {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 3px;
+text--transform: uppercase; color: var(--gold);
+margin--bottom: 22px;
+display: flex; align--items: center; gap: 10px;
 }
-.oc-eyebrow::after {
-content: ''; flex: 1; height: 1px; background: var(-border);
+.oc--eyebrow::after {
+content: ''; flex: 1; height: 1px; background: var(--border);
 }
 
-.oc-was {
-font-family: var(-mono); font-size: 12px;
+.oc--was {
+font--family: var(--mono); font--size: 12px;
 color: rgba(255,255,255,0.25);
-text-decoration: line-through;
-margin-bottom: 6px;
+text--decoration: line--through;
+margin--bottom: 6px;
 }
-.oc-price {
-font-family: var(-serif);
-font-size: clamp(44px, 7vw, 68px);
-font-weight: 600;
-color: var(-paper);
-letter-spacing: -2px;
-line-height: 1;
-margin-bottom: 6px;
+.oc--price {
+font--family: var(--serif);
+font--size: clamp(44px, 7vw, 68px);
+font--weight: 600;
+color: var(--paper);
+letter--spacing: --2px;
+line--height: 1;
+margin--bottom: 6px;
 }
-.oc-price .currency { color: var(-gold); font-size: 0.65em; font-weight: 300; vertical-align: 0.1em; }
+.oc--price .currency { color: var(--gold); font--size: 0.65em; font--weight: 300; vertical--align: 0.1em; }
 
-.oc-badge {
-display: inline-flex; align-items: center; gap: 6px;
-background: var(-gold);
-color: var(-ink);
-font-family: var(-mono);
-font-size: 9.5px; letter-spacing: 1.5px;
-text-transform: uppercase; font-weight: 600;
+.oc--badge {
+display: inline--flex; align--items: center; gap: 6px;
+background: var(--gold);
+color: var(--ink);
+font--family: var(--mono);
+font--size: 9.5px; letter--spacing: 1.5px;
+text--transform: uppercase; font--weight: 600;
 padding: 5px 14px;
-margin-bottom: 28px;
+margin--bottom: 28px;
 }
 
-.oc-divider {
+.oc--divider {
 height: 1px;
-background: var(-border-soft);
+background: var(--border--soft);
 margin: 24px 0;
 }
 
-.oc-feats {
-list-style: none;
-display: flex; flex-direction: column; gap: 10px;
+.oc--feats {
+list--style: none;
+display: flex; flex--direction: column; gap: 10px;
 }
-.oc-feats li {
-display: flex; align-items: flex-start; gap: 12px;
-font-size: 12.5px; color: rgba(245,241,234,0.7);
-line-height: 1.6;
+.oc--feats li {
+display: flex; align--items: flex--start; gap: 12px;
+font--size: 12.5px; color: rgba(245,241,234,0.7);
+line--height: 1.6;
 }
-.oc-feats li::before {
+.oc--feats li::before {
 content: '';
 display: block;
 width: 4px; height: 4px;
-border-radius: 50%;
-background: var(-gold);
-flex-shrink: 0;
-margin-top: 8px;
+border--radius: 50%;
+background: var(--gold);
+flex--shrink: 0;
+margin--top: 8px;
 }
 
-.oc-cta {
-margin-top: 30px;
-display: block; text-align: center;
-background: var(-gold);
-color: var(-ink);
-font-family: var(-mono);
-font-size: 10.5px; letter-spacing: 2.5px;
-text-transform: uppercase; font-weight: 600;
+.oc--cta {
+margin--top: 30px;
+display: block; text--align: center;
+background: var(--gold);
+color: var(--ink);
+font--family: var(--mono);
+font--size: 10.5px; letter--spacing: 2.5px;
+text--transform: uppercase; font--weight: 600;
 padding: 15px;
 border: none; cursor: pointer;
 width: 100%;
 transition: background 0.2s, transform 0.15s;
-text-decoration: none;
-position: relative; z-index: 1;
+text--decoration: none;
+position: relative; z--index: 1;
 }
-.oc-cta:hover { background: var(-gold-bright); transform: translateY(-1px); }
+.oc--cta:hover { background: var(--gold--bright); transform: translateY(--1px); }
 
 /* GUARANTEES */
 .guarantees {
 display: grid;
-grid-template-columns: repeat(3, 1fr);
+grid--template--columns: repeat(3, 1fr);
 gap: 1px;
-background: var(-border-soft);
-border: 1px solid var(-border-soft);
-margin-top: 20px;
+background: var(--border--soft);
+border: 1px solid var(--border--soft);
+margin--top: 20px;
 }
-.guarantee-item {
-background: var(-ink);
+.guarantee--item {
+background: var(--ink);
 padding: 22px 24px;
-text-align: center;
+text--align: center;
 }
-.guarantee-icon { font-size: 22px; margin-bottom: 10px; display: block; }
-.guarantee-label {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 2px;
-text-transform: uppercase; color: var(-gold);
-margin-bottom: 6px;
+.guarantee--icon { font--size: 22px; margin--bottom: 10px; display: block; }
+.guarantee--label {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 2px;
+text--transform: uppercase; color: var(--gold);
+margin--bottom: 6px;
 }
-.guarantee-desc {
-font-size: 11.5px; color: var(-text-muted);
-line-height: 1.6;
+.guarantee--desc {
+font--size: 11.5px; color: var(--text--muted);
+line--height: 1.6;
 }
 
 /* FOOTER */
 .footer {
-position: relative; z-index: 1;
-text-align: center;
+position: relative; z--index: 1;
+text--align: center;
 padding: 52px 40px;
-border-top: 1px solid var(-border-soft);
+border--top: 1px solid var(--border--soft);
 }
-.footer-rule {
-display: flex; align-items: center; gap: 20px;
-max-width: 320px; margin: 0 auto 24px;
+.footer--rule {
+display: flex; align--items: center; gap: 20px;
+max--width: 320px; margin: 0 auto 24px;
 }
-.footer-rule::before, .footer-rule::after {
-content: ''; flex: 1; height: 1px; background: var(-border);
+.footer--rule::before, .footer--rule::after {
+content: ''; flex: 1; height: 1px; background: var(--border);
 }
-.footer-diamond { color: var(-gold); font-size: 12px; }
-.footer-brand {
-font-family: var(-serif);
-font-size: 30px; font-weight: 300;
-letter-spacing: -1px; color: var(-paper);
-margin-bottom: 4px;
+.footer--diamond { color: var(--gold); font--size: 12px; }
+.footer--brand {
+font--family: var(--serif);
+font--size: 30px; font--weight: 300;
+letter--spacing: --1px; color: var(--paper);
+margin--bottom: 4px;
 }
-.footer-brand em { font-style: italic; color: var(-gold); }
-.footer-sub {
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 3px;
-text-transform: uppercase; color: var(-text-muted);
-margin-bottom: 22px;
+.footer--brand em { font--style: italic; color: var(--gold); }
+.footer--sub {
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 3px;
+text--transform: uppercase; color: var(--text--muted);
+margin--bottom: 22px;
 }
-.footer-seal {
-display: inline-block;
-border: 1px solid var(-border);
+.footer--seal {
+display: inline--block;
+border: 1px solid var(--border);
 padding: 9px 24px;
-font-family: var(-mono);
-font-size: 9px; letter-spacing: 2.5px;
-text-transform: uppercase; color: var(-text-muted);
+font--family: var(--mono);
+font--size: 9px; letter--spacing: 2.5px;
+text--transform: uppercase; color: var(--text--muted);
 }
 
 /* ANIMATIONS */
@@ -858,569 +858,569 @@ to   { opacity: 1; transform: translateY(0); }
 }
 
 /* RESPONSIVE */
-@media(max-width: 768px) {
+@media(max--width: 768px) {
 .topbar { padding: 16px 24px; }
-.topbar-center { display: none; }
+.topbar--center { display: none; }
 .hero { padding: 60px 24px 56px; }
 .wrapper { padding: 0 24px; }
-.section-num { font-size: 60px; }
-.comp-header-row, .comp-item {
-grid-template-columns: 1fr 90px 110px;
+.section--num { font--size: 60px; }
+.comp--header--row, .comp--item {
+grid--template--columns: 1fr 90px 110px;
 }
-.market-head, .market-row {
-grid-template-columns: 130px 1fr 100px 80px;
+.market--head, .market--row {
+grid--template--columns: 130px 1fr 100px 80px;
 }
-.summary-strip { grid-template-columns: 1fr; }
-.strip-item { border-right: none; border-bottom: 1px solid var(-border-soft); }
-.guarantees { grid-template-columns: 1fr; }
-.feature-grid { grid-template-columns: 1fr 1fr; }
+.summary--strip { grid--template--columns: 1fr; }
+.strip--item { border--right: none; border--bottom: 1px solid var(--border--soft); }
+.guarantees { grid--template--columns: 1fr; }
+.feature--grid { grid--template--columns: 1fr 1fr; }
 }
-@media(max-width: 500px) {
-.feature-grid { grid-template-columns: 1fr; }
-.pricing-cards { grid-template-columns: 1fr; }
-.price-reference { border-right: none; border-bottom: 1px solid var(-border-soft); }
-.market-head { display: none; }
-.market-row { grid-template-columns: 1fr 1fr; }
-.market-cell:nth-child(3) { display: none; }
+@media(max--width: 500px) {
+.feature--grid { grid--template--columns: 1fr; }
+.pricing--cards { grid--template--columns: 1fr; }
+.price--reference { border--right: none; border--bottom: 1px solid var(--border--soft); }
+.market--head { display: none; }
+.market--row { grid--template--columns: 1fr 1fr; }
+.market--cell:nth--child(3) { display: none; }
 }
 </style>
 
 </head>
 <body>
 
-<div class="ambient ambient-1"></div>
-<div class="ambient ambient-2"></div>
+<div class="ambient ambient--1"></div>
+<div class="ambient ambient--2"></div>
 
-<!-- TOPBAR -->
+<!---- TOPBAR ---->
 
 <div class="topbar">
-  <div class="topbar-brand">Naruna Contract Monitor</div>
-  <div class="topbar-center">
-    <div class="topbar-label">Dokumen Valuasi Resmi</div>
+  <div class="topbar--brand">Naruna Contract Monitor</div>
+  <div class="topbar--center">
+    <div class="topbar--label">Dokumen Valuasi Resmi</div>
   </div>
-  <div class="topbar-date" id="docDate"></div>
+  <div class="topbar--date" id="docDate"></div>
 </div>
 
-<!-- HERO -->
+<!---- HERO ---->
 
 <div class="hero">
-  <div class="hero-deco"></div>
-  <div class="hero-eyebrow">Penilaian Independen Nilai Perangkat Lunak</div>
-  <h1 class="hero-title">
+  <div class="hero--deco"></div>
+  <div class="hero--eyebrow">Penilaian Independen Nilai Perangkat Lunak</div>
+  <h1 class="hero--title">
     Berapa Nilai <em>Sesungguhnya</em><br><strong>Aplikasi Ini?</strong>
   </h1>
-  <p class="hero-sub">
-    Analisis mendalam kerumitan pengerjaan, kualitas teknis, dan posisi pasar dari Naruna Contract Monitor - sistem manajemen kontrak karyawan berbasis web, multi-outlet, real-time.
+  <p class="hero--sub">
+    Analisis mendalam kerumitan pengerjaan, kualitas teknis, dan posisi pasar dari Naruna Contract Monitor -- sistem manajemen kontrak karyawan berbasis web, multi--outlet, real--time.
   </p>
-  <div class="hero-verdict-wrap">
-    <div class="hero-verdict-label">Estimasi Nilai Pasar Wajar</div>
-    <div class="hero-verdict">
-      <div class="hero-verdict-corners">
+  <div class="hero--verdict--wrap">
+    <div class="hero--verdict--label">Estimasi Nilai Pasar Wajar</div>
+    <div class="hero--verdict">
+      <div class="hero--verdict--corners">
         <span class="c3"></span><span class="c4"></span>
       </div>
-      <div class="hero-verdict-inner">Rp 36.300.000 - Rp 52.000.000</div>
+      <div class="hero--verdict--inner">Rp 36.300.000 -- Rp 52.000.000</div>
     </div>
-    <div class="hero-verdict-sub">Berdasarkan penilaian kerumitan & kualitas pengerjaan</div>
+    <div class="hero--verdict--sub">Berdasarkan penilaian kerumitan & kualitas pengerjaan</div>
   </div>
-  <div class="hero-deco-bottom"></div>
+  <div class="hero--deco--bottom"></div>
 </div>
 
-<!-- WRAPPER -->
+<!---- WRAPPER ---->
 
 <div class="wrapper">
 
-<!-- ========================
-     SECTION 01 - KOMPLEKSITAS
-     ======================== -->
+<!---- ========================
+     SECTION 01 -- KOMPLEKSITAS
+     ======================== ---->
 
 <div class="section">
-  <div class="section-header">
-    <div class="section-num-col">
-      <div class="section-num">01</div>
+  <div class="section--header">
+    <div class="section--num--col">
+      <div class="section--num">01</div>
     </div>
-    <div class="section-meta">
-      <div class="section-label">Rincian Biaya</div>
-      <div class="section-title">Penilaian Kerumitan &amp; <em>Kualitas Pengerjaan</em></div>
+    <div class="section--meta">
+      <div class="section--label">Rincian Biaya</div>
+      <div class="section--title">Penilaian Kerumitan &amp; <em>Kualitas Pengerjaan</em></div>
     </div>
   </div>
 
-  <div class="comp-grid">
-    <div class="comp-header-row">
+  <div class="comp--grid">
+    <div class="comp--header--row">
       <span>Komponen &amp; Deskripsi</span>
       <span>Tingkat Kerumitan</span>
-      <span style="text-align:right">Nilai Komponen</span>
+      <span style="text--align:right">Nilai Komponen</span>
     </div>
 
 ```
-<!-- Items -->
-<div class="comp-item" style="animation-delay:0ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">Sistem Autentikasi Mandiri</div>
-    <div class="comp-desc">Login, register, forgot & reset password dengan token 1 jam, session management, SHA-256 salted hashing, max-user slot enforcement, dan user count UI - seluruhnya tanpa backend server eksternal. Mencakup edge case: token kadaluarsa, email tidak terdaftar, password mismatch, slot penuh.</div>
+<!---- Items ---->
+<div class="comp--item" style="animation--delay:0ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">Sistem Autentikasi Mandiri</div>
+    <div class="comp--desc">Login, register, forgot & reset password dengan token 1 jam, session management, SHA--256 salted hashing, max--user slot enforcement, dan user count UI -- seluruhnya tanpa backend server eksternal. Mencakup edge case: token kadaluarsa, email tidak terdaftar, password mismatch, slot penuh.</div>
   </div>
-  <div class="comp-cell-complexity c-high">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--high">
+    <div class="complexity--dots">
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot"></div>
     </div>
-    <div class="complexity-label">Tinggi</div>
+    <div class="complexity--label">Tinggi</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 8.400.000</div>
-    <div class="comp-value-note">Auth Penuh</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 8.400.000</div>
+    <div class="comp--value--note">Auth Penuh</div>
   </div>
 </div>
 
-<div class="comp-item" style="animation-delay:60ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">Dual Backend Transparan</div>
-    <div class="comp-desc">Satu codebase berjalan identik di IndexedDB lokal ATAU Firebase Firestore - tanpa perubahan logika bisnis. Auto-fallback bila Firebase tidak tersedia. Real-time sync badge. Arsitektur adapter pattern murni dalam single-file HTML; sangat langka dan membutuhkan disiplin engineering tinggi.</div>
+<div class="comp--item" style="animation--delay:60ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">Dual Backend Transparan</div>
+    <div class="comp--desc">Satu codebase berjalan identik di IndexedDB lokal ATAU Firebase Firestore -- tanpa perubahan logika bisnis. Auto--fallback bila Firebase tidak tersedia. Real--time sync badge. Arsitektur adapter pattern murni dalam single--file HTML; sangat langka dan membutuhkan disiplin engineering tinggi.</div>
   </div>
-  <div class="comp-cell-complexity c-rare">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--rare">
+    <div class="complexity--dots">
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
     </div>
-    <div class="complexity-label">Sangat Tinggi</div>
+    <div class="complexity--label">Sangat Tinggi</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 9.600.000</div>
-    <div class="comp-value-note">Arsitektur Unik</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 9.600.000</div>
+    <div class="comp--value--note">Arsitektur Unik</div>
   </div>
 </div>
 
-<div class="comp-item" style="animation-delay:120ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">Dashboard Outlet Multi-Kolom</div>
-    <div class="comp-desc">Grid 1-3 kolom adaptif dengan collapse/expand per outlet, sistem color identity 12 palet berbasis hash ID (konsisten tanpa konfigurasi), KPI card animasi, hero stats, filter bar. UX didesain untuk scanability cepat oleh supervisor multi-lokasi.</div>
+<div class="comp--item" style="animation--delay:120ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">Dashboard Outlet Multi--Kolom</div>
+    <div class="comp--desc">Grid 1--3 kolom adaptif dengan collapse/expand per outlet, sistem color identity 12 palet berbasis hash ID (konsisten tanpa konfigurasi), KPI card animasi, hero stats, filter bar. UX didesain untuk scanability cepat oleh supervisor multi--lokasi.</div>
   </div>
-  <div class="comp-cell-complexity c-high">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--high">
+    <div class="complexity--dots">
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot"></div>
     </div>
-    <div class="complexity-label">Tinggi</div>
+    <div class="complexity--label">Tinggi</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 6.600.000</div>
-    <div class="comp-value-note">UX Kompleks</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 6.600.000</div>
+    <div class="comp--value--note">UX Kompleks</div>
   </div>
 </div>
 
-<div class="comp-item" style="animation-delay:180ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">Sistem Manajemen Kontrak</div>
-    <div class="comp-desc">Update kontrak dengan preview real-time, kalkulasi dari titik referensi fleksibel (akhir kontrak aktif atau hari ini), pilih bulan/tahun dengan auto-round ke akhir bulan, history log per karyawan dengan timestamp penuh. Business logic edge case ditangani menyeluruh.</div>
+<div class="comp--item" style="animation--delay:180ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">Sistem Manajemen Kontrak</div>
+    <div class="comp--desc">Update kontrak dengan preview real--time, kalkulasi dari titik referensi fleksibel (akhir kontrak aktif atau hari ini), pilih bulan/tahun dengan auto--round ke akhir bulan, history log per karyawan dengan timestamp penuh. Business logic edge case ditangani menyeluruh.</div>
   </div>
-  <div class="comp-cell-complexity c-high">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--high">
+    <div class="complexity--dots">
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot"></div>
     </div>
-    <div class="complexity-label">Tinggi</div>
+    <div class="complexity--label">Tinggi</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 5.400.000</div>
-    <div class="comp-value-note">Logic Bisnis</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 5.400.000</div>
+    <div class="comp--value--note">Logic Bisnis</div>
   </div>
 </div>
 
-<div class="comp-item" style="animation-delay:240ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">Kamus Gender Indonesia (370+ Nama)</div>
-    <div class="comp-desc">Kamus terverifikasi manual 166 nama Naruna + 200+ nama umum Indonesia. Algoritma skip-ambigu (DWI, WAHYU, TRI, dll.) dengan infer dari token berikutnya. Auto-guess dari nama input baru. Override manual. Fallback suffix regex. Tidak ada library publik yang menyediakan ini - dikembangkan dari nol.</div>
+<div class="comp--item" style="animation--delay:240ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">Kamus Gender Indonesia (370+ Nama)</div>
+    <div class="comp--desc">Kamus terverifikasi manual 166 nama Naruna + 200+ nama umum Indonesia. Algoritma skip--ambigu (DWI, WAHYU, TRI, dll.) dengan infer dari token berikutnya. Auto--guess dari nama input baru. Override manual. Fallback suffix regex. Tidak ada library publik yang menyediakan ini -- dikembangkan dari nol.</div>
   </div>
-  <div class="comp-cell-complexity c-rare">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--rare">
+    <div class="complexity--dots">
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
     </div>
-    <div class="complexity-label">Sangat Tinggi</div>
+    <div class="complexity--label">Sangat Tinggi</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 4.200.000</div>
-    <div class="comp-value-note">IP Unik</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 4.200.000</div>
+    <div class="comp--value--note">IP Unik</div>
   </div>
 </div>
 
-<div class="comp-item" style="animation-delay:300ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">Import Excel Multi-Sheet Cerdas</div>
-    <div class="comp-desc">Auto-detect header row di 10 baris pertama, 30+ alias kolom (Nama Karyawan / Employee Name / NAMA, dll.), parser tanggal 6 format termasuk serial number Excel, nama sheet sebagai fallback outlet. Dedup logic. Toleran terhadap format file "kotor" dari HR yang tidak konsisten.</div>
+<div class="comp--item" style="animation--delay:300ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">Import Excel Multi--Sheet Cerdas</div>
+    <div class="comp--desc">Auto--detect header row di 10 baris pertama, 30+ alias kolom (Nama Karyawan / Employee Name / NAMA, dll.), parser tanggal 6 format termasuk serial number Excel, nama sheet sebagai fallback outlet. Dedup logic. Toleran terhadap format file "kotor" dari HR yang tidak konsisten.</div>
   </div>
-  <div class="comp-cell-complexity c-rare">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--rare">
+    <div class="complexity--dots">
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
     </div>
-    <div class="complexity-label">Sangat Tinggi</div>
+    <div class="complexity--label">Sangat Tinggi</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 7.200.000</div>
-    <div class="comp-value-note">Production-Grade</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 7.200.000</div>
+    <div class="comp--value--note">Production--Grade</div>
   </div>
 </div>
 
-<div class="comp-item" style="animation-delay:360ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">Notifikasi &amp; Monitoring Real-time</div>
-    <div class="comp-desc">Bell animasi pulse, panel notifikasi slide-in, count badge, threshold 30 hari, sorting urgensi otomatis, warning/danger state dengan visual berbeda, dismiss saat klik luar. Dirancang agar tidak mengganggu workflow saat tidak dibutuhkan.</div>
+<div class="comp--item" style="animation--delay:360ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">Notifikasi &amp; Monitoring Real--time</div>
+    <div class="comp--desc">Bell animasi pulse, panel notifikasi slide--in, count badge, threshold 30 hari, sorting urgensi otomatis, warning/danger state dengan visual berbeda, dismiss saat klik luar. Dirancang agar tidak mengganggu workflow saat tidak dibutuhkan.</div>
   </div>
-  <div class="comp-cell-complexity c-mid">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--mid">
+    <div class="complexity--dots">
       <div class="dot filled half"></div>
       <div class="dot filled half"></div>
       <div class="dot filled half"></div>
       <div class="dot"></div>
       <div class="dot"></div>
     </div>
-    <div class="complexity-label">Sedang</div>
+    <div class="complexity--label">Sedang</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 3.000.000</div>
-    <div class="comp-value-note">UX Polish</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 3.000.000</div>
+    <div class="comp--value--note">UX Polish</div>
   </div>
 </div>
 
-<div class="comp-item" style="animation-delay:420ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">UI/UX Design System Lengkap</div>
-    <div class="comp-desc">Dark/light mode penuh, 50+ CSS custom properties, Instrument Serif + Geist typography system, noise texture overlay, topbar sticky dengan backdrop blur, toast notification system, animated loading screen, responsive mobile. Kualitas setara design system agency premium.</div>
+<div class="comp--item" style="animation--delay:420ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">UI/UX Design System Lengkap</div>
+    <div class="comp--desc">Dark/light mode penuh, 50+ CSS custom properties, Instrument Serif + Geist typography system, noise texture overlay, topbar sticky dengan backdrop blur, toast notification system, animated loading screen, responsive mobile. Kualitas setara design system agency premium.</div>
   </div>
-  <div class="comp-cell-complexity c-rare">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--rare">
+    <div class="complexity--dots">
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
     </div>
-    <div class="complexity-label">Sangat Tinggi</div>
+    <div class="complexity--label">Sangat Tinggi</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 9.100.000</div>
-    <div class="comp-value-note">Premium Design</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 9.100.000</div>
+    <div class="comp--value--note">Premium Design</div>
   </div>
 </div>
 
-<div class="comp-item" style="animation-delay:480ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">Export &amp; Backup Data</div>
-    <div class="comp-desc">Export JSON backup berversi dengan metadata, export CSV dengan BOM UTF-8 (agar terbaca benar di Excel Indonesia), restore JSON dengan sanitasi dan validasi schema, preview import sebelum overwrite, konfirmasi dua langkah untuk operasi destruktif.</div>
+<div class="comp--item" style="animation--delay:480ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">Export &amp; Backup Data</div>
+    <div class="comp--desc">Export JSON backup berversi dengan metadata, export CSV dengan BOM UTF--8 (agar terbaca benar di Excel Indonesia), restore JSON dengan sanitasi dan validasi schema, preview import sebelum overwrite, konfirmasi dua langkah untuk operasi destruktif.</div>
   </div>
-  <div class="comp-cell-complexity c-mid">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--mid">
+    <div class="complexity--dots">
       <div class="dot filled half"></div>
       <div class="dot filled half"></div>
       <div class="dot filled half"></div>
       <div class="dot"></div>
       <div class="dot"></div>
     </div>
-    <div class="complexity-label">Sedang</div>
+    <div class="complexity--label">Sedang</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 2.400.000</div>
-    <div class="comp-value-note">Data Safety</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 2.400.000</div>
+    <div class="comp--value--note">Data Safety</div>
   </div>
 </div>
 
-<div class="comp-item" style="animation-delay:540ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">Dashboard Analitik Global</div>
-    <div class="comp-desc">Tampilan lintas seluruh outlet: agregasi kritis/aman/tanpa-tanggal, statistik per outlet dengan progress bar visual, navigasi kontekstual langsung ke update kontrak karyawan spesifik. Dirancang untuk keputusan cepat di level manajemen.</div>
+<div class="comp--item" style="animation--delay:540ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">Dashboard Analitik Global</div>
+    <div class="comp--desc">Tampilan lintas seluruh outlet: agregasi kritis/aman/tanpa--tanggal, statistik per outlet dengan progress bar visual, navigasi kontekstual langsung ke update kontrak karyawan spesifik. Dirancang untuk keputusan cepat di level manajemen.</div>
   </div>
-  <div class="comp-cell-complexity c-mid">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--mid">
+    <div class="complexity--dots">
       <div class="dot filled half"></div>
       <div class="dot filled half"></div>
       <div class="dot filled half"></div>
       <div class="dot"></div>
       <div class="dot"></div>
     </div>
-    <div class="complexity-label">Sedang</div>
+    <div class="complexity--label">Sedang</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 3.000.000</div>
-    <div class="comp-value-note">Analytics</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 3.000.000</div>
+    <div class="comp--value--note">Analytics</div>
   </div>
 </div>
 
-<div class="comp-item" style="animation-delay:600ms">
-  <div class="comp-cell-main">
-    <div class="comp-name">Keamanan &amp; Ketahanan Data</div>
-    <div class="comp-desc">safeText/safeNumber sanitasi di setiap input, escapeHtml pada semua output DOM, debounce pada semua operasi berat, normalizeText untuk pencarian fuzzy, validasi email regex, password confirm, konfirmasi sebelum hapus data. Tidak ada XSS surface yang dibiarkan terbuka.</div>
+<div class="comp--item" style="animation--delay:600ms">
+  <div class="comp--cell--main">
+    <div class="comp--name">Keamanan &amp; Ketahanan Data</div>
+    <div class="comp--desc">safeText/safeNumber sanitasi di setiap input, escapeHtml pada semua output DOM, debounce pada semua operasi berat, normalizeText untuk pencarian fuzzy, validasi email regex, password confirm, konfirmasi sebelum hapus data. Tidak ada XSS surface yang dibiarkan terbuka.</div>
   </div>
-  <div class="comp-cell-complexity c-high">
-    <div class="complexity-dots">
+  <div class="comp--cell--complexity c--high">
+    <div class="complexity--dots">
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot filled"></div>
       <div class="dot"></div>
     </div>
-    <div class="complexity-label">Tinggi</div>
+    <div class="complexity--label">Tinggi</div>
   </div>
-  <div class="comp-cell-value">
-    <div class="comp-value">Rp 3.500.000</div>
-    <div class="comp-value-note">Security</div>
+  <div class="comp--cell--value">
+    <div class="comp--value">Rp 3.500.000</div>
+    <div class="comp--value--note">Security</div>
   </div>
 </div>
 
-<!-- TOTAL -->
-<div class="comp-total-row">
-  <div class="comp-total-label">
+<!---- TOTAL ---->
+<div class="comp--total--row">
+  <div class="comp--total--label">
     <span>Total Estimasi Nilai Pengembangan</span>
     Naruna Contract Monitor
   </div>
-  <div class="comp-total-val">Rp 62.400.000</div>
+  <div class="comp--total--val">Rp 62.400.000</div>
 </div>
 ```
 
   </div>
 
   <div class="callout">
-    <strong>Catatan metodologi:</strong> Nilai tiap komponen ditentukan berdasarkan tiga faktor utama: (1) kerumitan logika teknis dan jumlah edge case yang ditangani, (2) kualitas output dan keunikan solusi di pasar lokal, serta (3) nilai bisnis langsung yang diberikan kepada pengguna akhir. Estimasi ini tidak bergantung pada waktu pengerjaan aktual - sebuah solusi yang diselesaikan lebih cepat oleh developer berpengalaman tidak berarti nilainya lebih rendah.
+    <strong>Catatan metodologi:</strong> Nilai tiap komponen ditentukan berdasarkan tiga faktor utama: (1) kerumitan logika teknis dan jumlah edge case yang ditangani, (2) kualitas output dan keunikan solusi di pasar lokal, serta (3) nilai bisnis langsung yang diberikan kepada pengguna akhir. Estimasi ini tidak bergantung pada waktu pengerjaan aktual -- sebuah solusi yang diselesaikan lebih cepat oleh developer berpengalaman tidak berarti nilainya lebih rendah.
   </div>
 </div>
 
-<!-- ========================
-     SECTION 02 - FITUR PREMIUM
-     ======================== -->
+<!---- ========================
+     SECTION 02 -- FITUR PREMIUM
+     ======================== ---->
 
 <div class="section">
-  <div class="section-header">
-    <div class="section-num-col">
-      <div class="section-num">02</div>
+  <div class="section--header">
+    <div class="section--num--col">
+      <div class="section--num">02</div>
     </div>
-    <div class="section-meta">
-      <div class="section-label">Nilai Diferensiasi</div>
-      <div class="section-title">Fitur <em>Tidak Bisa Dibeli</em> di Tempat Lain</div>
+    <div class="section--meta">
+      <div class="section--label">Nilai Diferensiasi</div>
+      <div class="section--title">Fitur <em>Tidak Bisa Dibeli</em> di Tempat Lain</div>
     </div>
   </div>
 
-  <div class="feature-grid">
-    <div class="feature-item">
-      <div class="feat-num">F - 01</div>
-      <span class="feat-icon">🧠</span>
-      <div class="feat-name">AI Gender Dictionary Indonesia</div>
-      <div class="feat-desc">Kamus 370+ nama terverifikasi manual dengan logika skip-ambigu dan fallback suffix regex. Tidak ada library publik Indonesia yang menyediakan ini - dikembangkan eksklusif untuk kebutuhan Naruna.</div>
-      <div class="feat-val">Nilai unik · Rp 4.200.000</div>
+  <div class="feature--grid">
+    <div class="feature--item">
+      <div class="feat--num">F -- 01</div>
+      <span class="feat--icon">🧠</span>
+      <div class="feat--name">AI Gender Dictionary Indonesia</div>
+      <div class="feat--desc">Kamus 370+ nama terverifikasi manual dengan logika skip--ambigu dan fallback suffix regex. Tidak ada library publik Indonesia yang menyediakan ini -- dikembangkan eksklusif untuk kebutuhan Naruna.</div>
+      <div class="feat--val">Nilai unik · Rp 4.200.000</div>
     </div>
-    <div class="feature-item">
-      <div class="feat-num">F - 02</div>
-      <span class="feat-icon">🔄</span>
-      <div class="feat-name">Dual Backend Transparan</div>
-      <div class="feat-desc">Satu codebase, dua mode penyimpanan. IndexedDB offline atau Firebase cloud - berpindah tanpa mengubah satu baris logika bisnis. Arsitektur level enterprise dalam sebuah file HTML tunggal.</div>
-      <div class="feat-val">Nilai unik · Rp 9.600.000</div>
+    <div class="feature--item">
+      <div class="feat--num">F -- 02</div>
+      <span class="feat--icon">🔄</span>
+      <div class="feat--name">Dual Backend Transparan</div>
+      <div class="feat--desc">Satu codebase, dua mode penyimpanan. IndexedDB offline atau Firebase cloud -- berpindah tanpa mengubah satu baris logika bisnis. Arsitektur level enterprise dalam sebuah file HTML tunggal.</div>
+      <div class="feat--val">Nilai unik · Rp 9.600.000</div>
     </div>
-    <div class="feature-item">
-      <div class="feat-num">F - 03</div>
-      <span class="feat-icon">📊</span>
-      <div class="feat-name">Import Excel Multi-Sheet Cerdas</div>
-      <div class="feat-desc">Toleran terhadap file "kotor": auto-detect header, 30+ alias kolom, 6 format tanggal termasuk serial Excel. Dirancang untuk realita HR Indonesia yang tidak konsisten dalam format data.</div>
-      <div class="feat-val">Nilai unik · Rp 7.200.000</div>
+    <div class="feature--item">
+      <div class="feat--num">F -- 03</div>
+      <span class="feat--icon">📊</span>
+      <div class="feat--name">Import Excel Multi--Sheet Cerdas</div>
+      <div class="feat--desc">Toleran terhadap file "kotor": auto--detect header, 30+ alias kolom, 6 format tanggal termasuk serial Excel. Dirancang untuk realita HR Indonesia yang tidak konsisten dalam format data.</div>
+      <div class="feat--val">Nilai unik · Rp 7.200.000</div>
     </div>
-    <div class="feature-item">
-      <div class="feat-num">F - 04</div>
-      <span class="feat-icon">🎨</span>
-      <div class="feat-name">Outlet Identity Color System</div>
-      <div class="feat-desc">12 palet warna dinamis berbasis hash ID outlet - setiap outlet selalu mendapat warna yang sama dan konsisten tanpa konfigurasi manual. Dark mode penuh dengan 50+ token CSS.</div>
-      <div class="feat-val">Nilai unik · Rp 4.500.000</div>
+    <div class="feature--item">
+      <div class="feat--num">F -- 04</div>
+      <span class="feat--icon">🎨</span>
+      <div class="feat--name">Outlet Identity Color System</div>
+      <div class="feat--desc">12 palet warna dinamis berbasis hash ID outlet -- setiap outlet selalu mendapat warna yang sama dan konsisten tanpa konfigurasi manual. Dark mode penuh dengan 50+ token CSS.</div>
+      <div class="feat--val">Nilai unik · Rp 4.500.000</div>
     </div>
-    <div class="feature-item">
-      <div class="feat-num">F - 05</div>
-      <span class="feat-icon">📜</span>
-      <div class="feat-name">Audit Trail Kontrak Per Karyawan</div>
-      <div class="feat-desc">Setiap perubahan kontrak tersimpan permanen: timestamp, tanggal lama, tanggal baru, durasi, dan keterangan. History lengkap yang dapat di-review kapan saja - setara fitur enterprise HRIS.</div>
-      <div class="feat-val">Nilai unik · Rp 2.100.000</div>
+    <div class="feature--item">
+      <div class="feat--num">F -- 05</div>
+      <span class="feat--icon">📜</span>
+      <div class="feat--name">Audit Trail Kontrak Per Karyawan</div>
+      <div class="feat--desc">Setiap perubahan kontrak tersimpan permanen: timestamp, tanggal lama, tanggal baru, durasi, dan keterangan. History lengkap yang dapat di--review kapan saja -- setara fitur enterprise HRIS.</div>
+      <div class="feat--val">Nilai unik · Rp 2.100.000</div>
     </div>
-    <div class="feature-item">
-      <div class="feat-num">F - 06</div>
-      <span class="feat-icon">🔐</span>
-      <div class="feat-name">Auth Mandiri + Reset Email</div>
-      <div class="feat-desc">Sistem auth lengkap tanpa backend: SHA-256 salted hashing, token reset 1 jam via EmailJS, slot max user yang dapat dikonfigurasi. Keamanan produksi tanpa biaya server.</div>
-      <div class="feat-val">Nilai unik · Rp 8.400.000</div>
+    <div class="feature--item">
+      <div class="feat--num">F -- 06</div>
+      <span class="feat--icon">🔐</span>
+      <div class="feat--name">Auth Mandiri + Reset Email</div>
+      <div class="feat--desc">Sistem auth lengkap tanpa backend: SHA--256 salted hashing, token reset 1 jam via EmailJS, slot max user yang dapat dikonfigurasi. Keamanan produksi tanpa biaya server.</div>
+      <div class="feat--val">Nilai unik · Rp 8.400.000</div>
     </div>
   </div>
 </div>
 
-<!-- ========================
-     SECTION 03 - MARKET
-     ======================== -->
+<!---- ========================
+     SECTION 03 -- MARKET
+     ======================== ---->
 
 <div class="section">
-  <div class="section-header">
-    <div class="section-num-col">
-      <div class="section-num">03</div>
+  <div class="section--header">
+    <div class="section--num--col">
+      <div class="section--num">03</div>
     </div>
-    <div class="section-meta">
-      <div class="section-label">Benchmark Pasar</div>
-      <div class="section-title">Komparasi dengan <em>Alternatif yang Ada</em></div>
+    <div class="section--meta">
+      <div class="section--label">Benchmark Pasar</div>
+      <div class="section--title">Komparasi dengan <em>Alternatif yang Ada</em></div>
     </div>
   </div>
 
-  <div class="market-grid">
-    <div class="market-head">
+  <div class="market--grid">
+    <div class="market--head">
       <span>Solusi</span>
       <span>Kesesuaian Kebutuhan</span>
       <span>Biaya Per Tahun</span>
-      <span style="text-align:right">Keputusan</span>
+      <span style="text--align:right">Keputusan</span>
     </div>
 
 ```
-<div class="market-row highlight">
-  <div class="market-cell">
-    <div class="market-name">Naruna Contract Monitor <span class="market-name-tag">INI</span></div>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Custom · Web App</div>
+<div class="market--row highlight">
+  <div class="market--cell">
+    <div class="market--name">Naruna Contract Monitor <span class="market--name--tag">INI</span></div>
+    <div style="font--size:11px;color:var(----text--muted);margin--top:2px;">Custom · Web App</div>
   </div>
-  <div class="market-cell">Fit 100% - dibuat khusus untuk struktur outlet Naruna, nama Indonesia, format rupiah, tanggal lokal, dan gender inference.</div>
-  <div class="market-cell"><div class="market-price zero">Rp 0 / tahun</div></div>
-  <div class="market-cell"><span class="pill pill-g">✓ Optimal</span></div>
+  <div class="market--cell">Fit 100% -- dibuat khusus untuk struktur outlet Naruna, nama Indonesia, format rupiah, tanggal lokal, dan gender inference.</div>
+  <div class="market--cell"><div class="market--price zero">Rp 0 / tahun</div></div>
+  <div class="market--cell"><span class="pill pill--g">✓ Optimal</span></div>
 </div>
 
-<div class="market-row">
-  <div class="market-cell">
-    <div class="market-name">HRIS SaaS Lokal</div>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Talenta · Gadjian</div>
+<div class="market--row">
+  <div class="market--cell">
+    <div class="market--name">HRIS SaaS Lokal</div>
+    <div style="font--size:11px;color:var(----text--muted);margin--top:2px;">Talenta · Gadjian</div>
   </div>
-  <div class="market-cell">Overkill - penggajian lengkap, BPJS, PPh21. Fitur kontrak hanya sebagian kecil. Tidak ada kustomisasi outlet atau gender lokal.</div>
-  <div class="market-cell"><div class="market-price neg">Rp 24-96 jt / tahun</div></div>
-  <div class="market-cell"><span class="pill pill-r">✗ Berlebihan</span></div>
+  <div class="market--cell">Overkill -- penggajian lengkap, BPJS, PPh21. Fitur kontrak hanya sebagian kecil. Tidak ada kustomisasi outlet atau gender lokal.</div>
+  <div class="market--cell"><div class="market--price neg">Rp 24--96 jt / tahun</div></div>
+  <div class="market--cell"><span class="pill pill--r">✗ Berlebihan</span></div>
 </div>
 
-<div class="market-row">
-  <div class="market-cell">
-    <div class="market-name">Google Sheets / Excel</div>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Manual · Zero Automation</div>
+<div class="market--row">
+  <div class="market--cell">
+    <div class="market--name">Google Sheets / Excel</div>
+    <div style="font--size:11px;color:var(----text--muted);margin--top:2px;">Manual · Zero Automation</div>
   </div>
-  <div class="market-cell">Tidak ada notifikasi otomatis, tidak ada multi-user terstruktur, error-prone, tidak mobile-friendly, tidak ada history kontrak.</div>
-  <div class="market-cell"><div class="market-price">Rp 0 / tahun</div></div>
-  <div class="market-cell"><span class="pill pill-r">✗ Tidak Cukup</span></div>
+  <div class="market--cell">Tidak ada notifikasi otomatis, tidak ada multi--user terstruktur, error--prone, tidak mobile--friendly, tidak ada history kontrak.</div>
+  <div class="market--cell"><div class="market--price">Rp 0 / tahun</div></div>
+  <div class="market--cell"><span class="pill pill--r">✗ Tidak Cukup</span></div>
 </div>
 
-<div class="market-row">
-  <div class="market-cell">
-    <div class="market-name">Custom dari Agency</div>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Pengembangan Baru</div>
+<div class="market--row">
+  <div class="market--cell">
+    <div class="market--name">Custom dari Agency</div>
+    <div style="font--size:11px;color:var(----text--muted);margin--top:2px;">Pengembangan Baru</div>
   </div>
-  <div class="market-cell">Fit tinggi tapi butuh 3-6 bulan, perlu server hosting terpisah, maintenance ongoing, dan brief dari nol.</div>
-  <div class="market-cell"><div class="market-price neg">Rp 50-150 jt</div></div>
-  <div class="market-cell"><span class="pill pill-y">~ Mahal</span></div>
+  <div class="market--cell">Fit tinggi tapi butuh 3--6 bulan, perlu server hosting terpisah, maintenance ongoing, dan brief dari nol.</div>
+  <div class="market--cell"><div class="market--price neg">Rp 50--150 jt</div></div>
+  <div class="market--cell"><span class="pill pill--y">~ Mahal</span></div>
 </div>
 
-<div class="market-row">
-  <div class="market-cell">
-    <div class="market-name">HR App Generik</div>
-    <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Jojonomic · dll.</div>
+<div class="market--row">
+  <div class="market--cell">
+    <div class="market--name">HR App Generik</div>
+    <div style="font--size:11px;color:var(----text--muted);margin--top:2px;">Jojonomic · dll.</div>
   </div>
-  <div class="market-cell">Tidak ada gender inference Indonesia, import Excel tidak mengenali nama lokal, tidak ada outlet identity system.</div>
-  <div class="market-cell"><div class="market-price neg">Rp 18-60 jt / tahun</div></div>
-  <div class="market-cell"><span class="pill pill-r">✗ Tidak Fit</span></div>
+  <div class="market--cell">Tidak ada gender inference Indonesia, import Excel tidak mengenali nama lokal, tidak ada outlet identity system.</div>
+  <div class="market--cell"><div class="market--price neg">Rp 18--60 jt / tahun</div></div>
+  <div class="market--cell"><span class="pill pill--r">✗ Tidak Fit</span></div>
 </div>
 ```
 
   </div>
 
-  <div class="callout" style="margin-top:20px;">
-    <strong>Kesimpulan komparasi:</strong> Naruna Contract Monitor mengeliminasi biaya langganan tahunan Rp 24-96 juta setiap tahunnya, sekaligus menyediakan fitur spesifik yang tidak tersedia di solusi mana pun di pasar - termasuk kamus gender nama Indonesia, outlet identity system, dual backend transparan, dan import Excel yang toleran format "kotor" HR.
+  <div class="callout" style="margin--top:20px;">
+    <strong>Kesimpulan komparasi:</strong> Naruna Contract Monitor mengeliminasi biaya langganan tahunan Rp 24--96 juta setiap tahunnya, sekaligus menyediakan fitur spesifik yang tidak tersedia di solusi mana pun di pasar -- termasuk kamus gender nama Indonesia, outlet identity system, dual backend transparan, dan import Excel yang toleran format "kotor" HR.
   </div>
 </div>
 
-<!-- ========================
-     SECTION 04 - PRICING
-     ======================== -->
+<!---- ========================
+     SECTION 04 -- PRICING
+     ======================== ---->
 
-<div class="pricing-section">
-  <div class="section-header">
-    <div class="section-num-col">
-      <div class="section-num">04</div>
+<div class="pricing--section">
+  <div class="section--header">
+    <div class="section--num--col">
+      <div class="section--num">04</div>
     </div>
-    <div class="section-meta">
-      <div class="section-label">Penawaran Eksklusif</div>
-      <div class="section-title">Harga dari <em>Nuvora Systems</em></div>
-    </div>
-  </div>
-
-  <!-- SUMMARY STRIP -->
-
-  <div class="summary-strip">
-    <div class="strip-item">
-      <div class="strip-eyebrow">Nilai Pasar Wajar</div>
-      <div class="strip-val cross">Rp 62.400.000</div>
-    </div>
-    <div class="strip-item">
-      <div class="strip-eyebrow">Harga Normal Nuvora Systems</div>
-      <div class="strip-val cross" style="font-size:22px;">Rp 12.000.000</div>
-    </div>
-    <div class="strip-item">
-      <div class="strip-eyebrow">Harga Final Anda Hari Ini</div>
-      <div class="strip-val gold">Rp 6.000.000</div>
+    <div class="section--meta">
+      <div class="section--label">Penawaran Eksklusif</div>
+      <div class="section--title">Harga dari <em>Nuvora Systems</em></div>
     </div>
   </div>
 
-  <!-- PRICING CARDS -->
+  <!---- SUMMARY STRIP ---->
 
-  <div class="pricing-cards">
+  <div class="summary--strip">
+    <div class="strip--item">
+      <div class="strip--eyebrow">Nilai Pasar Wajar</div>
+      <div class="strip--val cross">Rp 62.400.000</div>
+    </div>
+    <div class="strip--item">
+      <div class="strip--eyebrow">Harga Normal Nuvora Systems</div>
+      <div class="strip--val cross" style="font--size:22px;">Rp 12.000.000</div>
+    </div>
+    <div class="strip--item">
+      <div class="strip--eyebrow">Harga Final Anda Hari Ini</div>
+      <div class="strip--val gold">Rp 6.000.000</div>
+    </div>
+  </div>
+
+  <!---- PRICING CARDS ---->
+
+  <div class="pricing--cards">
 
 ```
-<!-- REFERENCE -->
-<div class="price-reference">
-  <div class="pr-eyebrow">Konteks Harga</div>
+<!---- REFERENCE ---->
+<div class="price--reference">
+  <div class="pr--eyebrow">Konteks Harga</div>
 
-  <div class="pr-item">
-    <div class="pr-item-label">Nilai pengembangan custom oleh tim profesional berdasarkan kerumitan &amp; kualitas pengerjaan</div>
-    <div class="pr-item-val strike">Rp 62.400.000</div>
+  <div class="pr--item">
+    <div class="pr--item--label">Nilai pengembangan custom oleh tim profesional berdasarkan kerumitan &amp; kualitas pengerjaan</div>
+    <div class="pr--item--val strike">Rp 62.400.000</div>
   </div>
 
-  <div class="pr-item">
-    <div class="pr-item-label">Penghematan vs. HRIS SaaS termurah (Rp 24 juta/tahun) - dalam 3 tahun</div>
-    <div class="pr-item-val gold">Rp 66.000.000</div>
-    <div class="pr-item-val dim">Setelah dikurangi harga final</div>
+  <div class="pr--item">
+    <div class="pr--item--label">Penghematan vs. HRIS SaaS termurah (Rp 24 juta/tahun) -- dalam 3 tahun</div>
+    <div class="pr--item--val gold">Rp 66.000.000</div>
+    <div class="pr--item--val dim">Setelah dikurangi harga final</div>
   </div>
 
-  <div class="pr-item">
-    <div class="pr-item-label">Biaya lisensi &amp; langganan tahunan setelah pembelian</div>
-    <div class="pr-item-val gold">Rp 0</div>
+  <div class="pr--item">
+    <div class="pr--item--label">Biaya lisensi &amp; langganan tahunan setelah pembelian</div>
+    <div class="pr--item--val gold">Rp 0</div>
   </div>
 
-  <div class="pr-item">
-    <div class="pr-item-label">Harga normal Nuvora Systems (tanpa penawaran khusus)</div>
-    <div class="pr-item-val strike">Rp 12.000.000</div>
+  <div class="pr--item">
+    <div class="pr--item--label">Harga normal Nuvora Systems (tanpa penawaran khusus)</div>
+    <div class="pr--item--val strike">Rp 12.000.000</div>
   </div>
 
-  <div class="pr-note">
-    <strong>Mengapa bisa semurah ini?</strong> Nuvora Systems menghargai hubungan jangka panjang di atas margin satu kali. Harga ini bukan refleksi kualitas - ini refleksi kepercayaan.
+  <div class="pr--note">
+    <strong>Mengapa bisa semurah ini?</strong> Nuvora Systems menghargai hubungan jangka panjang di atas margin satu kali. Harga ini bukan refleksi kualitas -- ini refleksi kepercayaan.
   </div>
 </div>
 
-<!-- OFFER -->
-<div class="offer-card">
-  <div class="oc-eyebrow">Penawaran Spesial Nuvora Systems</div>
-  <div class="oc-was">Harga normal: Rp 12.000.000</div>
-  <div class="oc-price"><span class="currency">Rp</span> 6.000.000</div>
-  <div class="oc-badge">🏷 Diskon 50% · Hemat Rp 6 Juta</div>
+<!---- OFFER ---->
+<div class="offer--card">
+  <div class="oc--eyebrow">Penawaran Spesial Nuvora Systems</div>
+  <div class="oc--was">Harga normal: Rp 12.000.000</div>
+  <div class="oc--price"><span class="currency">Rp</span> 6.000.000</div>
+  <div class="oc--badge">🏷 Diskon 50% · Hemat Rp 6 Juta</div>
 
-  <div class="oc-divider"></div>
+  <div class="oc--divider"></div>
 
-  <ul class="oc-feats">
+  <ul class="oc--feats">
     <li>Kode sumber HTML lengkap, siap deploy</li>
     <li>Dokumentasi fitur &amp; panduan penggunaan</li>
     <li>Setup &amp; konfigurasi Firebase (bila diinginkan)</li>
@@ -1430,45 +1430,45 @@ grid-template-columns: 130px 1fr 100px 80px;
     <li>Hak penuh atas aplikasi, data, &amp; kode sumber</li>
   </ul>
 
-  <a href="#" class="oc-cta">Nuvora Systems →</a>
+  <a href="#" class="oc--cta">Nuvora Systems →</a>
 </div>
 ```
 
   </div>
 
-  <!-- GUARANTEES -->
+  <!---- GUARANTEES ---->
 
   <div class="guarantees">
-    <div class="guarantee-item">
-      <span class="guarantee-icon">🏦</span>
-      <div class="guarantee-label">Investasi, Bukan Biaya</div>
-      <div class="guarantee-desc">Harga final setara ~2 bulan langganan HRIS SaaS termurah. Setelah itu, Rp 0 selamanya.</div>
+    <div class="guarantee--item">
+      <span class="guarantee--icon">🏦</span>
+      <div class="guarantee--label">Investasi, Bukan Biaya</div>
+      <div class="guarantee--desc">Harga final setara ~2 bulan langganan HRIS SaaS termurah. Setelah itu, Rp 0 selamanya.</div>
     </div>
-    <div class="guarantee-item">
-      <span class="guarantee-icon">🔒</span>
-      <div class="guarantee-label">Data Milik Anda</div>
-      <div class="guarantee-desc">Tidak ada vendor lock-in. Data tersimpan di akun Firebase atau browser Anda sendiri.</div>
+    <div class="guarantee--item">
+      <span class="guarantee--icon">🔒</span>
+      <div class="guarantee--label">Data Milik Anda</div>
+      <div class="guarantee--desc">Tidak ada vendor lock--in. Data tersimpan di akun Firebase atau browser Anda sendiri.</div>
     </div>
-    <div class="guarantee-item">
-      <span class="guarantee-icon">⚡</span>
-      <div class="guarantee-label">Siap Pakai Hari Ini</div>
-      <div class="guarantee-desc">Bukan prototype. Production-grade, sudah melewati audit kode menyeluruh.</div>
+    <div class="guarantee--item">
+      <span class="guarantee--icon">⚡</span>
+      <div class="guarantee--label">Siap Pakai Hari Ini</div>
+      <div class="guarantee--desc">Bukan prototype. Production--grade, sudah melewati audit kode menyeluruh.</div>
     </div>
   </div>
 
 </div>
 
-</div><!-- /wrapper -->
+</div><!---- /wrapper ---->
 
-<!-- FOOTER -->
+<!---- FOOTER ---->
 
 <div class="footer">
-  <div class="footer-rule">
-    <span class="footer-diamond">◆</span>
+  <div class="footer--rule">
+    <span class="footer--diamond">◆</span>
   </div>
-  <div class="footer-brand">Nuvora <em>Systems</em></div>
-  <div class="footer-sub">Software Development &amp; Digital Solutions</div>
-  <div class="footer-seal">Naruna Contract Monitor · Dokumen Valuasi · Edisi 2026</div>
+  <div class="footer--brand">Nuvora <em>Systems</em></div>
+  <div class="footer--sub">Software Development &amp; Digital Solutions</div>
+  <div class="footer--seal">Naruna Contract Monitor · Dokumen Valuasi · Edisi 2026</div>
 </div>
 
 <script>
@@ -1490,7 +1490,7 @@ grid-template-columns: 130px 1fr 100px 80px;
     });
   }, { threshold: 0.08 });
 
-  document.querySelectorAll('.comp-item, .feature-item, .market-row').forEach(function(el, i){
+  document.querySelectorAll('.comp--item, .feature--item, .market--row').forEach(function(el, i){
     el.style.animationDelay = (i * 55) + 'ms';
     el.style.animationPlayState = 'paused';
     obs.observe(el);
