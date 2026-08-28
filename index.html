@@ -203,7 +203,7 @@ body::after {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 38px;
+  gap: 30px;
   list-style: none;
 }
 
@@ -1371,6 +1371,98 @@ section { padding: 100px 52px; }
   line-height: 1.75;
 }
 
+.proc-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* Jaminan band */
+.guarantee-band {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 64px;
+}
+.guarantee-card {
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-md);
+  padding: 24px 22px;
+  transition: border-color 0.28s, transform 0.28s;
+  backdrop-filter: blur(10px);
+}
+.guarantee-card:hover {
+  border-color: rgba(99, 200, 100, 0.28);
+  transform: translateY(-3px);
+}
+.guarantee-icon { font-size: 22px; margin-bottom: 12px; }
+.guarantee-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.guarantee-desc {
+  font-size: 12.5px;
+  font-weight: 300;
+  color: rgba(240, 246, 255, 0.56);
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════════════════
+   FAQ
+══════════════════════════════════════════════════════ */
+#faq {
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+}
+.faq-header { margin-bottom: 44px; }
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 780px;
+}
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  transition: border-color 0.24s;
+}
+.faq-item[open] { border-color: rgba(99, 200, 100, 0.28); }
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--white);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--green);
+  flex-shrink: 0;
+  transition: transform 0.24s;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-answer {
+  padding: 0 24px 22px;
+  font-size: 13.5px;
+  font-weight: 300;
+  color: rgba(240, 246, 255, 0.6);
+  line-height: 1.8;
+}
+
 /* ══════════════════════════════════════════════════════
    CONTACT
 ══════════════════════════════════════════════════════ */
@@ -1743,6 +1835,7 @@ footer {
 
   .process-grid  { grid-template-columns: repeat(2, 1fr); gap: 36px; }
   .process-grid::before { display: none; }
+  .guarantee-band { grid-template-columns: 1fr; }
 
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
 
@@ -1827,6 +1920,7 @@ footer {
   <a href="#paket"  onclick="closeMob()">Paket &amp; Harga</a>
   <a href="#kenapa" onclick="closeMob()">Mengapa Nuvora</a>
   <a href="#proses" onclick="closeMob()">Proses Kerja</a>
+  <a href="#faq" onclick="closeMob()">FAQ</a>
   <a href="#kontak" onclick="closeMob()" style="color:var(--green)">Hubungi Kami</a>
 </div>
 
@@ -1847,6 +1941,7 @@ footer {
     <li><a href="#paket">Paket &amp; Harga</a></li>
     <li><a href="#kenapa">Mengapa Nuvora</a></li>
     <li><a href="#proses">Proses Kerja</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#kontak" class="nav-cta">Hubungi Kami</a></li>
   </ul>
 
@@ -2328,6 +2423,7 @@ footer {
       Ceritakan bisnis Anda - masalahnya, alur kerjanya, tujuannya.
       Gratis, tanpa komitmen apapun.
     </div>
+    <div class="proc-meta">💬 Via WhatsApp · 15-30 menit</div>
   </div>
   <div class="proc-step reveal reveal-delay-2">
     <div class="proc-num n2">02</div>
@@ -2336,6 +2432,7 @@ footer {
       Anda terima dokumen scope lengkap dan harga pasti sebelum
       proyek dimulai. Tidak ada ambiguitas.
     </div>
+    <div class="proc-meta">📄 Breakdown harga + timeline · DP 50%</div>
   </div>
   <div class="proc-step reveal reveal-delay-3">
     <div class="proc-num n3">03</div>
@@ -2344,6 +2441,7 @@ footer {
       Sistem dibangun. Anda pantau progress dan beri feedback
       langsung - tidak perlu tunggu selesai semua.
     </div>
+    <div class="proc-meta">🔄 Update progress berkala</div>
   </div>
   <div class="proc-step reveal reveal-delay-4">
     <div class="proc-num n4">04</div>
@@ -2352,9 +2450,90 @@ footer {
       Sistem live, Anda terima akses penuh dan panduan penggunaan.
       Plus 2× revisi gratis setelah launch.
     </div>
+    <div class="proc-meta">🔑 Akses penuh + panduan pakai · pelunasan 50%</div>
   </div>
 </div>
 
+<div class="guarantee-band">
+  <div class="guarantee-card reveal reveal-delay-1">
+    <div class="guarantee-icon">🛡️</div>
+    <div class="guarantee-title">2× Revisi Gratis</div>
+    <div class="guarantee-desc">Termasuk di semua paket, aktif setelah sistem launch. Tanpa biaya tambahan.</div>
+  </div>
+  <div class="guarantee-card reveal reveal-delay-2">
+    <div class="guarantee-icon">⏱️</div>
+    <div class="guarantee-title">Garansi Ketepatan Waktu</div>
+    <div class="guarantee-desc">Jika penyelesaian molor karena keterlambatan dari pihak kami, Anda dapat revisi tambahan gratis sebagai kompensasi.</div>
+  </div>
+  <div class="guarantee-card reveal reveal-delay-3">
+    <div class="guarantee-icon">💰</div>
+    <div class="guarantee-title">Harga Pasti di Depan</div>
+    <div class="guarantee-desc">Breakdown biaya lengkap sebelum development dimulai. Tidak ada biaya kejutan di tengah jalan.</div>
+  </div>
+</div>
+
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FAQ
+═══════════════════════════════════════ -->
+
+<section id="faq" aria-label="Pertanyaan umum">
+  <div class="container">
+
+<div class="faq-header reveal">
+  <div class="section-eyebrow">FAQ</div>
+  <h2 class="section-title">Pertanyaan yang Sering Ditanyakan</h2>
+  <p class="section-desc">Belum ketemu jawabannya? Tanya langsung via WhatsApp.</p>
+</div>
+
+<div class="faq-list reveal reveal-delay-1">
+  <details class="faq-item">
+    <summary>Apakah source code sistem jadi milik saya?</summary>
+    <div class="faq-answer">
+      Anda mendapatkan akses penuh untuk memakai sistem sesuai kebutuhan bisnis Anda selamanya.
+      Source code sendiri tetap dipegang Nuvora Systems agar kami bisa terus mendukung
+      maintenance, perbaikan, dan update ke depannya.
+    </div>
+  </details>
+  <details class="faq-item">
+    <summary>Bagaimana skema pembayarannya?</summary>
+    <div class="faq-answer">
+      DP 50% di awal setelah proposal dan scope disepakati, lalu pelunasan 50% sisanya
+      saat sistem sudah live dan siap dipakai.
+    </div>
+  </details>
+  <details class="faq-item">
+    <summary>Bagaimana kalau saya butuh revisi lebih dari 2× yang sudah termasuk?</summary>
+    <div class="faq-answer">
+      Tidak masalah - hubungi kami dan kita bahas dulu detail kebutuhannya. Revisi tambahan
+      di luar jatah gratis akan disesuaikan sesuai kompleksitas permintaan.
+    </div>
+  </details>
+  <details class="faq-item">
+    <summary>Bagaimana kalau pengerjaan molor dari 7 hari kerja?</summary>
+    <div class="faq-answer">
+      Kalau keterlambatan terjadi karena pihak kami, Anda berhak mendapat revisi tambahan
+      gratis sebagai kompensasi.
+    </div>
+  </details>
+  <details class="faq-item">
+    <summary>Apakah hosting dan domain sudah termasuk harga paket?</summary>
+    <div class="faq-answer">
+      Belum. Biaya hosting &amp; domain ditagih terpisah oleh penyedia masing-masing, tapi
+      kami bantu rekomendasikan pilihan yang sesuai kebutuhan dan budget Anda.
+    </div>
+  </details>
+  <details class="faq-item">
+    <summary>Saya belum tahu persis sistem seperti apa yang saya butuhkan, bisa mulai dari mana?</summary>
+    <div class="faq-answer">
+      Mulai dari konsultasi gratis lewat WhatsApp. Ceritakan saja masalah operasional bisnis
+      Anda sehari-hari - kami bantu petakan solusi dan paket yang paling pas.
+    </div>
+  </details>
+</div>
 
   </div>
 </section>
@@ -2476,6 +2655,7 @@ footer {
     <li><a href="#paket">Paket &amp; Harga</a></li>
     <li><a href="#kenapa">Mengapa Nuvora</a></li>
     <li><a href="#proses">Proses Kerja</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#kontak">Hubungi Kami</a></li>
   </ul>
 </nav>
