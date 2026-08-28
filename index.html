@@ -4,9 +4,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Nuvora Systems - Jasa pembuatan aplikasi web custom profesional. Harga transparan mulai Rp 1.500.000. Selesai 7 hari.">
+<meta name="description" content="Nuvora Systems - Jasa pembuatan aplikasi web &amp; sistem custom profesional di Salatiga. Harga transparan mulai Rp 1.500.000, selesai 7 hari kerja, konsultasi gratis via WhatsApp.">
 <meta name="theme-color" content="#010B18">
-<title>Nuvora Systems - Aplikasi Web Custom</title>
+<title>Nuvora Systems - Aplikasi Web Custom Salatiga | Mulai Rp 1,5 Juta</title>
+<link rel="canonical" href="https://nuvora-systems.com/">
+
+<link rel="icon" type="image/png" href="/assets/images/logo.png">
+<link rel="apple-touch-icon" href="/assets/images/logo.png">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="id_ID">
+<meta property="og:url" content="https://nuvora-systems.com/">
+<meta property="og:site_name" content="Nuvora Systems">
+<meta property="og:title" content="Nuvora Systems - Aplikasi Web Custom Salatiga">
+<meta property="og:description" content="Jasa pembuatan aplikasi web &amp; sistem custom profesional. Harga transparan mulai Rp 1.500.000, selesai 7 hari kerja.">
+<meta property="og:image" content="https://nuvora-systems.com/assets/images/hero-bg.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nuvora Systems - Aplikasi Web Custom Salatiga">
+<meta name="twitter:description" content="Jasa pembuatan aplikasi web &amp; sistem custom profesional. Harga transparan mulai Rp 1.500.000, selesai 7 hari kerja.">
+<meta name="twitter:image" content="https://nuvora-systems.com/assets/images/hero-bg.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Nuvora Systems",
+  "image": "https://nuvora-systems.com/assets/images/logo.png",
+  "description": "Jasa pembuatan aplikasi web dan sistem custom profesional. Harga transparan mulai Rp 1.500.000, selesai dalam 7 hari kerja.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Perum Gunungsari Asri Blok D3, Tingkir",
+    "addressLocality": "Salatiga",
+    "addressRegion": "Jawa Tengah",
+    "addressCountry": "ID"
+  },
+  "telephone": "+6281460348354",
+  "url": "https://nuvora-systems.com/",
+  "priceRange": "Rp 1.500.000 - Rp 12.000.000"
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -302,7 +339,7 @@ body::after {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/C52772C0-2D67-49A8-956E-E96CB3019BC4.png');
+  background-image: url('/assets/images/hero-bg.png');
   background-size: cover;
   background-position: center 60%;
   background-repeat: no-repeat;
@@ -1347,7 +1384,7 @@ section { padding: 100px 52px; }
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/C52772C0-2D67-49A8-956E-E96CB3019BC4.png');
+  background-image: url('/assets/images/hero-bg.png');
   background-size: cover;
   background-position: center top;
   opacity: 0.07;
@@ -1505,6 +1542,18 @@ section { padding: 100px 52px; }
 }
 .form-group select option { background: #071828; color: var(--white); }
 .form-group textarea      { resize: vertical; min-height: 90px; }
+
+.form-group input.invalid,
+.form-group select.invalid {
+  border-color: #F87171;
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12);
+}
+.form-error {
+  font-size: 11px;
+  color: #F87171;
+  display: none;
+}
+.form-error.show { display: block; }
 
 .form-submit-wrap { margin-top: 8px; }
 
@@ -1863,8 +1912,10 @@ footer {
   <div class="hero-logo-wrap">
     <img
       class="hero-logo-img"
-      src="https://raw.githubusercontent.com/dewatalaptop/testwebsite1/refs/heads/main/assets/images/B54090E0-B828-4D5E-957A-27AD70653803.png"
+      src="/assets/images/logo.png"
       alt="Nuvora Systems logo"
+      width="260"
+      height="260"
       loading="eager"
     >
   </div>
@@ -2361,17 +2412,18 @@ footer {
 
     <div class="form-group">
       <label for="fName">Nama Anda</label>
-      <input type="text" id="fName" placeholder="Budi Santoso" autocomplete="name">
+      <input type="text" id="fName" name="name" placeholder="Budi Santoso" autocomplete="name">
+      <div class="form-error" id="fNameErr">Mohon isi nama Anda.</div>
     </div>
 
     <div class="form-group">
       <label for="fBiz">Nama Bisnis</label>
-      <input type="text" id="fBiz" placeholder="Toko Makmur Jaya" autocomplete="organization">
+      <input type="text" id="fBiz" name="business" placeholder="Toko Makmur Jaya" autocomplete="organization">
     </div>
 
     <div class="form-group">
       <label for="fPkg">Paket yang Diminati</label>
-      <select id="fPkg">
+      <select id="fPkg" name="package">
         <option value="" disabled selected>Pilih paket...</option>
         <option value="Paket 1 - Tampil Profesional · Rp 1.500.000">Paket 1 - Tampil Profesional · Rp 1.500.000</option>
         <option value="Paket 2 - Kelola Lebih Mudah · Rp 3.500.000">Paket 2 - Kelola Lebih Mudah · Rp 3.500.000</option>
@@ -2379,6 +2431,7 @@ footer {
         <option value="Paket 4 - Enterprise Custom · Rp 12.000.000">Paket 4 - Enterprise Custom · Rp 12.000.000</option>
         <option value="Belum yakin - minta konsultasi gratis">Belum yakin - minta konsultasi gratis</option>
       </select>
+      <div class="form-error" id="fPkgErr">Mohon pilih paket yang diminati.</div>
     </div>
 
     <div class="form-submit-wrap">
@@ -2445,7 +2498,7 @@ footer {
   </div>
 
   <div class="footer-bottom">
-    <div class="footer-copy">© 2025 Nuvora Systems. Semua hak dilindungi.</div>
+    <div class="footer-copy">© <span id="copyYear">2025</span> Nuvora Systems. Semua hak dilindungi.</div>
     <div class="footer-made">Salatiga, Indonesia <span>·</span> Custom Web Apps</div>
   </div>
 </footer>
@@ -2462,6 +2515,9 @@ aria-label="Chat WhatsApp dengan Nuvora Systems">
 </a>
 
 <script>
+/* ── FOOTER YEAR ── */
+document.getElementById('copyYear').textContent = new Date().getFullYear();
+
 /* ── NAV SCROLL ── */
 (function() {
   var nav = document.getElementById('mainNav');
@@ -2519,18 +2575,39 @@ document.addEventListener('keydown', function(e) {
 
 /* ── WHATSAPP FORM ── */
 function sendWA() {
-  var name = document.getElementById('fName').value.trim();
+  var nameEl = document.getElementById('fName');
+  var pkgEl  = document.getElementById('fPkg');
+  var name = nameEl.value.trim();
   var biz  = document.getElementById('fBiz').value.trim();
-  var pkg  = document.getElementById('fPkg').value;
+  var pkg  = pkgEl.value;
+
+  var nameErr = document.getElementById('fNameErr');
+  var pkgErr  = document.getElementById('fPkgErr');
+  var valid = true;
+  var firstInvalid = null;
 
   if (!name) {
-    document.getElementById('fName').focus();
-    alert('Mohon isi nama Anda.');
-    return;
+    nameEl.classList.add('invalid');
+    nameErr.classList.add('show');
+    valid = false;
+    firstInvalid = firstInvalid || nameEl;
+  } else {
+    nameEl.classList.remove('invalid');
+    nameErr.classList.remove('show');
   }
+
   if (!pkg) {
-    document.getElementById('fPkg').focus();
-    alert('Mohon pilih paket yang diminati.');
+    pkgEl.classList.add('invalid');
+    pkgErr.classList.add('show');
+    valid = false;
+    firstInvalid = firstInvalid || pkgEl;
+  } else {
+    pkgEl.classList.remove('invalid');
+    pkgErr.classList.remove('show');
+  }
+
+  if (!valid) {
+    firstInvalid.focus();
     return;
   }
 
@@ -2546,6 +2623,15 @@ function sendWA() {
     'noopener'
   );
 }
+
+document.getElementById('fName').addEventListener('input', function() {
+  this.classList.remove('invalid');
+  document.getElementById('fNameErr').classList.remove('show');
+});
+document.getElementById('fPkg').addEventListener('change', function() {
+  this.classList.remove('invalid');
+  document.getElementById('fPkgErr').classList.remove('show');
+});
 
 /* ── SMOOTH ANCHOR SCROLL ── */
 document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
