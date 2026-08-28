@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Kebijakan Privasi Nuvora Systems - bagaimana kami mengumpulkan, menggunakan, dan melindungi data yang Anda berikan melalui formulir kontak.">
+<meta name="theme-color" content="#010B18">
+<title>Kebijakan Privasi - Nuvora Systems</title>
+<link rel="canonical" href="https://nuvora-systems.com/kebijakan-privasi.html">
+<meta name="robots" content="noindex, follow">
+
+<link rel="icon" type="image/png" href="/assets/images/favicon-64.png">
+<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy:         #010B18;
+  --navy2:        #030F20;
+  --card:         rgba(7, 24, 40, 0.78);
+  --border:       rgba(99, 200, 100, 0.13);
+  --border-soft:  rgba(255, 255, 255, 0.06);
+  --green:        #63C864;
+  --blue:         #2E7DD6;
+  --white:        #F0F6FF;
+  --muted:        #6B8BA4;
+  --muted2:       #3D5A72;
+  --r-sm:         8px;
+  --r-md:         14px;
+  --r-lg:         20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: var(--green); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 52px;
+  background: rgba(1, 11, 24, 0.92);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo-mark {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, #2E7DD6 0%, #1558C7 50%, #63C864 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; font-weight: 800; color: #fff; flex-shrink: 0;
+}
+.nav-logo-name { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; color: var(--white); }
+.nav-logo-name span { color: var(--green); }
+.nav-back {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-back:hover { color: var(--white); }
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 24px 100px;
+}
+
+.doc-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.doc-updated {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 44px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+  padding: 32px 34px;
+  margin-bottom: 22px;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+p, li {
+  font-size: 14.5px;
+  font-weight: 300;
+  color: rgba(240, 246, 255, 0.72);
+  line-height: 1.8;
+}
+p + p { margin-top: 12px; }
+ul { margin: 12px 0 0 20px; }
+li { margin-bottom: 8px; }
+li b, p b { color: rgba(240, 246, 255, 0.92); font-weight: 600; }
+
+.contact-box {
+  margin-top: 8px;
+  padding: 18px 20px;
+  background: rgba(99, 200, 100, 0.05);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  font-size: 13.5px;
+  color: rgba(240, 246, 255, 0.7);
+  line-height: 1.7;
+}
+.contact-box b { color: var(--green); }
+
+footer {
+  padding: 32px 52px;
+  border-top: 1px solid var(--border-soft);
+  text-align: center;
+}
+.footer-copy { font-size: 11.5px; color: var(--muted2); }
+
+@media (max-width: 640px) {
+  .nav { padding: 0 20px; }
+  .nav-logo-name { display: none; }
+  .wrap { padding: 40px 18px 72px; }
+  .card { padding: 26px 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Navigasi">
+  <a href="/" class="nav-logo" aria-label="Nuvora Systems">
+    <div class="nav-logo-mark">N</div>
+    <div class="nav-logo-name">Nu<span>vora</span></div>
+  </a>
+  <a href="/" class="nav-back">← Kembali ke Beranda</a>
+</nav>
+
+<div class="wrap">
+  <div class="doc-eyebrow">Legal</div>
+  <h1>Kebijakan Privasi</h1>
+  <div class="doc-updated">Berlaku sejak 28 Agustus 2026 · Terakhir diperbarui 28 Agustus 2026</div>
+
+  <div class="card">
+    <h2>1. Ringkasan Singkat</h2>
+    <p>
+      Nuvora Systems ("kami") menghargai privasi pengunjung situs <b>nuvora-systems.com</b>.
+      Halaman ini menjelaskan data apa saja yang kami kumpulkan lewat situs ini, untuk apa
+      digunakan, dan bagaimana Anda bisa mengontrolnya. Prinsip kami sederhana: kami hanya
+      mengumpulkan data yang Anda berikan sendiri lewat formulir kontak, dan tidak
+      menjualnya ke pihak manapun.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>2. Data yang Kami Kumpulkan</h2>
+    <p>Situs ini memiliki satu formulir kontak di bagian "Hubungi Kami" yang meminta:</p>
+    <ul>
+      <li><b>Nama Anda</b> - wajib diisi.</li>
+      <li><b>Nama bisnis</b> - opsional.</li>
+      <li><b>Paket yang diminati</b> - wajib dipilih.</li>
+    </ul>
+    <p>
+      Kami <b>tidak</b> meminta email, alamat rumah, data kartu pembayaran, atau data
+      sensitif lain lewat situs ini. Kami juga <b>tidak</b> memasang cookie pelacakan
+      atau alat analitik pihak ketiga (seperti Google Analytics atau Meta Pixel) di situs ini.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>3. Bagaimana Data Diproses</h2>
+    <p>
+      Saat Anda menekan tombol "Kirim via WhatsApp", isian formulir <b>tidak dikirim ke
+      server atau database kami</b> — situs ini murni halaman statis tanpa backend. Data
+      yang Anda isi hanya disusun menjadi teks pesan di perangkat Anda sendiri, lalu
+      membuka aplikasi WhatsApp untuk Anda kirim langsung ke nomor bisnis kami.
+    </p>
+    <p>
+      Dengan kata lain: satu-satunya tempat data itu tersimpan adalah riwayat percakapan
+      WhatsApp antara Anda dan Nuvora Systems, sama seperti chat WhatsApp biasa.
+      Penggunaan WhatsApp tunduk pada kebijakan privasi WhatsApp/Meta sendiri.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>4. Sumber Daya Pihak Ketiga</h2>
+    <p>
+      Situs ini memuat huruf (font) dari <b>Google Fonts</b> (fonts.googleapis.com,
+      fonts.gstatic.com). Saat halaman dimuat, browser Anda melakukan koneksi ke server
+      Google untuk mengambil font tersebut, yang secara teknis membuat alamat IP Anda
+      terlihat oleh Google sesuai
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">kebijakan privasi Google</a>.
+      Kami tidak menerima data apapun dari proses ini.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>5. Untuk Apa Data Digunakan</h2>
+    <p>Data yang Anda kirim lewat WhatsApp kami gunakan semata untuk:</p>
+    <ul>
+      <li>Menindaklanjuti pertanyaan atau permintaan konsultasi Anda.</li>
+      <li>Menyusun penawaran/proposal sesuai paket yang Anda minati.</li>
+      <li>Komunikasi terkait proyek jika Anda menjadi klien kami.</li>
+    </ul>
+    <p>Kami tidak menggunakan data Anda untuk mengirim spam atau menjualnya ke pihak ketiga.</p>
+  </div>
+
+  <div class="card">
+    <h2>6. Hak Anda</h2>
+    <p>
+      Sesuai UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi, Anda berhak meminta
+      akses, koreksi, atau penghapusan data pribadi yang pernah Anda kirimkan kepada kami
+      lewat WhatsApp. Karena data hanya tersimpan di riwayat chat, permintaan ini bisa
+      langsung kami proses dengan menghapus percakapan terkait atas permintaan Anda.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>7. Perubahan Kebijakan</h2>
+    <p>
+      Kebijakan ini dapat kami perbarui sewaktu-waktu mengikuti perubahan layanan atau
+      ketentuan hukum. Tanggal "terakhir diperbarui" di atas akan selalu mencerminkan
+      versi terbaru.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>8. Hubungi Kami</h2>
+    <p>Pertanyaan seputar privasi atau permintaan terkait data pribadi Anda dapat disampaikan ke:</p>
+    <div class="contact-box">
+      <b>Nuvora Systems</b><br>
+      WhatsApp: 0814-6034-8354<br>
+      Alamat: Perum Gunungsari Asri Blok D3, Tingkir, Salatiga
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-copy">© <span id="copyYear">2026</span> Nuvora Systems. Semua hak dilindungi.</div>
+</footer>
+
+<script>
+document.getElementById('copyYear').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
