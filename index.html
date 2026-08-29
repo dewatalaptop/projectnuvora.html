@@ -1685,7 +1685,7 @@ section { padding: 100px 52px; scroll-margin-top: 68px; }
    FOOTER
 ══════════════════════════════════════════════════════ */
 footer {
-  padding: 48px 52px 36px;
+  padding: 48px 52px 108px; /* extra bottom clearance so the fixed WA button never covers footer text */
   border-top: 1px solid var(--border-soft);
   background: var(--navy);
   position: relative;
@@ -1870,13 +1870,21 @@ footer {
 }
 
 /* ══════════════════════════════════════════════════════
+   RESPONSIVE - NAV COLLAPSE 900px
+   (switches to hamburger before the full nav-links row
+   runs out of room and wraps/overlaps)
+══════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+}
+
+/* ══════════════════════════════════════════════════════
    RESPONSIVE - MOBILE 768px
 ══════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   /* Nav */
   .nav { padding: 0 20px; height: 60px; }
-  .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
 
   /* Sections */
   section { padding: 72px 20px; scroll-margin-top: 60px; }
