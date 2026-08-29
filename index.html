@@ -253,13 +253,17 @@ body::after {
 .nav-hamburger {
   display: none;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 5px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 6px;
   border-radius: 8px;
   transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
 }
 .nav-hamburger:hover { background: rgba(255,255,255,0.06); }
 .nav-hamburger span {
@@ -313,13 +317,14 @@ body::after {
   border-radius: 8px;
   color: var(--white);
   font-size: 20px;
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0.7;
   transition: opacity 0.2s, background 0.2s;
+  -webkit-tap-highlight-color: transparent;
 }
 .mobile-close:hover { opacity: 1; background: rgba(255,255,255,0.1); }
 
@@ -585,7 +590,8 @@ body::after {
 /* ══════════════════════════════════════════════════════
    SECTION BASE
 ══════════════════════════════════════════════════════ */
-section { padding: 100px 52px; }
+section { padding: 100px 52px; scroll-margin-top: 68px; }
+#hero { scroll-margin-top: 0; }
 
 .container {
   max-width: 1200px;
@@ -1027,6 +1033,24 @@ section { padding: 100px 52px; }
   text-transform: uppercase;
   color: var(--muted);
   background: rgba(255,255,255,0.02);
+}
+
+.compare-hint {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  background: rgba(99, 200, 100, 0.04);
+  border-bottom: 1px solid var(--border-soft);
+}
+.compare-hint svg { flex-shrink: 0; animation: hintSlide 1.6s ease-in-out infinite; }
+@keyframes hintSlide {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50%       { transform: translateX(4px); opacity: 1; }
 }
 
 .compare-table {
@@ -1855,7 +1879,7 @@ footer {
   .nav-hamburger { display: flex; }
 
   /* Sections */
-  section { padding: 72px 20px; }
+  section { padding: 72px 20px; scroll-margin-top: 60px; }
   .hero   { padding: 80px 20px 56px; min-height: 100svh; }
 
   /* Hero */
@@ -1882,16 +1906,29 @@ footer {
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   .contact-form { padding: 26px 20px; }
 
-  /* Footer */
-  footer { padding: 40px 20px 28px; }
+  /* Footer - extra bottom padding so the fixed WA button never covers footer links */
+  footer { padding: 40px 20px 96px; }
   .footer-bottom { flex-direction: column; text-align: center; }
 
   /* Compare */
-  .compare-wrap { overflow-x: auto; }
+  .compare-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .compare-table { min-width: 560px; }
+  .compare-hint { display: flex; }
 
   /* WA FAB */
-  .wa-fab { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+  .wa-fab {
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    right: 20px;
+    width: 52px;
+    height: 52px;
+  }
+
+  /* Forms - prevent iOS auto-zoom on focus (needs >=16px) */
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px;
+  }
 
   /* Section titles */
   .section-title { font-size: clamp(24px, 7vw, 36px); }
@@ -1929,7 +1966,7 @@ footer {
 ═══════════════════════════════════════ -->
 
 <nav class="nav" id="mainNav" role="navigation" aria-label="Navigasi utama">
-  <a href="#" class="nav-logo" aria-label="Nuvora Systems">
+  <a href="#hero" class="nav-logo" aria-label="Nuvora Systems - kembali ke atas">
     <div class="nav-logo-mark">N</div>
     <div class="nav-logo-text">
       <div class="nav-logo-name">Nu<span>vora</span></div>
@@ -2156,6 +2193,12 @@ footer {
 <!-- COMPARE TABLE -->
 <div class="compare-wrap reveal">
   <div class="compare-head">Perbandingan Paket - Berdasarkan Kebutuhan Bisnis Anda</div>
+  <div class="compare-hint">
+    Geser untuk lihat semua paket
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
   <table class="compare-table" role="table" aria-label="Perbandingan paket">
     <thead>
       <tr>
@@ -2819,11 +2862,13 @@ document.getElementById('fPkg').addEventListener('change', function() {
 
 /* ── SMOOTH ANCHOR SCROLL ── */
 document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+  var href = anchor.getAttribute('href');
+  if (!href || href.length < 2) return; /* skip bare "#" */
   anchor.addEventListener('click', function(e) {
-    var target = document.querySelector(this.getAttribute('href'));
+    var target = document.querySelector(href);
     if (target) {
       e.preventDefault();
-      var offset = 68; /* nav height */
+      var offset = document.getElementById('mainNav').offsetHeight;
       var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
       window.scrollTo({ top: top, behavior: 'smooth' });
     }
