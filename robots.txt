@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /arisankutest.html
+Disallow: /naruna-hr-invoice.html
 
 Sitemap: https://nuvora-systems.com/sitemap.xml
