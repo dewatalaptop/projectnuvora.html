@@ -63,6 +63,22 @@
   "mainEntity": [
     {
       "@type": "Question",
+      "name": "Bagaimana kalau setelah konsultasi saya tidak jadi lanjut?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tidak ada tagihan apa pun. Konsultasi gratis dan Anda baru memutuskan setelah menerima rancangan serta estimasi biaya tertulis - tanpa kewajiban melanjutkan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Berapa lama sampai saya dihubungi setelah chat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kami membalas dalam 24 jam kerja. Makin lengkap cerita masalah Anda di pesan pertama, makin cepat rancangan dan biayanya bisa kami siapkan."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Apakah source code sistem jadi milik saya?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -2199,6 +2215,97 @@ footer {
   color: var(--white);
 }
 #kontak .form-group select option { background: #FFFFFF; color: var(--white); }
+
+/* ══════════════════════════════════════════════════════
+   KONVERSI: hero, masalah, bukti, CTA mobile (2026-10)
+══════════════════════════════════════════════════════ */
+.btn-wa { padding: 17px 30px; font-size: 15px; }
+.btn-wa svg { flex-shrink: 0; }
+.hero-actions { margin-bottom: 26px; }
+.hero-sub b { color: var(--white); font-weight: 600; }
+.hero-trust {
+  list-style: none; display: flex; flex-wrap: wrap; gap: 8px 22px;
+  font-size: 13px; font-weight: 500; color: rgba(var(--ink-rgb), 0.78);
+}
+.hero-trust li::before { content: '✓'; color: var(--green); font-weight: 800; margin-right: 7px; }
+.hero { min-height: 92vh; }
+.hero-h1 { font-size: clamp(32px, 3.9vw, 52px); }
+.hero-h1 em { white-space: nowrap; }
+@media (max-width: 768px) { .hero-h1 { font-size: clamp(30px, 8vw, 42px); } }
+
+#masalah, #bukti { --card: #FFFFFF; --card2: #F7FAFA; --white: #0B1521; --muted: #4E6270; --muted2: #7C8FA0; --border-soft: rgba(11,21,33,0.08); --ink-rgb: 11, 21, 33; }
+#masalah { background: #F4F8F7; padding-bottom: 72px; }
+#bukti   { background: #EDF3F4; padding-top: 72px; padding-bottom: 80px; }
+.pain-header { text-align: center; margin-bottom: 44px; }
+.pain-header .section-eyebrow { justify-content: center; }
+.pain-header .section-desc { margin: 0 auto; max-width: 560px; }
+.pain-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.pain-card {
+  display: flex; flex-direction: column; gap: 8px; padding: 24px 22px;
+  background: #fff; border: 1px solid var(--border-soft); border-radius: var(--r-md);
+  box-shadow: 0 2px 10px rgba(11,21,33,0.04); transition: transform .22s, box-shadow .22s, border-color .22s;
+}
+.pain-card:hover { transform: translateY(-4px); border-color: rgba(76,175,80,0.55); box-shadow: 0 14px 34px rgba(11,21,33,0.1); }
+.pain-ic { font-size: 28px; line-height: 1; margin-bottom: 4px; }
+.pain-t { font-size: 15.5px; font-weight: 700; line-height: 1.35; color: #0B1521; }
+.pain-d { font-size: 13px; line-height: 1.65; color: #4E6270; flex: 1; }
+.pain-go { font-size: 13px; font-weight: 700; color: #2f8a33; margin-top: 6px; }
+.pain-cost { text-align: center; max-width: 640px; margin: 40px auto 24px; font-size: 15px; line-height: 1.7; color: #33485a; }
+.pain-more { text-align: center; margin-top: 8px; }
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.proof-card { background: #fff; border: 1px solid var(--border-soft); border-radius: var(--r-md); padding: 28px 26px; box-shadow: 0 2px 10px rgba(11,21,33,0.04); }
+.proof-ic { font-size: 30px; margin-bottom: 12px; }
+.proof-t { font-size: 16px; font-weight: 700; color: #0B1521; margin-bottom: 8px; line-height: 1.35; }
+.proof-d { font-size: 13.5px; line-height: 1.7; color: #4E6270; }
+.btn-ghost-dark {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 34px; padding: 14px 26px;
+  border: 1.5px solid #2f8a33; border-radius: var(--r-sm); color: #1f6b23; font-weight: 700; font-size: 14px;
+  background: transparent; transition: background .2s;
+}
+.btn-ghost-dark:hover { background: rgba(76,175,80,0.1); }
+.price-clear { margin-top: 14px; font-size: 14px; color: #33485a; }
+.price-clear b { color: #0B1521; }
+.next-steps { list-style: none; counter-reset: n; margin: 26px 0 28px; display: grid; gap: 14px; }
+.next-steps li { counter-increment: n; position: relative; padding-left: 44px; font-size: 14px; line-height: 1.6; color: #33485a; }
+.next-steps li::before {
+  content: counter(n); position: absolute; left: 0; top: -2px; width: 30px; height: 30px; border-radius: 50%;
+  background: #63C864; color: #010B18; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center;
+}
+.next-steps b { color: #0B1521; }
+.form-group .opt { font-weight: 400; color: #7C8FA0; text-transform: none; letter-spacing: 0; }
+#kontak .form-group textarea { width: 100%; font-family: inherit; font-size: 14px; padding: 13px 14px; border-radius: var(--r-sm); border: 1px solid rgba(11,21,33,0.14); resize: vertical; }
+
+.mob-cta { display: none; }
+@media (max-width: 1100px) {
+  .hero-right { display: none; }
+  .hero { min-height: auto; padding-top: 104px; }
+  .pain-grid { grid-template-columns: repeat(2, 1fr); }
+  .proof-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .hero { padding: 92px 20px 44px; }
+  .hero-trust { justify-content: center; gap: 6px 16px; font-size: 12.5px; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .pain-card { padding: 20px; }
+  #masalah, #bukti { padding-left: 20px; padding-right: 20px; }
+  .wa-fab { display: none; }
+  .mob-cta {
+    display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 198;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(1,11,24,0.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(99,200,100,0.25);
+    transform: translateY(110%); transition: transform .3s ease;
+  }
+  .mob-cta.show { transform: none; }
+  .mob-cta a {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    background: var(--green); color: #010B18; border-radius: 12px; padding: 12px 16px;
+    font-weight: 800; font-size: 15px; line-height: 1.2; box-shadow: 0 0 28px var(--green-glow);
+  }
+  .mob-cta small { display: block; font-weight: 500; font-size: 11px; opacity: .78; margin-top: 2px; }
+  footer { padding-bottom: 110px; }
+}
+@media (prefers-reduced-motion: reduce) { .mob-cta { transition: none; } .pain-card { transition: none; } }
 </style>
 
 </head>
@@ -2214,7 +2321,7 @@ footer {
   <a href="#kenapa" onclick="closeMob()">Mengapa Nuvora</a>
   <a href="#proses" onclick="closeMob()">Proses Kerja</a>
   <a href="#faq" onclick="closeMob()">FAQ</a>
-  <a href="#kontak" onclick="closeMob()" style="color:var(--green)">Hubungi Kami</a>
+  <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20konsultasi%20gratis" target="_blank" rel="noopener" onclick="closeMob()" style="color:var(--green)" data-cta="menu">Chat Gratis di WhatsApp</a>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -2235,7 +2342,7 @@ footer {
     <li><a href="#kenapa">Mengapa Nuvora</a></li>
     <li><a href="#proses">Proses Kerja</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#kontak" class="nav-cta">Hubungi Kami</a></li>
+    <li><a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20konsultasi%20gratis" target="_blank" rel="noopener" class="nav-cta" data-cta="nav">Chat Gratis</a></li>
   </ul>
 
   <button class="nav-hamburger" id="menuOpen" aria-label="Buka menu" aria-expanded="false">
@@ -2253,46 +2360,34 @@ footer {
   <div class="hero-inner">
     <!-- Left content -->
     <div class="hero-left">
-      <div class="hero-eyebrow">Otomatisasi Bisnis Custom - Untuk UMKM Se-Indonesia</div>
-
+      <div class="hero-eyebrow">Software custom untuk UMKM &middot; mulai Rp 50.000/bulan</div>
 
   <h1 class="hero-h1">
-    Otomatisasi Bisnis<br>
-    yang <em>Benar-benar<br>Bekerja</em> untuk Anda
+    Berhenti Catat Manual.<br>
+    Bisnis Anda <em>Jalan Sendiri</em><br>
+    dalam 3 Hari.
   </h1>
 
   <p class="hero-sub">
-    Mulai Rp 50.000/bulan untuk software custom khusus bisnis Anda.<br>
-    Siap dalam 3 hari kerja.<br>
-    Tim kami yang menghubungi Anda untuk konsultasi gratis - tanpa biaya tambahan.
+    Kasir, stok, laporan, reservasi &mdash; dibuat khusus untuk cara kerja bisnis Anda, bukan template.
+    Ceritakan masalahnya lewat WhatsApp; kami kirim rancangan dan biaya yang jelas
+    <b>sebelum Anda membayar apa pun</b>.
   </p>
 
   <div class="hero-actions">
-    <a href="#paket" class="btn-primary">
-      Lihat Paket Layanan
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20konsultasi%20gratis" target="_blank" rel="noopener" class="btn-primary btn-wa" data-cta="hero">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat Gratis di WhatsApp
     </a>
-    <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20konsultasi%20gratis" target="_blank" rel="noopener" class="btn-ghost">
-      Konsultasi Gratis
-    </a>
+    <a href="#paket" class="btn-ghost">Lihat paket &amp; harga &darr;</a>
   </div>
 
-  <div class="hero-stats">
-    <div class="stat-item">
-      <div class="stat-num"><b>3</b> hari</div>
-      <div class="stat-label">Waktu Pengerjaan</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num"><b>100%</b></div>
-      <div class="stat-label">Custom, Bukan Template</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num"><b>2×</b></div>
-      <div class="stat-label">Revisi Gratis</div>
-    </div>
-  </div>
+  <ul class="hero-trust" role="list">
+    <li>Konsultasi gratis</li>
+    <li>Tanpa komitmen</li>
+    <li>Dibalas &le; 24 jam kerja</li>
+    <li>2&times; revisi gratis</li>
+  </ul>
 </div>
 
 <!-- Right - Logo -->
@@ -2314,6 +2409,80 @@ footer {
 </section>
 
 <!-- ═══════════════════════════════════════
+     MASALAH — pengunjung mengenali dirinya
+═══════════════════════════════════════ -->
+
+<section id="masalah" aria-label="Masalah yang kami selesaikan">
+  <div class="container">
+    <div class="pain-header reveal">
+      <div class="section-eyebrow">Kenali Masalahnya</div>
+      <h2 class="section-title">Mana yang Paling Mirip dengan Bisnis Anda?</h2>
+      <p class="section-desc">Pilih satu &mdash; WhatsApp terbuka dengan pesan yang sudah terisi. Tinggal kirim.</p>
+    </div>
+    <div class="pain-grid">
+    <a class="pain-card reveal" href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20masih%20mencatat%20manual%20(buku%2Fgrup%20WA)%20dan%20ingin%20dibuatkan%20sistem%20yang%20rapi." target="_blank" rel="noopener" data-cta="pain">
+      <div class="pain-ic" aria-hidden="true">📒</div>
+      <div class="pain-t">Masih catat di buku & grup WhatsApp</div>
+      <div class="pain-d">Rekap tiap malam, angka sering tidak cocok, data tercecer.</div>
+      <div class="pain-go">Bahas masalah ini &rarr;</div>
+    </a>
+    <a class="pain-card reveal" href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20bisnis%20saya%20belum%20punya%20website%20dan%20saya%20ingin%20mudah%20ditemukan%20pelanggan." target="_blank" rel="noopener" data-cta="pain">
+      <div class="pain-ic" aria-hidden="true">🌐</div>
+      <div class="pain-t">Belum punya website, pelanggan susah menemukan</div>
+      <div class="pain-d">Orang mencari di Google, tapi yang muncul justru kompetitor.</div>
+      <div class="pain-go">Bahas masalah ini &rarr;</div>
+    </a>
+    <a class="pain-card reveal" href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20punya%20beberapa%20karyawan%2Foutlet%20dan%20ingin%20memantau%20laporan%20secara%20real-time." target="_blank" rel="noopener" data-cta="pain">
+      <div class="pain-ic" aria-hidden="true">👥</div>
+      <div class="pain-t">Banyak karyawan atau outlet, sulit memantau</div>
+      <div class="pain-d">Tidak tahu omzet hari ini sebelum ada yang melapor.</div>
+      <div class="pain-go">Bahas masalah ini &rarr;</div>
+    </a>
+    <a class="pain-card reveal" href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20proses%20bisnis%20saya%20cukup%20rumit%20dan%20butuh%20sistem%20yang%20dibuat%20khusus." target="_blank" rel="noopener" data-cta="pain">
+      <div class="pain-ic" aria-hidden="true">🧩</div>
+      <div class="pain-t">Prosesnya rumit, tidak ada aplikasi yang pas</div>
+      <div class="pain-d">Aplikasi jadi di pasaran memaksa Anda mengikuti cara mereka.</div>
+      <div class="pain-go">Bahas masalah ini &rarr;</div>
+    </a>
+    </div>
+    <p class="pain-cost reveal">Setiap hari menunda berarti satu hari lagi rekap manual, angka yang meleset, dan keputusan berdasarkan perkiraan.</p>
+    <div class="pain-more reveal">
+      <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20cerita%20masalah%20bisnis%20saya" target="_blank" rel="noopener" class="btn-primary btn-wa" data-cta="pain-more"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Tidak ada yang cocok? Ceritakan saja</a>
+    </div>
+  </div>
+</section>
+
+<section id="bukti" aria-label="Sistem yang sudah berjalan">
+  <div class="container">
+    <div class="pain-header reveal">
+      <div class="section-eyebrow">Sudah Berjalan Nyata</div>
+      <h2 class="section-title">Bukan Janji. Sistemnya Dipakai Setiap Hari.</h2>
+      <p class="section-desc">Contoh sistem yang kami bangun dan kini beroperasi harian di bisnis nyata. Nama klien disamarkan demi privasi.</p>
+    </div>
+    <div class="proof-grid">
+    <div class="proof-card reveal">
+      <div class="proof-ic" aria-hidden="true">🧾</div>
+      <div class="proof-t">Laporan kasir harian, banyak outlet</div>
+      <div class="proof-d">Kasir mengisi laporan dari HP di tiap outlet. Pemilik melihat rekap, selisih, dan stok otomatis &mdash; tanpa menunggu rekapan manual.</div>
+    </div>
+    <div class="proof-card reveal">
+      <div class="proof-ic" aria-hidden="true">🛒</div>
+      <div class="proof-t">Pemesanan belanja bahan baku</div>
+      <div class="proof-d">Outlet memesan lewat aplikasi dengan batas jam (cut-off), pesanan susulan, dan rekap per pemasok yang langsung siap dipakai.</div>
+    </div>
+    <div class="proof-card reveal">
+      <div class="proof-ic" aria-hidden="true">📅</div>
+      <div class="proof-t">Reservasi online dengan DP otomatis</div>
+      <div class="proof-d">Pelanggan memesan sendiri; kapasitas dan DP dihitung sistem, jadi tidak ada lagi pesanan dobel atau salah hitung.</div>
+    </div>
+    </div>
+    <div class="pain-more reveal">
+      <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20lihat%20contoh%2Fdemo%20sistemnya" target="_blank" rel="noopener" class="btn-ghost-dark" data-cta="proof">Minta lihat demo singkat via WhatsApp &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
      PAKET & HARGA
 ═══════════════════════════════════════ -->
 
@@ -2326,10 +2495,10 @@ footer {
   <h2 class="section-title">Bisnis Anda Ada di Tahap Mana?</h2>
   <p class="section-desc">Tidak perlu tahu teknologinya. Kenali masalah Anda - pilih paketnya.</p>
   <div class="price-anchor">💰 <b>Mulai Rp 50.000</b> per bulan untuk software custom khusus untuk bisnis Anda</div>
+  <p class="price-clear">Biaya pasti tertulis di proposal <b>sebelum proyek dimulai</b>. Tidak cocok? Tidak ada tagihan apa pun.</p>
   <div class="pkg-note" style="margin-top:20px; display:block;">
-    Semua paket termasuk <b>2× revisi gratis</b> &nbsp;·&nbsp;
-    Konsultasi gratis, tim kami yang menghubungi Anda - <b>tanpa biaya tambahan</b> &nbsp;·&nbsp;
-    Hosting &amp; domain <b>tidak termasuk</b> - ditagih terpisah, kami bantu rekomendasikan
+    Semua paket termasuk <b>2× revisi gratis</b> &nbsp;·&nbsp; Konsultasi <b>gratis</b> &nbsp;·&nbsp;
+    Hosting &amp; domain <b>tidak termasuk</b> (ditagih terpisah, kami bantu pilihkan)
   </div>
 </div>
 
@@ -2337,7 +2506,6 @@ footer {
 
   <!-- PAKET 1 -->
   <div class="pkg-card p1 reveal reveal-delay-1">
-    <div class="pkg-badge badge-spacer" aria-hidden="true">·</div>
     <h3 class="pkg-name">Paket 1 - Tampil Profesional</h3>
     <div class="pkg-hook">"Ketika calon pelanggan Google bisnis Anda - mereka menemukan sesuatu yang meyakinkan."</div>
     <div class="pkg-timeline">⏱ Siap dalam 3 hari</div>
@@ -2357,14 +2525,13 @@ footer {
       <span class="pkg-limit">Tanpa notifikasi</span>
     </div>
     <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20Paket%201%20Tampil%20Profesional"
-       target="_blank" rel="noopener" class="pkg-cta cta-p1">
-      Konsultasi Gratis →
+       target="_blank" rel="noopener" class="pkg-cta cta-p1" data-cta="pkg1">
+      Mulai Paket 1 - Konsultasi Gratis →
     </a>
   </div>
 
   <!-- PAKET 2 -->
   <div class="pkg-card p2 reveal reveal-delay-2">
-    <div class="pkg-badge badge-spacer" aria-hidden="true">·</div>
     <h3 class="pkg-name">Paket 2 - Kelola Lebih Mudah</h3>
     <div class="pkg-hook">"Ganti buku catatan dan grup WhatsApp dengan sistem rapi - diakses dari HP kapan saja."</div>
     <div class="pkg-timeline">⏱ Siap dalam 3 hari</div>
@@ -2384,8 +2551,8 @@ footer {
       <span class="pkg-limit">Tanpa notifikasi</span>
     </div>
     <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20Paket%202%20Kelola%20Lebih%20Mudah"
-       target="_blank" rel="noopener" class="pkg-cta cta-p2">
-      Konsultasi Gratis →
+       target="_blank" rel="noopener" class="pkg-cta cta-p2" data-cta="pkg2">
+      Mulai Paket 2 - Konsultasi Gratis →
     </a>
   </div>
 
@@ -2410,8 +2577,8 @@ footer {
       <span class="pkg-limit">1 integrasi eksternal</span>
     </div>
     <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20tertarik%20Paket%203%20Tumbuh%20Lebih%20Cepat"
-       target="_blank" rel="noopener" class="pkg-cta cta-popular">
-      Konsultasi Gratis →
+       target="_blank" rel="noopener" class="pkg-cta cta-popular" data-cta="pkg3">
+      Mulai Paket 3 - Konsultasi Gratis →
     </a>
   </div>
 
@@ -2437,7 +2604,7 @@ footer {
       <span class="pkg-limit">Fitur tidak terbatas</span>
     </div>
     <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20diskusi%20kebutuhan%20Enterprise%20Custom"
-       target="_blank" rel="noopener" class="pkg-cta cta-enterprise">
+       target="_blank" rel="noopener" class="pkg-cta cta-enterprise" data-cta="pkg4">
       Diskusikan Kebutuhan Saya →
     </a>
   </div>
@@ -2776,6 +2943,18 @@ footer {
 
 <div class="faq-list reveal reveal-delay-1">
   <details class="faq-item">
+    <summary>Bagaimana kalau setelah konsultasi saya tidak jadi lanjut?</summary>
+    <div class="faq-answer">
+      Tidak ada tagihan apa pun. Konsultasi gratis dan Anda baru memutuskan setelah menerima rancangan serta estimasi biaya tertulis - tanpa kewajiban melanjutkan.
+    </div>
+  </details>
+  <details class="faq-item">
+    <summary>Berapa lama sampai saya dihubungi setelah chat?</summary>
+    <div class="faq-answer">
+      Kami membalas dalam 24 jam kerja. Makin lengkap cerita masalah Anda di pesan pertama, makin cepat rancangan dan biayanya bisa kami siapkan.
+    </div>
+  </details>
+  <details class="faq-item">
     <summary>Apakah source code sistem jadi milik saya?</summary>
     <div class="faq-answer">
       Anda mendapatkan akses penuh untuk memakai sistem sesuai kebutuhan bisnis Anda selamanya.
@@ -2834,60 +3013,6 @@ footer {
 </section>
 
 <!-- ═══════════════════════════════════════
-     CUKUP WHATSAPP
-═══════════════════════════════════════ -->
-
-<section id="mulai" aria-label="Cukup WhatsApp">
-  <div class="container">
-
-<div class="mulai-card reveal">
-  <div class="mulai-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  </div>
-
-  <div class="section-eyebrow">Mulai Tanpa Ribet</div>
-  <h2 class="section-title">Cukup WhatsApp, Sisanya Kami yang Pikirkan</h2>
-  <p class="mulai-desc">
-    Tidak perlu datang dengan spesifikasi teknis atau tahu istilah-istilah IT.
-    Ceritakan saja masalah bisnis Anda apa adanya - tim Nuvora yang akan
-    membantu menemukan akar masalahnya, merancang aplikasi yang sesuai,
-    dan menghitung biaya yang wajar untuk kebutuhan Anda.
-  </p>
-
-  <div class="mulai-points">
-    <div class="mulai-point">
-      <div class="mulai-point-num">01</div>
-      <div class="mulai-point-title">Kami Bantu Temukan Masalahnya</div>
-      <div class="mulai-point-desc">Cukup cerita kendala operasional sehari-hari - kami bantu kenali akar masalah yang sebenarnya perlu dipecahkan.</div>
-    </div>
-    <div class="mulai-point">
-      <div class="mulai-point-num">02</div>
-      <div class="mulai-point-title">Kami Bantu Rancang Aplikasinya</div>
-      <div class="mulai-point-desc">Dari cerita itu, kami susun rancangan sistem yang pas dengan cara kerja bisnis Anda - bukan template generic.</div>
-    </div>
-    <div class="mulai-point">
-      <div class="mulai-point-num">03</div>
-      <div class="mulai-point-title">Kami Bantu Hitung Biaya yang Tepat</div>
-      <div class="mulai-point-desc">Anda tidak perlu tahu harga pasaran - kami bantu pertimbangkan biaya yang wajar sesuai kompleksitas kebutuhan.</div>
-    </div>
-  </div>
-
-  <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%2C%20saya%20ingin%20cerita%20masalah%20bisnis%20saya%20dan%20butuh%20bantuan%20menentukan%20solusi%20%26%20budgetnya"
-     target="_blank" rel="noopener" class="btn-primary">
-    Chat WhatsApp Sekarang
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </a>
-  <div class="mulai-note">Konsultasi awal selalu gratis, tanpa komitmen apapun - tim kami akan segera menghubungi Anda.</div>
-</div>
-
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════
      KONTAK
 ═══════════════════════════════════════ -->
 
@@ -2899,12 +3024,16 @@ footer {
   <!-- Left - Info -->
   <div class="contact-lead reveal">
     <div class="section-eyebrow">Hubungi Kami</div>
-    <h2 class="section-title">Mulai dari<br>Obrolan Singkat</h2>
+    <h2 class="section-title">Ceritakan Masalahnya.<br>Kami Kirim Solusinya.</h2>
     <p>
-      Konsultasi pertama selalu gratis. Isi form atau chat kami sekali,
-      lalu tim Nuvora yang akan menghubungi Anda dan bantu identifikasi
-      solusi terbaik - tanpa biaya tambahan, sebelum Anda memutuskan apapun.
+      Tidak perlu istilah teknis atau spesifikasi. Cukup cerita apa yang merepotkan
+      di bisnis Anda &mdash; kami yang merancang sistemnya dan menghitung biaya yang wajar.
     </p>
+    <ol class="next-steps">
+      <li><b>Kirim cerita singkat</b> lewat form atau WhatsApp (1 menit).</li>
+      <li><b>Kami balas &le; 24 jam kerja</b> dan ngobrol dulu, gratis.</li>
+      <li><b>Anda terima rancangan &amp; biaya tertulis</b>. Cocok, lanjut. Tidak cocok, selesai tanpa tagihan.</li>
+    </ol>
 
     <div class="contact-channels">
       <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%20Systems%2C%20saya%20ingin%20konsultasi%20gratis"
@@ -2937,7 +3066,7 @@ footer {
 
   <!-- Right - Form -->
   <div class="contact-form reveal reveal-delay-2">
-    <div class="form-title">Kirim Pesan Langsung</div>
+    <div class="form-title">Konsultasi Gratis &mdash; 1 Menit</div>
 
     <div class="form-group">
       <label for="fName">Nama Anda</label>
@@ -2951,21 +3080,24 @@ footer {
     </div>
 
     <div class="form-group">
-      <label for="fPkg">Paket yang Diminati</label>
+      <label for="fPkg">Paket yang Diminati <span class="opt">(boleh dilewati)</span></label>
       <select id="fPkg" name="package">
-        <option value="" disabled selected>Pilih paket...</option>
+        <option value="Belum yakin - minta konsultasi gratis" selected>Belum yakin - bantu saya pilih</option>
         <option value="Paket 1 - Tampil Profesional">Paket 1 - Tampil Profesional</option>
         <option value="Paket 2 - Kelola Lebih Mudah">Paket 2 - Kelola Lebih Mudah</option>
         <option value="Paket 3 - Tumbuh Lebih Cepat">Paket 3 - Tumbuh Lebih Cepat</option>
         <option value="Paket 4 - Enterprise Custom">Paket 4 - Enterprise Custom</option>
-        <option value="Belum yakin - minta konsultasi gratis">Belum yakin - minta konsultasi gratis</option>
       </select>
-      <div class="form-error" id="fPkgErr">Mohon pilih paket yang diminati.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="fMsg">Apa yang paling merepotkan sekarang? <span class="opt">(opsional)</span></label>
+      <textarea id="fMsg" name="msg" rows="3" placeholder="Contoh: rekap penjualan tiap malam masih manual dan sering selisih"></textarea>
     </div>
 
     <div class="form-submit-wrap">
       <button class="btn-primary" style="width:100%;justify-content:center;" onclick="sendWA()" type="button">
-        Kirim via WhatsApp
+        Kirim &amp; Mulai Konsultasi Gratis
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
@@ -2973,8 +3105,8 @@ footer {
     </div>
 
     <p class="form-note">
-      Tim kami akan menghubungi Anda dalam 24 jam kerja untuk konsultasi gratis.<br>
-      Tidak ada komitmen di tahap ini.
+      Tombol ini membuka WhatsApp dengan pesan yang sudah terisi &mdash; tinggal tekan kirim.<br>
+      Dibalas dalam 24 jam kerja. Tidak ada komitmen di tahap ini.
     </p>
   </div>
 
@@ -3036,6 +3168,14 @@ footer {
     <div class="footer-made">Salatiga, Indonesia <span>·</span> Custom Web Apps</div>
   </div>
 </footer>
+
+<!-- Bar CTA mobile -->
+<div class="mob-cta" id="mobCta" aria-hidden="true">
+  <a href="https://wa.me/6281460348354?text=Halo%20Nuvora%20Systems%2C%20saya%20ingin%20konsultasi%20gratis" target="_blank" rel="noopener" data-cta="sticky" tabindex="-1">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span>Chat Gratis di WhatsApp<small>Dibalas &le; 24 jam kerja &middot; tanpa komitmen</small></span>
+  </a>
+</div>
 
 <!-- WA Floating Button -->
 
@@ -3116,7 +3256,7 @@ function sendWA() {
   var pkg  = pkgEl.value;
 
   var nameErr = document.getElementById('fNameErr');
-  var pkgErr  = document.getElementById('fPkgErr');
+  var story = (document.getElementById('fMsg') || {value: ''}).value.trim();
   var valid = true;
   var firstInvalid = null;
 
@@ -3130,15 +3270,6 @@ function sendWA() {
     nameErr.classList.remove('show');
   }
 
-  if (!pkg) {
-    pkgEl.classList.add('invalid');
-    pkgErr.classList.add('show');
-    valid = false;
-    firstInvalid = firstInvalid || pkgEl;
-  } else {
-    pkgEl.classList.remove('invalid');
-    pkgErr.classList.remove('show');
-  }
 
   if (!valid) {
     firstInvalid.focus();
@@ -3148,7 +3279,9 @@ function sendWA() {
   var msg = 'Halo Nuvora Systems,\n\n';
   msg += 'Nama: ' + name + '\n';
   if (biz) msg += 'Bisnis: ' + biz + '\n';
-  msg += 'Paket: ' + pkg + '\n\n';
+  if (pkg) msg += 'Paket: ' + pkg + '\n';
+  if (story) msg += 'Masalah: ' + story + '\n';
+  msg += '\n';
   msg += 'Saya ingin konsultasi lebih lanjut.';
 
   window.open(
@@ -3156,15 +3289,47 @@ function sendWA() {
     '_blank',
     'noopener'
   );
+  try {
+    if (window.gtag) window.gtag('event', 'generate_lead', { method: 'whatsapp', cta: 'form' });
+    if (window.dataLayer) window.dataLayer.push({ event: 'wa_click', cta: 'form' });
+    if (window.plausible) window.plausible('WA Click', { props: { cta: 'form' } });
+  } catch (err) {}
 }
 
 document.getElementById('fName').addEventListener('input', function() {
   this.classList.remove('invalid');
   document.getElementById('fNameErr').classList.remove('show');
 });
-document.getElementById('fPkg').addEventListener('change', function() {
-  this.classList.remove('invalid');
-  document.getElementById('fPkgErr').classList.remove('show');
+/* ── BAR CTA MOBILE: muncul setelah hero lewat, hilang saat form kontak terlihat ── */
+(function() {
+  var bar = document.getElementById('mobCta');
+  var hero = document.getElementById('hero');
+  var contact = document.getElementById('kontak');
+  if (!bar || !hero || !contact) return;
+  function upd() {
+    var past = hero.getBoundingClientRect().bottom < 80;
+    var cr = contact.getBoundingClientRect();
+    var inContact = cr.top < window.innerHeight * 0.6 && cr.bottom > 0;
+    var show = past && !inContact;
+    bar.classList.toggle('show', show);
+    bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+    var a = bar.querySelector('a'); if (a) a.tabIndex = show ? 0 : -1;
+  }
+  window.addEventListener('scroll', upd, { passive: true });
+  window.addEventListener('resize', upd);
+  upd();
+})();
+
+/* ── PELACAKAN KLIK CTA (aktif otomatis bila Google Analytics / GTM / Plausible dipasang) ── */
+document.addEventListener('click', function(e) {
+  var a = e.target.closest && e.target.closest('a[data-cta]');
+  if (!a) return;
+  var where = a.getAttribute('data-cta');
+  try {
+    if (window.gtag) window.gtag('event', 'generate_lead', { method: 'whatsapp', cta: where });
+    if (window.dataLayer) window.dataLayer.push({ event: 'wa_click', cta: where });
+    if (window.plausible) window.plausible('WA Click', { props: { cta: where } });
+  } catch (err) {}
 });
 
 /* ── SMOOTH ANCHOR SCROLL ── */
